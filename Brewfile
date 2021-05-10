@@ -1,0 +1,7 @@
+brew "ripgrep"
+brew "the_silver_searcher"
+brew "rcm"
+brew "hub"
+brew "zsh-syntax-highlighting"
+brew "fzf"
+brew "bat"

@@ -8,6 +8,20 @@ Dependencies
 
 [neovim](https://neovim.io/) (The config does not support Vim only NeoVim >= 0.5)
 
+[Ag](https://github.com/ggreer/the_silver_searcher)
+
+[ripgrep](https://github.com/BurntSushi/ripgrep)
+
+[hub](https://github.com/github/hub)
+
+[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+
+[fzf](https://github.com/junegunn/fzf)
+
+[bat](https://github.com/sharkdp/bat)
+
+(See Brewfile if on MacOS)
+
 Install
 -------
 Clone: `git clone git://github.com/devinrm/dotfiles.git ~/dotfiles`
