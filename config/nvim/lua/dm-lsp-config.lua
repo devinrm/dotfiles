@@ -46,6 +46,7 @@ require'lspconfig'.diagnosticls.setup{
       rubocop = {
         command = 'bundle',
         sourceName = 'rubocop',
+        rootPatterns = { '.git' },
         debounce = 100,
         args = {
           'exec',
