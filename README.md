@@ -2,27 +2,29 @@
 
 Dependencies
 ------------
-[rcm](https://github.com/thoughtbot/rcm) (or some other symlink manager)
-
-[zsh](https://www.zsh.org/)
-
-[neovim](https://neovim.io/) (The config does not support Vim only NeoVim >= 0.5)
-
-[Ag](https://github.com/ggreer/the_silver_searcher)
-
-[ripgrep](https://github.com/BurntSushi/ripgrep)
-
-[hub](https://github.com/github/hub)
-
-[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-
-[fzf](https://github.com/junegunn/fzf)
-
-[bat](https://github.com/sharkdp/bat)
+[ag](https://github.com/ggreer/the_silver_searcher)
 
 [asdf-vm](https://github.com/asdf-vm/asdf)
 
-(See Brewfile if on MacOS)
+[bat](https://github.com/sharkdp/bat)
+
+[fzf](https://github.com/junegunn/fzf)
+
+[hub](https://github.com/github/hub)
+
+[neovim](https://neovim.io/) (The config does not support Vim only NeoVim >= 0.5)
+
+[rcm](https://github.com/thoughtbot/rcm) (or some other symlink manager)
+
+[ripgrep](https://github.com/BurntSushi/ripgrep)
+
+[zsh](https://www.zsh.org/)
+
+[zsh-completions](https://github.com/zsh-users/zsh-completions)
+
+[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+
+(See Brewfile if on MacOS or bin/laptop if on Fedora)
 
 Install
 -------
