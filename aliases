@@ -23,7 +23,7 @@ alias b="bundle"
 alias path='echo $PATH | tr -s ":" "\n"'
 
 # Reload ZSH
-alias z="source $HOME/.zshrc"
+alias z="exec zsh"
 
 # Dev Tools
 alias i="irb"
