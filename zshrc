@@ -76,6 +76,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # asdf
+. $HOME/.asdf/asdf.sh
 fpath=(${ASDF_DIR}/completions $fpath)
 export NODEJS_CHECK_SIGNATURES=no
 export NODE_OPTIONS='--max-old-space-size=16384'

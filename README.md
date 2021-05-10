@@ -20,6 +20,8 @@ Dependencies
 
 [bat](https://github.com/sharkdp/bat)
 
+[asdf-vm](https://github.com/asdf-vm/asdf)
+
 (See Brewfile if on MacOS)
 
 Install
