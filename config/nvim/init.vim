@@ -154,6 +154,9 @@ nnoremap <silent>gd <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent>ge <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent>gh <cmd>lua vim.lsp.buf.hover()<CR>
 
+" === nvim-colorizer ===
+lua require 'colorizer'.setup()
+
 " === nvim-compe ===
 lua require('dm-nvim-compe')
 

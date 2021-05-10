@@ -53,7 +53,7 @@ return require('packer').startup(function()
   use 'https://github.com/sindrets/diffview.nvim'
 
   -- === language plugins ===
-  use { 'https://github.com/hail2u/vim-css3-syntax', ft = {'css'} }
+  use { 'https://github.com/hail2u/vim-css3-syntax', ft = {'css', 'scss'} }
   use {
     'https://github.com/iamcco/markdown-preview.nvim',
     run = 'cd app && yarn install',
@@ -77,7 +77,7 @@ return require('packer').startup(function()
   use { 'https://github.com/vim-python/python-syntax', ft = {'python'} }
 
   -- === other ===
-  use { 'https://github.com/ap/vim-css-color', ft = {'css', 'scss'} }
+  use 'https://github.com/norcalli/nvim-colorizer.lua'
   use 'https://github.com/rhysd/devdocs.vim'
   use 'https://github.com/tweekmonster/startuptime.vim'
   use 'https://github.com/RRethy/vim-illuminate'
