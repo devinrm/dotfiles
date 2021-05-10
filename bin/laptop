@@ -1,0 +1,121 @@
+#!/bin/sh
+
+set -e
+
+sudo dnf update -y
+
+# Enable the RPM Fusion repositories
+sudo dnf install -y \
+  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+
+sudo dnf install -y \
+  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+# Enable Appstream data from the RPM Fusion repositories
+sudo dnf groupupdate -y core
+
+# Packages
+# nvidia https://rpmfusion.org/Howto/NVIDIA
+sudo dnf install -y xorg-x11-drv-nvidia akmod-nvidia xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-cuda-libs
+sudo dnf install -y vdpauinfo libva-vdpau-driver libva-utils
+sudo dnf install -y vulkan
+# Brave
+sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+sudo dnf install -y brave-browser
+# steam
+sudo dnf install -y steam
+# neofetch
+sudo dnf install -y neofetch
+# cheat
+sudo dnf install -y cheat
+# xsel
+sudo dnf install -y xsel
+# arc-theme
+sudo dnf install -y arc-theme
+# gcc
+sudo dnf install gcc-c++
+# postgresql https://fedoraproject.org/wiki/PostgreSQL
+# sudo -u postgres -i
+# ALTER USER username CREATEDB superuser;
+sudo dnf install -y postgresql-server postgresql-contrib libpq-devel
+sudo postgresql-setup --initdb --unit postgresql
+sudo systemctl enable postgresql
+sudo systemctl start postgresql
+# then run sudo -u postgres -i
+# elasticsearch https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html
+sudo dnf install java-openjdk-devel java-openjdk
+sudo rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+# seahorse
+sudo dnf install -y seahorse seahorse-nautilus
+# Chromium
+sudo dnf install -y chromium
+# Ag
+sudo dnf install -y the_silver_searcher
+# ripgrep
+sudo dnf install -y ripgrep
+# Neovim
+sudo dnf copr enable -y agriffis/neovim-nightly
+sudo dnf install -y neovim python{2,3}-neovim
+# git/hub
+sudo dnf install -y hub
+# fzf
+sudo dnf install -y fzf
+# rcm
+sudo dnf install -y rcm
+# gnome-tweaks
+sudo dnf install -y gnome-tweaks
+# thunderbird
+sudo dnf install -y thunderbird
+# bat
+sudo dnf install -y bat
+# transmission
+sudo dnf install -y transmission
+# htop
+sudo dnf install -y htop
+# tor browser
+sudo dnf install -y torbrowser-launcher
+# firefox dependencies
+sudo dnf groupupdate -y multimedia
+sudo dnf install -y gstreamer1-libav gstreamer1-plugins-ugly unrar \
+  compat-ffmpeg28 ffmpeg-libs
+# asdf dependencies
+sudo dnf install -y \
+  make automake autoconf readline-devel \
+  ncurses-devel openssl-devel libyaml-devel \
+  libxslt-devel libffi-devel libtool unixODBC-devel \
+  unzip curl gcc zlib-devel bzip2 bzip2-devel readline-devel \
+  sqlite sqlite-devel tk-devel
+# IBM Plex Mono
+curl -s https://api.github.com/repos/IBM/plex/releases/latest \
+  | grep "browser_download_url.*OpenType.\zip" \
+  | cut -d '"' -f 4 \
+  | wget -qi -
+unzip OpenType.zip
+mv OpenType/IBM-Plex-Mono/ IBM-Plex-Sans/ IBM-Plex-Serif/ ~/.fonts/
+rm -rf OpenType OpenType.zip
+# tmux (Press prefix + I (capital i, as in Install) to fetch the plugin)
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+tmux source ~/.tmux.conf
+# zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+sudo mv zsh-syntax-highlighting /usr/local/share/
+# vim-plug
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# asdf-vm
+# webpack-dev-server:
+# echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.3
+source $HOME/.zshrc
+asdf-update
+asdf plugin-add ruby
+asdf plugin-add nodejs
+asdf plugin-add python
+
+# notes:
+# update grub for laptop suspend
+# sudo nvim /etc/sysconfig/grub
+# acpi_osi=! acpi_osi='Windows 2009'
+# sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+# sudo grub2-mkconfig -o /boot/grub2/grub.cfg

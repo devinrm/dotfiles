@@ -1,0 +1,28 @@
+# Dotfiles
+
+Dependencies
+------------
+[rcm](https://github.com/thoughtbot/rcm) (or some other symlink manager)
+
+[zsh](https://www.zsh.org/)
+
+[neovim](https://neovim.io/) (The config does not support Vim only NeoVim >= 0.5)
+
+Install
+-------
+Clone: `git clone git://github.com/devinrm/dotfiles.git ~/dotfiles`
+
+Install: `env RCRC=$HOME/dotfiles/rcrc rcup`
+
+This will create symlinks for config files in your `$HOME` directory.
+
+You can safely run `rcup` multiple times to update.
+
+Contributing
+------------
+Pull-requests are welcome, but it would probably make more sense just to fork them and make them your
+own unless your PR is for a bug fix.
+
+License
+-------
+This software is free and distributable under the MIT license.

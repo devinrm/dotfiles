@@ -1,0 +1,8 @@
+.DS_Store
+.bundle
+.env
+.env.local
+.tool-versions
+.tool-versions-e
+node_modules
+yarn-error.log

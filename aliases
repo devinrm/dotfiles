@@ -1,0 +1,109 @@
+# Unix
+alias cat="ccat"
+alias cp="cp -iv"
+alias df="df -h"
+alias du="du -cksh"
+alias e="$EDITOR"
+alias help="run-help"
+alias ll="ls -al"
+alias ln="ln -v"
+alias ls="ls -FGh"
+alias mkdir="mkdir -p"
+alias mv="mv -iv"
+alias rm="rm -i"
+alias v="nvim"
+alias n="nvim"
+alias calc="genius"
+alias fzf="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+
+# Bundler
+alias b="bundle"
+
+# Pretty print the path
+alias path='echo $PATH | tr -s ":" "\n"'
+
+# Reload ZSH
+alias z="source $HOME/.zshrc"
+
+# Dev Tools
+alias i="irb"
+alias p="pry"
+alias prettyjson="python -m json.tool"
+alias ru="rubocop"
+alias wuzz="$GOPATH/bin/wuzz"
+
+# Weather and the moon, man
+alias moon="curl wttr.in/Moon"
+alias weather="curl http://v2\.wttr\.in/los_angeles"
+
+# Ruby and Rails
+alias be="bundle exec"
+alias ber="bundle exec rspec"
+alias irb='irb --readline -r irb/completion'
+alias migrate="bundle exec rake db:migrate db:rollback && bundle exec rake db:migrate db:test:prepare"
+alias racer="ruby -r tracer"
+alias rake="RUBYOPT='-W0' rake"
+alias ras="bundle exec rails s"
+alias rc="rails console"
+alias reds="redis-server"
+alias ruby="ruby -w"
+alias schema_fixup="rails db:drop db:create db:schema:load && rails db:migrate"
+alias taild="tail -f log/development.log"
+alias tailt="tail -f log/test.log"
+alias taila="admin tail"
+
+# JavaScript
+alias yi="yarn install --ignore-engines"
+alias yb="yarn build-local"
+alias yw="yarn watch"
+alias yu="curl --compressed -o- -L https://yarnpkg.com/install.sh | bash"
+
+# Use modern regexps for sed, i.e. "(one|two)", not "\(one\|two\)"
+alias sed="sed -E"
+
+# Copy-pasting
+alias \❯=''
+
+# Git
+alias ap="git add --all"
+alias add="git add"
+alias aa="git add --patch"
+alias branch="git branch -vv"
+alias branches="git branches"
+alias browse="git browse"
+alias c="git commit"
+alias can="git commit --amend --no-edit"
+alias cv="git commit -v"
+alias clone="git clone"
+alias cm="git commit -m"
+alias co="git checkout"
+alias del="git branch -D"
+alias dt="git difftool --no-symlinks --dir-diff"
+alias diff="git diff"
+alias tup="git checkout trunk && git pull && git checkout -"
+alias fall="git fetch --all"
+alias gcon="git rebase --continue"
+alias gpr="hub pull-request"
+alias git="hub"
+alias mg="git merge"
+alias pf="git push --force-with-lease"
+alias ph="git push -u origin HEAD"
+alias pull="git pull"
+alias push="git push"
+alias reb="git rebase -i -"
+alias rename="git branch -m"
+alias st="git status"
+alias stu="git stash -u"
+alias uncommit="git reset --soft HEAD^"
+alias unstage="git reset"
+
+# random
+alias tl="tmux list-sessions"
+
+alias dot="cd $HOME/dotfiles"
+
+alias work="cd $HOME/work/commonlit"
+
+alias wifi-ip="ipconfig getifaddr en0"
+
+alias update="$HOME/dotfiles/bin/update_packages.sh"

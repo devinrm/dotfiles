@@ -1,0 +1,7 @@
+--api
+--database=postgresql
+--skip-coffee
+--skip-sprockets
+--skip-test
+--skip-turbolinks
+--webpacker=react
