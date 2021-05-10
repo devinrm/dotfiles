@@ -6,3 +6,4 @@
 .tool-versions-e
 node_modules
 yarn-error.log
+__pycache__/
