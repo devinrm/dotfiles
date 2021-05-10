@@ -34,6 +34,8 @@ This will create symlinks for config files in your `$HOME` directory.
 
 You can safely run `rcup` multiple times to update.
 
+If your plugins aren't installed run `PackerInstall`, `PackerCompile`, and `PackerSync`
+
 Contributing
 ------------
 Pull-requests are welcome, but it would probably make more sense just to fork them and make them your
