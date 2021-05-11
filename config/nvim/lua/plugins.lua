@@ -31,7 +31,8 @@ return require('packer').startup(function()
   use 'https://github.com/nvim-lua/popup.nvim'
   use 'https://github.com/nvim-lua/plenary.nvim'
   use {
-    'https://github.com/glepnir/galaxyline.nvim', branch = 'main',
+    -- 'https://github.com/glepnir/galaxyline.nvim', branch = 'main',
+    'https://github.com/eruizc-dev/galaxyline.nvim', branch = 'main',
     requires = {'https://github.com/kyazdani42/nvim-web-devicons'}
   }
   use 'https://github.com/windwp/nvim-autopairs'

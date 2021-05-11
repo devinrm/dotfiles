@@ -199,7 +199,7 @@ galaxy_line_section.right[increment_section] = {
 increment_section = increment_section + 1
 galaxy_line_section.right[increment_section] = {
   FileName = {
-    provider = 'FileName',
+    provider = 'FilePath',
     separator_highlight = {'NONE', colors.typebg},
     highlight = {colors.typetext, colors.typebg}
   }
