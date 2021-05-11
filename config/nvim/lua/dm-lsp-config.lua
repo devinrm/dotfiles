@@ -17,7 +17,7 @@ require'lspconfig'.diagnosticls.setup{
   init_options = {
     linters = {
       eslint = {
-        command = 'eslint',
+        command = 'eslint_d',
         rootPatterns = { '.git' },
         debounce = 100,
         args = {
