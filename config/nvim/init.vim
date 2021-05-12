@@ -443,4 +443,4 @@ nnoremap <Leader>e :vsp <C-r>=expand("%:p:h") . "/" <CR><C-d>
 nnoremap <Leader>mv :!mv % <C-r>=expand("%:p:h") . "/" <CR><C-d>
 
 " === Open dotfiles in new tab ===
-nnoremap <Leader>vi :tabe $HOME/dotfiles/<CR>
+nnoremap <Leader>vi :tabe $HOME/dotfiles/config/nvim/<CR>
