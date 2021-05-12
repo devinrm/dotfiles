@@ -25,24 +25,11 @@ return require('packer').startup(function()
   use 'https://github.com/glepnir/lspsaga.nvim'
   use 'https://github.com/nvim-telescope/telescope.nvim'
   use 'https://github.com/kabouzeid/nvim-lspinstall'
-
-  -- === experiments ===
-  use 'https://github.com/stefandtw/quickfix-reflector.vim'
   use 'https://github.com/nvim-lua/popup.nvim'
   use 'https://github.com/nvim-lua/plenary.nvim'
-  use {
-    -- 'https://github.com/glepnir/galaxyline.nvim', branch = 'main',
-    'https://github.com/eruizc-dev/galaxyline.nvim', branch = 'main',
-    requires = {'https://github.com/kyazdani42/nvim-web-devicons'}
-  }
-  use 'https://github.com/windwp/nvim-autopairs'
   use 'https://github.com/folke/lsp-trouble.nvim'
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use {
-    'https://github.com/windwp/nvim-ts-autotag',
-    ft = {'html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact'}
-  }
-  use 'https://github.com/terrortylor/nvim-comment'
+
+  -- === experiments ===
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run='./install --bin' }
@@ -54,6 +41,7 @@ return require('packer').startup(function()
   use 'https://github.com/sindrets/diffview.nvim'
 
   -- === language plugins ===
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use { 'https://github.com/hail2u/vim-css3-syntax', ft = {'css', 'scss'} }
   use {
     'https://github.com/iamcco/markdown-preview.nvim',
@@ -78,7 +66,9 @@ return require('packer').startup(function()
   use { 'https://github.com/vim-python/python-syntax', ft = {'python'} }
 
   -- === other ===
+  use 'https://github.com/stefandtw/quickfix-reflector.vim'
   use 'https://github.com/norcalli/nvim-colorizer.lua'
+  use 'https://github.com/terrortylor/nvim-comment'
   use 'https://github.com/rhysd/devdocs.vim'
   use 'https://github.com/tweekmonster/startuptime.vim'
   use 'https://github.com/RRethy/vim-illuminate'
@@ -88,4 +78,14 @@ return require('packer').startup(function()
   use { 'https://github.com/tpope/vim-rails', ft = {'ruby'} }
   use 'https://github.com/tpope/vim-rhubarb'
   use 'https://github.com/tpope/vim-rsi'
+  use {
+    -- 'https://github.com/glepnir/galaxyline.nvim', branch = 'main',
+    'https://github.com/eruizc-dev/galaxyline.nvim', branch = 'main',
+    requires = {'https://github.com/kyazdani42/nvim-web-devicons'}
+  }
+  use 'https://github.com/windwp/nvim-autopairs'
+  use {
+    'https://github.com/windwp/nvim-ts-autotag',
+    ft = {'html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact'}
+  }
 end)
