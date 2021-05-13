@@ -1,8 +1,14 @@
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.solargraph.setup{}
 require'lspconfig'.html.setup{}
-require'lspconfig'.cssls.setup{}
 require'lspconfig'.pyright.setup{}
+require'lspconfig'.stylelint_lsp.setup{
+  settings = {
+    stylelintplus = {
+      filetypes = { "postcss" }
+    }
+  }
+}
 require'lspconfig'.diagnosticls.setup{
   filetypes = {
     'ruby',
@@ -10,8 +16,6 @@ require'lspconfig'.diagnosticls.setup{
     'typescriptreact',
     'javascript',
     'sh',
-    'css',
-    'scss',
     'python'
   },
   init_options = {
@@ -108,31 +112,6 @@ require'lspconfig'.diagnosticls.setup{
         offsetColumn = 1,
         formatLines = 1
       },
-      stylelint = {
-        command = 'stylelint',
-        rootPatterns = {
-          '.git'
-        },
-        debounce = 100,
-        args = {
-          '--formatter',
-          'json',
-          '--stdin-filename',
-          '%filepath'
-        },
-        sourceName = 'stylelint',
-        parseJson = {
-          errorsRoot = '[0].warnings',
-          line = 'line',
-          column = 'column',
-          message = '${text}',
-          security = 'severity'
-        },
-        securities = {
-          error = 'error',
-          warning = 'warning'
-        }
-      },
       shellcheck = {
         command = 'shellcheck',
         debounce = 100,
@@ -164,8 +143,6 @@ require'lspconfig'.diagnosticls.setup{
       typescriptreact = 'eslint',
       ruby = 'rubocop',
       sh = 'shellcheck',
-      css = 'stylelint',
-      scss = 'stylelint'
     },
     formatters = {
       prettierEslint = {

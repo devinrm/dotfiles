@@ -431,13 +431,6 @@ nnoremap <Leader>c :12sp<CR>:terminal tsc %<CR>
 " === Edit the db/schema.rb Rails file in a split ===
 nnoremap <Leader>sc :vsplit db/schema.rb<CR>
 
-" === postcss ===
-augroup postcss
-  autocmd!
-  autocmd FileType css set filetype=scss
-  autocmd FileType scss setlocal commentstring=/*\%s*/
-augroup END
-
 " === Pre-populate a split command with the current directory ===
 nnoremap <Leader>e :vsp <C-r>=expand("%:p:h") . "/" <CR><C-d>
 nnoremap <Leader>mv :!mv % <C-r>=expand("%:p:h") . "/" <CR><C-d>
