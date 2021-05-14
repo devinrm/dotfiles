@@ -1,92 +1,20 @@
-"  ____ ____ ____ ____ ____ ____ ____
-" ||p |||l |||u |||g |||i |||n |||s ||
-" ||__|||__|||__|||__|||__|||__|||__||
-" |/__\|/__\|/__\|/__\|/__\|/__\|/__\|
-
 lua require('plugins')
+lua require('settings')
 
-"  ____ ____ ____ ____ ____ ____ ____ ____
-" ||s |||e |||t |||t |||i |||n |||g |||s ||
-" ||__|||__|||__|||__|||__|||__|||__|||__||
-" |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
-
-set autoread
-set autowriteall
-set backspace=2 " Backspace deletes like most programs in insert mode
-set backupcopy=yes
-set clipboard^=unnamedplus " copy paste to system clipboard
-set colorcolumn=+1 " highlight column after 'textwidth'
-set termguicolors " nvim gui colors
-set background=dark " Use colors that look good on a dark background
-colorscheme grey
-set cursorline
 let s:darwin = has('mac')
-set diffopt+=vertical " Start diff mode with vertical splits
-set expandtab " Use the appropriate number of spaces to insert a <Tab>.
 filetype plugin indent on " load indent file for language
 filetype plugin on
-set formatprg=fmt
-set gdefault " Replace all matches on a line instead of just the first
-set grepprg=rg\ --vimgrep\ --no-heading
-set grepformat=%f:%l:%c:%m,%f:%l:%m
-set guicursor+=a:blinkon0 " Disable blinking cursor on nvim
-set history=50 " remember the last 50 command-lines in the history table
-set hlsearch " highlight search results
 let g:html_indent_tags = 'li\|p' " Treat <li> and <p> tags like the block tags they are
-set incsearch " do incremental searching
-set ignorecase " case insensitive pattern matching
-set inccommand=split " this is necessary for using this %s with a quickfix window in nvim
-set pumblend=20
-set laststatus=2
-set lazyredraw
 let g:is_posix=1 " When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
 set list listchars=tab:»·,trail:·,nbsp:· " Display extra whitespace
 let g:mapleader = ' ' " Set Leader key to <Space> bar
 runtime! macros/matchit.vim " Extended matching with '%'. See :help matchit
-set matchtime=0 " Speed up escape after (){} chars
-set mouse=a " Enable mouse for pair programming
-set nobackup " Don't make a backup before overwriting a file
-set nofoldenable " Leave open all folds
-set nojoinspaces " Insert one space after a '.', '?' and '!' with a join command.
-set noshowmode " If in Insert, Replace or Visual mode don't put a message on the last line.
-set noswapfile " Do not create a swapfile for a new buffer.
-set nowrap " Don't wrap lines longer than the width of the window
-set nowritebackup " Don't make a backup before overwriting a file.
-set number " Turn on line numbers
-set numberwidth=1 " Minimal number of columns to use for the line number.
-set path+=.,,
-set path+=.,app/javascript,node_modules
-set suffixesadd=.js,.jsx,.ts,.tsx
-set redrawtime=1000 " Stop highlighting if it takes more than a second
-set ruler " show the cursor position all the time
-set scrolloff=3 " show 5 lines above and below cursor
-scriptencoding utf-8 " Specify the character encoding used in the script.
 if s:darwin
   set shell=/usr/local/bin/zsh
 endif
-set shiftround " Round indent to multiple of 'shiftwidth'.
-set shiftwidth=2 " Returns the effective value of 'shiftwidth'
-set showcmd " display incomplete commands
-set showtabline=2
-set signcolumn=yes " Leave signcolumn enabled otherwise it's a little jarring
-set smartcase " overrides ignorecase if pattern contains upcase
 set spellfile=$HOME/.vim-spell-en.utf-8.add " Name of the word list file where words are added for the |zg| and |zw| commands.
-set spelllang=en_us " Set region to US English
-set splitbelow " When on, splitting a window will put the new window below the current one.
-set splitright " When on, splitting a window will put the new window right of the current one.
-syntax on " Turn on syntax highlighting. This must come before statusline
-set synmaxcol=200
-set tabstop=2 " Number of spaces that a <Tab> in the file counts for.
-set textwidth=100 " Maximum width of text that is being inserted. A longer line will be broken after white space to get this width.
-set ttimeout " determine the behavior when part of a key code sequence has been received by the terminal UI.
 set undodir=$HOME/.undodir " directory name for undo file.
-set undofile " Automatically saves undo history to an undo file when writing a buffer to a file, and restores undo history from the same file on buffer read.
-set undolevels=500
-set undoreload=500
-set wildignore+=tmp/** " Ignore stuff that can't be opened
-set wildmenu " Enables a menu at the bottom of the vim window.
-set wildoptions=pum
-set wildmode=list:longest,list:full
+
 
 "  ____ ____ ____ ____ ____ ____  ____ ____ ___
 " ||f |||u |||n |||c |||t |||i |||o |||n |||s ||
@@ -165,9 +93,6 @@ inoremap <silent><expr> <CR> compe#confirm('<CR>')
 inoremap <silent><expr> <C-e> compe#close('<C-e>')
 inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })
-
-set completeopt-=i,t,preview
-set shortmess+=c
 
 " === lspsaga ===
 lua << EOF
@@ -297,7 +222,6 @@ let g:netrw_dirhistmax = 0
 
 " === vim-signify ===
 let g:signify_sign_show_text = 0
-set updatetime=100
 
 " === vim-test ===
 function! NeoSplit(cmd) abort
