@@ -14,6 +14,8 @@ vim.cmd('set path+=.,,')
 vim.cmd('set path+=.,app/javascript,node_modules')
 vim.cmd('set shortmess+=c')
 vim.cmd('syntax on') -- Turn on syntax highlighting. This must come before statusline
+vim.g.mapleader = ' ' -- Set Leader key to <Space> bar
+vim.g.is_posix = 1 -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
 vim.o.autoread = true
 vim.o.autowriteall = true
 vim.o.background = 'dark' -- Use colors that look good on a dark background

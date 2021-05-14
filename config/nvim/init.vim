@@ -4,10 +4,7 @@ lua require('settings')
 let s:darwin = has('mac')
 filetype plugin indent on " load indent file for language
 filetype plugin on
-let g:html_indent_tags = 'li\|p' " Treat <li> and <p> tags like the block tags they are
-let g:is_posix=1 " When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
 set list listchars=tab:»·,trail:·,nbsp:· " Display extra whitespace
-let g:mapleader = ' ' " Set Leader key to <Space> bar
 runtime! macros/matchit.vim " Extended matching with '%'. See :help matchit
 if s:darwin
   set shell=/usr/local/bin/zsh
