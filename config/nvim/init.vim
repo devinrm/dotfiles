@@ -12,7 +12,6 @@ endif
 set spellfile=$HOME/.vim-spell-en.utf-8.add " Name of the word list file where words are added for the |zg| and |zw| commands.
 set undodir=$HOME/.undodir " directory name for undo file.
 
-
 "  ____ ____ ____ ____ ____ ____  ____ ____ ___
 " ||f |||u |||n |||c |||t |||i |||o |||n |||s ||
 " ||__|||__|||__|||__|||__|||__|||__|||__|||__||
@@ -96,18 +95,23 @@ lua << EOF
   local saga = require 'lspsaga'
   saga.init_lsp_saga()
 EOF
-nnoremap <silent> gh <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
-nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
-nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
-nnoremap <silent><leader>cd <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
-nnoremap <silent> gd <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
-nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
-vnoremap <silent><leader>ca <cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>
+
+lua vim.api.nvim_set_keymap('n', 'gh', '<cmd> lua require("lspsaga.provider").lsp_finder()<CR>', {noremap = true, silent = true})
+lua vim.api.nvim_set_keymap('n', 'gs', '<cmd> lua require("lspsaga.signaturehelp").signature_help()<CR>', {noremap = true, silent = true})
+lua vim.api.nvim_set_keymap('n', 'gr', '<cmd> lua require("lspsaga.rename").rename()<CR>', {noremap = true, silent = true})
+lua vim.api.nvim_set_keymap('n', 'gd', '<cmd> lua require("lspsaga.provider").preview_definition()<CR>', {noremap = true, silent = true})
+lua << EOF
+vim.cmd([[
+  nnoremap <silent><leader>cd <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
+  nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
+  vnoremap <silent><leader>ca <cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>
+]])
+EOF
 
 " === nvim-commment ===
 lua require('nvim_comment').setup()
-nnoremap <C-\> :CommentToggle<CR>
-xnoremap <C-\> :CommentToggle<CR>
+lua vim.api.nvim_set_keymap('n', '<C-\\>', ':CommentToggle<CR>', {noremap = true})
+lua vim.api.nvim_set_keymap('x', '<C-\\>', ':CommentToggle<CR>', {noremap = true})
 
 " === vim-cool ===
 let g:CoolTotalMatches = 1
