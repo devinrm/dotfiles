@@ -5,14 +5,20 @@
 
 vim.bo.smartindent = true
 vim.cmd('colorscheme ' .. 'grey')
+vim.cmd('filetype plugin indent on') -- load indent file for language
+vim.cmd('filetype plugin on')
+vim.cmd('runtime! macros/matchit.vim') -- Extended matching with '%'. See :help matchit
 vim.cmd('set colorcolumn=+1') -- highlight column after 'textwidth
 vim.cmd('set completeopt-=i,t,preview')
 vim.cmd('set diffopt+=vertical') -- Start diff mode with vertical splits
 vim.cmd('set guicursor+=a:blinkon0') -- Disable blinking cursor on nvim
 vim.cmd('set list listchars=tab:»·,trail:·,nbsp:·') -- Display extra whitespace
+vim.cmd('set list listchars=tab:»·,trail:·,nbsp:·') -- Display extra whitespace
 vim.cmd('set path+=.,,')
 vim.cmd('set path+=.,app/javascript,node_modules')
 vim.cmd('set shortmess+=c')
+vim.cmd('set spellfile=$HOME//.vim-spell-en.utf-8.add') -- Name of the word list file where words are added for the |zg| and |zw| commands.
+vim.cmd('set undodir=$HOME//.undodir') -- directory name for undo file.
 vim.cmd('syntax on') -- Turn on syntax highlighting. This must come before statusline
 vim.g.mapleader = ' ' -- Set Leader key to <Space> bar
 vim.g.is_posix = 1 -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.

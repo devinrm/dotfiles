@@ -6,15 +6,9 @@ require('mappings')
 EOF
 
 let s:darwin = has('mac')
-filetype plugin indent on " load indent file for language
-filetype plugin on
-set list listchars=tab:»·,trail:·,nbsp:· " Display extra whitespace
-runtime! macros/matchit.vim " Extended matching with '%'. See :help matchit
 if s:darwin
   set shell=/usr/local/bin/zsh
 endif
-set spellfile=$HOME/.vim-spell-en.utf-8.add " Name of the word list file where words are added for the |zg| and |zw| commands.
-set undodir=$HOME/.undodir " directory name for undo file.
 
 "  ____ ____ ____ ____ ____ ____  ____ ____ ___
 " ||f |||u |||n |||c |||t |||i |||o |||n |||s ||
