@@ -1,5 +1,8 @@
-lua require('plugins')
-lua require('settings')
+lua << EOF
+require('plugins')
+require('settings')
+require('plugin_settings')
+EOF
 
 let s:darwin = has('mac')
 filetype plugin indent on " load indent file for language
@@ -59,72 +62,8 @@ augroup highlight_yank
   au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=false}
 augroup END
 
-"  ____ ____ ____ ____ ____ ____   ____ ____ ____ ____ ____ ____ ____ ____
-" ||p |||l |||u |||g |||i |||n || ||s |||e |||t |||t |||i |||n |||g |||s ||
-" ||__|||__|||__|||__|||__|||__|| ||__|||__|||__|||__|||__|||__|||__|||__||
-" |/__\|/__\|/__\|/__\|/__\|/__\| |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
-
-" === autopairs ===
-lua require('dm-autopairs')
-
-" === galaxyline ===
-lua require('dm-statusline')
-
-" === nvim-lsp ===
-lua require('dm-lsp-config')
-
-lua vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>ge', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>gh', '<cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true, silent = true})
-
-" === nvim-colorizer ===
-lua require 'colorizer'.setup()
-
-" === nvim-compe ===
-lua require('dm-nvim-compe')
-
-lua vim.api.nvim_set_keymap('i', '<C-Space>', 'compe#complete()', {expr = true, noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('i', '<CR>', "compe#confirm('<CR>')", {expr = true, noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('i', '<C-e>', "compe#close('<C-e>')", {expr = true, noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('i', '<C-f>', "compe#scroll({ 'delta': +4 })", {expr = true, noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('i', '<C-d>', "compe#scroll({ 'delta': -4 })", {expr = true, noremap = true, silent = true})
-
-" === lspsaga ===
-lua << EOF
-  local saga = require 'lspsaga'
-  saga.init_lsp_saga()
-EOF
-
-lua vim.api.nvim_set_keymap('n', 'gh', '<cmd> lua require("lspsaga.provider").lsp_finder()<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', 'gs', '<cmd> lua require("lspsaga.signaturehelp").signature_help()<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', 'gr', '<cmd> lua require("lspsaga.rename").rename()<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', 'gd', '<cmd> lua require("lspsaga.provider").preview_definition()<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>cd', '<cmd> lua require("lspsaga.diagnostic").show_line_diagnostics()<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>ca', '<cmd> lua require("lspsaga.codeaction").code_action()<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('v', '<Leader>ca', '<cmd> lua require("lspsaga.codeaction").range_code_action()<CR>', {noremap = true, silent = true})
-
-" === nvim-commment ===
-lua require('nvim_comment').setup()
-lua vim.api.nvim_set_keymap('n', '<C-\\>', ':CommentToggle<CR>', {noremap = true})
-lua vim.api.nvim_set_keymap('x', '<C-\\>', ':CommentToggle<CR>', {noremap = true})
-
 " === vim-cool ===
 let g:CoolTotalMatches = 1
-
-" === devdocs ===
-lua vim.api.nvim_set_keymap('n', 'K', '<Plug>(devdocs-under-cursor)', {silent = true})
-
-" === diffview ===
-lua require('dm-diffview')
-
-" === fzf.vim ===
-lua vim.api.nvim_set_keymap('n', '<C-p>', ':wa<CR>:Files<CR>', {noremap = true})
-lua vim.api.nvim_set_keymap('n', '<C-t>', ':wa<CR>:Tags<CR>', {noremap = true})
-lua vim.api.nvim_set_keymap('n', '<C-b>', ':wa<CR>:Buffers<CR>', {noremap = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>p', ':Blines<CR>', {noremap = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>gc', ':wa<CR>:Commits<CR>', {noremap = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>hi', ':wa<CR>:History<CR>', {noremap = true})
 
 " match fzf colors to colorscheme
 let g:fzf_colors =
@@ -161,14 +100,7 @@ augroup ag_commands_with_fzf
   autocmd! VimEnter * command! -nargs=* -complete=file Ag :call s:fzf_ag_raw(<q-args>)
 augroup END
 
-lua vim.api.nvim_set_keymap('n', '\\', ":Rg<SPACE>-F '' -g '*.'", {noremap = true})
-" grep the word under the cursor
-lua vim.api.nvim_set_keymap('n', 'gr', ':Rg <C-R><C-W><CR>', {noremap = true})
-
-" Press ; and then start typing to fzf search the whole project for a word or string
 command! -bang -nargs=* Fg call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-
-lua vim.api.nvim_set_keymap('n', '<Leader>;', ':Fg<CR>', {noremap = true})
 
 function! FloatingFZF(width, height, border_highlight)
   function! s:create_float(hl, opts)
@@ -242,19 +174,6 @@ let g:test#custom_strategies = {'neosplit': function('NeoSplit')}
 let g:test#strategy = 'neosplit'
 let g:test#runner_commands = ['Jest', 'RSpec']
 
-lua vim.api.nvim_set_keymap('n', '<Leader>t', ':wa<CR>:TestFile<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>s', ':wa<CR>:TestNearest<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>l', ':wa<CR>:TestLast<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>a', ':wa<CR>:TestSuite<CR>', {noremap = true, silent = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', {noremap = true, silent = true})
-
-" === nvim-treesitter
-lua require('dm-treesitter')
-
-" === trouble ===
-lua require('trouble').setup {}
-lua vim.api.nvim_set_keymap('n', '<Leader>xx', '<cmd>LspTroubleToggle<CR>', {noremap = true})
-
 "  ____ ____ ____ ____
 " ||m |||a |||p |||s ||
 " ||__|||__|||__|||__||
@@ -266,9 +185,11 @@ augroup resize
   autocmd VimResized * :wincmd =
 augroup END
 
-" === zoom a vim pane, <C-w>= to re-balance ===
-lua vim.api.nvim_set_keymap('n', '<Leader>-', ':wincmd _<CR>:wincmd |<CR>', {noremap = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>=', ':wincmd =<CR>', {noremap = true})
+lua << EOF
+-- === zoom a vim pane, <C-w>= to re-balance ===
+vim.api.nvim_set_keymap('n', '<Leader>-', ':wincmd _<CR>:wincmd |<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>=', ':wincmd =<CR>', {noremap = true})
+EOF
 
 " === debugging ===
 let g:loaded_pry = 1
@@ -316,29 +237,31 @@ augroup TerminalExitStatus
   autocmd TermClose * call feedkeys("\<CR>")
 augroup END
 
-lua vim.api.nvim_set_keymap('t', '<C-w>h', '<C-\\><C-n><C-w>h', {noremap = true})
-lua vim.api.nvim_set_keymap('t', '<C-w>j', '<C-\\><C-n><C-w>j', {noremap = true})
-lua vim.api.nvim_set_keymap('t', '<C-w>k', '<C-\\><C-n><C-w>k', {noremap = true})
-lua vim.api.nvim_set_keymap('t', '<C-w>l', '<C-\\><C-n><C-w>l', {noremap = true})
-lua vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
-lua vim.api.nvim_set_keymap('t', '<A-[>', '<Esc><Esc>', {noremap = true})
-lua vim.api.nvim_set_keymap('t', '<C-w>-', '<C-\\><C-n>:sp<CR>:terminal<CR>i', {noremap = true})
-lua vim.api.nvim_set_keymap('t', '<C-w>\\', '<C-\\><C-n>:vsp<CR>:terminal<CR>i', {noremap = true})
-lua vim.api.nvim_set_keymap('n', '<C-w>-', ':20sp<CR>:terminal<CR>i', {noremap = true})
-lua vim.api.nvim_set_keymap('n', '<C-w>\\', ':vsp<CR>:terminal<CR>i', {noremap = true})
-lua vim.api.nvim_set_keymap('n', '<C-w>c', ':tabnew<CR>:terminal<CR>i', {noremap = true})
+lua << EOF
+vim.api.nvim_set_keymap('t', '<C-w>h', '<C-\\><C-n><C-w>h', {noremap = true})
+vim.api.nvim_set_keymap('t', '<C-w>j', '<C-\\><C-n><C-w>j', {noremap = true})
+vim.api.nvim_set_keymap('t', '<C-w>k', '<C-\\><C-n><C-w>k', {noremap = true})
+vim.api.nvim_set_keymap('t', '<C-w>l', '<C-\\><C-n><C-w>l', {noremap = true})
+vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
+vim.api.nvim_set_keymap('t', '<A-[>', '<Esc><Esc>', {noremap = true})
+vim.api.nvim_set_keymap('t', '<C-w>-', '<C-\\><C-n>:sp<CR>:terminal<CR>i', {noremap = true})
+vim.api.nvim_set_keymap('t', '<C-w>\\', '<C-\\><C-n>:vsp<CR>:terminal<CR>i', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-w>-', ':20sp<CR>:terminal<CR>i', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-w>\\', ':vsp<CR>:terminal<CR>i', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-w>c', ':tabnew<CR>:terminal<CR>i', {noremap = true})
 
-" === Move up and down by visible lines if current line is wrapped ===
-lua vim.api.nvim_set_keymap('n', 'j', 'gj', {noremap = true})
-lua vim.api.nvim_set_keymap('n', 'k', 'gk', {noremap = true})
+-- === Move up and down by visible lines if current line is wrapped ===
+vim.api.nvim_set_keymap('n', 'j', 'gj', {noremap = true})
+vim.api.nvim_set_keymap('n', 'k', 'gk', {noremap = true})
 
-" === add current word under cursor to :%s ===
-lua vim.api.nvim_set_keymap('n', '<Leader>n', ':%s/\\(<c-r>=expand("<cword>")<CR>\\)/', {noremap = true})
+-- === add current word under cursor to :%s ===
+vim.api.nvim_set_keymap('n', '<Leader>n', ':%s/\\(<c-r>=expand("<cword>")<CR>\\)/', {noremap = true})
 
-" === Pre-populate a split command with the current directory ===
-lua vim.api.nvim_set_keymap('n', '<Leader>e', ':vsp <C-r>=expand("%:p:h") . "/" <CR><C-d>', {noremap = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>mv', ':!mv % <C-r>=expand("%:p:h") . "/" <CR><C-d>', {noremap = true})
-lua vim.api.nvim_set_keymap('n', '<Leader>cp', ':!cp % <C-r>=expand("%:p:h") . "/" <CR><C-d>', {noremap = true})
+-- === Pre-populate a split command with the current directory ===
+vim.api.nvim_set_keymap('n', '<Leader>e', ':vsp <C-r>=expand("%:p:h") . "/" <CR><C-d>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>mv', ':!mv % <C-r>=expand("%:p:h") . "/" <CR><C-d>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>cp', ':!cp % <C-r>=expand("%:p:h") . "/" <CR><C-d>', {noremap = true})
 
-" === Open dotfiles in new tab ===
-lua vim.api.nvim_set_keymap('n', '<Leader>vi', ':tabe $HOME/dotfiles/config/nvim/<CR>', {noremap = true})
+-- === Open dotfiles in new tab ===
+vim.api.nvim_set_keymap('n', '<Leader>vi', ':tabe $HOME/dotfiles/config/nvim/<CR>', {noremap = true})
+EOF
