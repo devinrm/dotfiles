@@ -3,6 +3,7 @@ require('plugins')
 require('settings')
 require('plugin_settings')
 require('mappings')
+require('functions')
 EOF
 
 let s:darwin = has('mac')
@@ -26,13 +27,6 @@ augroup vimrcEx
         \ endif
 augroup END
 
-" Make comments italic
-augroup ItalicComments
-  autocmd!
-  autocmd ColorScheme * highlight Comment gui=italic
-  autocmd ColorScheme * highlight Comment cterm=italic
-augroup END
-
 " Trim trailing whitespace and extra lines
 function! s:TrimTrailingWhitespace()
   let l:pos = getpos('.')
@@ -50,11 +44,6 @@ augroup vimTrim
   autocmd!
   autocmd BufWritePre * call s:TrimTrailingWhitespace()
   autocmd BufWritePre * call s:TrimBlankLines()
-augroup END
-
-augroup highlight_yank
-  autocmd!
-  au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=false}
 augroup END
 
 " === vim-cool ===
@@ -169,17 +158,6 @@ let g:test#custom_strategies = {'neosplit': function('NeoSplit')}
 let g:test#strategy = 'neosplit'
 let g:test#runner_commands = ['Jest', 'RSpec']
 
-"  ____ ____ ____ ____
-" ||m |||a |||p |||s ||
-" ||__|||__|||__|||__||
-" |/__\|/__\|/__\|/__\|
-
-" === automatically rebalance windows on vim resize ===
-augroup resize
-  autocmd!
-  autocmd VimResized * :wincmd =
-augroup END
-
 " === debugging ===
 let g:loaded_pry = 1
 let g:debug_map = {
@@ -198,14 +176,3 @@ function! InsertDebug()
     call feedkeys("\<Esc>")
   endif
 endfunction
-
-" === terminal mappings ===
-augroup TerminalNumbers
-  autocmd!
-  autocmd TermOpen * setlocal nonumber norelativenumber
-augroup END
-
-augroup TerminalExitStatus
-  autocmd!
-  autocmd TermClose * call feedkeys("\<CR>")
-augroup END
