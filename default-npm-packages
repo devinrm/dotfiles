@@ -21,6 +21,7 @@ prettier-eslint-cli
 pyright
 snyk
 stylelint
+stylelint-lsp
 tldr
 typescript
 ts-node
