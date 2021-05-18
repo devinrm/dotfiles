@@ -35,6 +35,12 @@ return require('packer').startup(function()
   use 'https://github.com/folke/lsp-trouble.nvim'
 
   -- === experiments ===
+  use {
+    'folke/zen-mode.nvim',
+    config = function()
+      require('zen-mode').setup {}
+    end
+  }
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run='./install --bin' }
