@@ -41,6 +41,7 @@ return require('packer').startup(function()
       require('zen-mode').setup {}
     end
   }
+  use 'https://github.com/Vimjas/vim-python-pep8-indent'
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run='./install --bin' }

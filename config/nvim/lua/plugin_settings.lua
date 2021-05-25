@@ -56,7 +56,7 @@ require('dm-diffview')
 vim.api.nvim_set_keymap('n', '<C-p>', ':wa<CR>:Files<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-t>', ':wa<CR>:Tags<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-b>', ':wa<CR>:Buffers<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>p', ':Blines<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>p', ':BLines<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<Leader>gc', ':wa<CR>:Commits<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<Leader>hi', ':wa<CR>:History<CR>', {noremap = true})
 
