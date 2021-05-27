@@ -1,4 +1,5 @@
 brew "bat"
+brew "fd"
 brew "fzf"
 brew "hub"
 brew "rcm"

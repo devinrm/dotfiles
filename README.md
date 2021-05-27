@@ -10,6 +10,8 @@ Dependencies
 
 [fzf](https://github.com/junegunn/fzf)
 
+[fd](https://github/sharkdp/fd)
+
 [hub](https://github.com/github/hub)
 
 [neovim](https://neovim.io/) (The config does not support Vim only NeoVim >= 0.5)
