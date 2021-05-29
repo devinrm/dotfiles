@@ -19,7 +19,7 @@ endif
 " When editing a file, always jump to the last known cursor position.
 " Don't do it for commit messages, when the position is invalid, or when
 " inside an event handler.
-augroup vimrcEx
+augroup LastKnownCursorPosition
   autocmd!
   autocmd BufReadPost *
         \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
