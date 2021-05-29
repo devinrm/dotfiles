@@ -8,20 +8,11 @@ vim.cmd('colorscheme ' .. 'grey')
 vim.cmd('filetype plugin indent on') -- load indent file for language
 vim.cmd('filetype plugin on')
 vim.cmd('runtime! macros/matchit.vim') -- Extended matching with '%'. See :help matchit
-vim.cmd('set colorcolumn=+1') -- highlight column after 'textwidth
-vim.cmd('set completeopt-=i,t,preview')
-vim.cmd('set diffopt+=vertical') -- Start diff mode with vertical splits
-vim.cmd('set guicursor+=a:blinkon0') -- Disable blinking cursor on nvim
-vim.cmd('set list listchars=tab:»·,trail:·,nbsp:·') -- Display extra whitespace
-vim.cmd('set list listchars=tab:»·,trail:·,nbsp:·') -- Display extra whitespace
-vim.cmd('set path+=.,,')
-vim.cmd('set path+=.,app/javascript,node_modules')
-vim.cmd('set shortmess+=c')
 vim.cmd('set spellfile=$HOME//.vim-spell-en.utf-8.add') -- Name of the word list file where words are added for the |zg| and |zw| commands.
 vim.cmd('set undodir=$HOME//.undodir') -- directory name for undo file.
 vim.cmd('syntax on') -- Turn on syntax highlighting. This must come before statusline
-vim.g.mapleader = ' ' -- Set Leader key to <Space> bar
 vim.g.is_posix = 1 -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
+vim.g.mapleader = ' ' -- Set Leader key to <Space> bar
 vim.o.autoread = true
 vim.o.autowriteall = true
 vim.o.background = 'dark' -- Use colors that look good on a dark background
@@ -74,9 +65,17 @@ vim.o.wildignore = 'tmp/**' -- Ignore stuff that can't be opened
 vim.o.wildmenu = true -- Enables a menu at the bottom of the vim window.
 vim.o.wildmode = 'list:longest,list:full'
 vim.o.wildoptions = 'pum'
-vim.wo.wrap = false -- Don't wrap lines longer than the width of the window
 vim.o.writebackup = false -- Don't make a backup before overwriting a file.
+vim.opt.colorcolumn = '+1' -- highlight column after 'textwidth
+vim.opt.completeopt:remove({'i', 't', 'preview'})
+vim.opt.diffopt:append({'vertical'}) -- Start diff mode with vertical splits
+vim.opt.guicursor:append({'a:blinkon0'}) -- Disable blinking cursor on nvim
+vim.opt.list = true
+vim.opt.listchars = { tab = '»·', trail = '·', nbsp = '·' } -- Display extra whitespace
+vim.opt.path:append({'.,,', '.,app/javascript', 'node_modules'})
+vim.opt.shortmess = 'filnxtToOFc' -- vim default with 'c' appended (don't give |ins-completion-menu| messages)
 vim.wo.cursorline = true
 vim.wo.number = true -- Turn on line numbers
 vim.wo.numberwidth = 1 -- Minimal number of columns to use for the line number.
 vim.wo.signcolumn = 'yes' -- Leave signcolumn enabled otherwise it's a little jarring
+vim.wo.wrap = false -- Don't wrap lines longer than the width of the window

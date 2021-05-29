@@ -81,4 +81,4 @@ require('dm-treesitter')
 
 -- === trouble ===
 require('trouble').setup {}
-vim.api.nvim_set_keymap('n', '<Leader>xx', '<cmd>LspTroubleToggle<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>xx', '<cmd>LspTroubleToggle lsp_document_diagnostics<CR>', {noremap = true})
