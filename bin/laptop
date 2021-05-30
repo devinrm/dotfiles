@@ -35,6 +35,8 @@ sudo dnf install -y xsel
 sudo dnf install -y arc-theme
 # gcc
 sudo dnf install gcc-c++
+# pyenv
+sudo dnf install make gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
 # postgresql https://fedoraproject.org/wiki/PostgreSQL
 # sudo -u postgres -i
 # ALTER USER username CREATEDB superuser;
@@ -111,7 +113,6 @@ source $HOME/.zshrc
 asdf-update
 asdf plugin-add ruby
 asdf plugin-add nodejs
-asdf plugin-add python
 
 # notes:
 # update grub for laptop suspend

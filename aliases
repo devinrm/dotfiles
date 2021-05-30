@@ -53,8 +53,9 @@ alias tailt="tail -f log/test.log"
 alias reds="redis-server"
 
 # Python
-alias venv="python -m venv"
 alias pipvenv="python -m pip"
+alias install_pyenv="curl https://pyenv.run | zsh"
+alias install_pyenv_default_packages="git clone https://github.com/jawshooah/pyenv-default-packages.git $HOME/.pyenv/plugins/pyenv-default-packages"
 
 # JavaScript
 alias yi="yarn install --ignore-engines"
