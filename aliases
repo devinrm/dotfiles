@@ -45,12 +45,16 @@ alias racer="ruby -r tracer"
 alias rake="RUBYOPT='-W0' rake"
 alias ras="bundle exec rails s"
 alias rc="rails console"
-alias reds="redis-server"
 alias ruby="ruby -w"
 alias schema_fixup="rails db:drop db:create db:schema:load && rails db:migrate"
+
 alias taild="tail -f log/development.log"
 alias tailt="tail -f log/test.log"
-alias taila="admin tail"
+alias reds="redis-server"
+
+# Python
+alias venv="python -m venv"
+alias pipvenv="python -m pip"
 
 # JavaScript
 alias yi="yarn install --ignore-engines"
