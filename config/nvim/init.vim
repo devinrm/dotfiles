@@ -117,6 +117,9 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 25
 let g:netrw_dirhistmax = 0
 
+" === nvcode-color-schemes ===
+let g:nvcode_termcolors=256
+
 " === vim-signify ===
 let g:signify_sign_show_text = 0
 

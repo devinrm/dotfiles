@@ -37,6 +37,7 @@ vim.o.laststatus = 2
 vim.o.lazyredraw = true
 vim.o.matchtime = 0 -- Speed up escape after (){} chars
 vim.o.mouse = 'a' -- Enable mouse for pair programming
+vim.o.pumheight = 10 -- limit size of popup menu
 vim.o.pumblend = 20
 vim.o.redrawtime = 1000 -- Stop highlighting if it takes more than a second
 vim.o.ruler = true -- show the cursor position all the time

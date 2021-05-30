@@ -21,8 +21,8 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   -- === colorscheme(s) ===
-  use 'https://github.com/devinrm/necromancer.vim'
   use 'https://github.com/devinrm/the-grey'
+  use 'https://github.com/ChristianChiarulli/nvcode-color-schemes.vim'
 
   -- === completion ===
   use 'https://github.com/neovim/nvim-lspconfig'
@@ -42,6 +42,8 @@ return require('packer').startup(function()
     end
   }
   use 'https://github.com/Vimjas/vim-python-pep8-indent'
+  use 'https://github.com/tpope/vim-dadbod'
+  use 'https://github.com/kristijanhusak/vim-dadbod-ui'
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run='./install --bin' }
