@@ -56,6 +56,8 @@ alias reds="redis-server"
 alias pipvenv="python -m pip"
 alias install_pyenv="curl https://pyenv.run | zsh"
 alias install_pyenv_default_packages="git clone https://github.com/jawshooah/pyenv-default-packages.git $HOME/.pyenv/plugins/pyenv-default-packages"
+alias runserver="python manage.py runserver"
+alias pmigrate="python manage.py migrate"
 
 # JavaScript
 alias yi="yarn install --ignore-engines"
