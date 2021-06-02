@@ -1,4 +1,5 @@
 eslint
+eslint_d
 diagnostic-languageserver
 eslint-config-prettier
 eslint-plugin-jsx-a11y
