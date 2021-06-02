@@ -153,6 +153,7 @@ let g:debug_map = {
       \ 'typescript' : 'debugger;',
       \ 'javascriptreact' : 'debugger;',
       \ 'typescriptreact' : 'debugger;',
+      \ 'python': 'import pdb; pdb.set_trace()'
       \}
 
 function! InsertDebug()
