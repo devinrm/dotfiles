@@ -22,7 +22,7 @@ return require('packer').startup(function()
 
   -- === colorscheme(s) ===
   use 'https://github.com/devinrm/the-grey'
-  use 'https://github.com/ChristianChiarulli/nvcode-color-schemes.vim'
+  use 'https://github.com/folke/tokyonight.nvim'
 
   -- === completion ===
   use 'https://github.com/neovim/nvim-lspconfig'
