@@ -6,7 +6,7 @@
 vim.bo.smartindent = true
 vim.g.tokyonight_style = 'night'
 vim.g.tokyonight_italic_functions = true
-vim.cmd('colorscheme ' .. 'tokyonight')
+vim.cmd('colorscheme ' .. 'grey')
 vim.cmd('filetype plugin indent on') -- load indent file for language
 vim.cmd('filetype plugin on')
 vim.cmd('runtime! macros/matchit.vim') -- Extended matching with '%'. See :help matchit
