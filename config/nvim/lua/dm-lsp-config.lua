@@ -1,8 +1,18 @@
-require'lspconfig'.tsserver.setup{}
-require'lspconfig'.solargraph.setup{}
+-- require'lspconfig'.cssls.setup{}
 require'lspconfig'.html.setup{}
 require'lspconfig'.pyright.setup{}
-require'lspconfig'.stylelint_lsp.setup{
+require'lspconfig'.solargraph.setup{}
+require'lspconfig'.tsserver.setup{}
+require'lspconfig'.jsonls.setup {
+  commands = {
+    Format = {
+      function()
+        vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
+      end
+    }
+  }
+}
+require'lspconfig'.stylelint_lsp.setup {
   settings = {
     stylelintplus = {
       filetypes = { "postcss" }
@@ -11,12 +21,12 @@ require'lspconfig'.stylelint_lsp.setup{
 }
 require'lspconfig'.diagnosticls.setup{
   filetypes = {
+    'javascript',
+    'python',
     'ruby',
+    'sh',
     'typescript',
     'typescriptreact',
-    'javascript',
-    'sh',
-    'python'
   },
   init_options = {
     linters = {
@@ -139,10 +149,12 @@ require'lspconfig'.diagnosticls.setup{
     },
     filetypes = {
       javascript = 'eslint',
-      typescript = 'eslint',
-      typescriptreact = 'eslint',
+      javascriptreact = 'eslint',
+      python = 'pylint',
       ruby = 'rubocop',
       sh = 'shellcheck',
+      typescript = 'eslint',
+      typescriptreact = 'eslint',
     },
     formatters = {
       prettierEslint = {
