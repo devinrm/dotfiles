@@ -1,2 +1,2 @@
-EXCLUDES="README.md /node_modules"
+EXCLUDES="README.md /node_modules ssh_config"
 DOTFILES_DIRS="$HOME/dotfiles"
