@@ -11,6 +11,14 @@ if s:darwin
   set shell=/usr/local/bin/zsh
 endif
 
+let s:clip = '/mnt/c/Windows/System32/clip.exe'
+if executable(s:clip)
+  augroup WSLYank
+    autocmd!
+    autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+  augroup END
+endif
+
 "  ____ ____ ____ ____ ____ ____  ____ ____ ___
 " ||f |||u |||n |||c |||t |||i |||o |||n |||s ||
 " ||__|||__|||__|||__|||__|||__|||__|||__|||__||
