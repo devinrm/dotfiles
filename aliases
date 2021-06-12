@@ -109,7 +109,7 @@ alias tl="tmux list-sessions"
 
 alias dot="cd $HOME/dotfiles"
 
-alias work="cd $HOME/work/commonlit"
+alias work="cd $HOME/work/pyHomebase/"
 
 alias wifi-ip="ipconfig getifaddr en0"
 
