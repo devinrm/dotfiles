@@ -12,13 +12,7 @@ require'lspconfig'.jsonls.setup {
     }
   }
 }
-require'lspconfig'.stylelint_lsp.setup {
-  settings = {
-    stylelintplus = {
-      filetypes = { "postcss" }
-    }
-  }
-}
+require'lspconfig'.stylelint_lsp.setup {}
 require'lspconfig'.diagnosticls.setup{
   filetypes = {
     'javascript',
