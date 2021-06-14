@@ -1,21 +1,23 @@
 [alias]
-  ap = add --all
   aa = add --patch
+  ap = add --all
   branch = branch -vv
   branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
   c = commit
   can = commit --amend --no-edit
-  cv = commit -v
   cm = commit -m
   co = checkout
+  cv = commit -v
+  delete = branch -D
   dt = difftool --no-symlinks --dir-diff
+  dup = !git checkout develop && git pull && git checkout -
   empty = commit --allow-empty -m "[rebuild]"
   fall = fetch --all
   gcon = git rebase --continue
   glog = log -E -i --grep
   l = log --pretty=colored
   mg = merge
-  tup = !git checkout trunk && git pull && git checkout -
+  mup = !git checkout main && git pull && git checkout -
   pf = push --force-with-lease
   ph = push -u origin HEAD
   pr = hub pull-request
@@ -29,7 +31,6 @@
   uncommit = reset --soft HEAD^
   unstage = reset
   upstream = rev-parse --abbrev-ref --symbolic-full-name @{upstream}
-  delete = branch -D
 [color]
   ui = always
 [color "diff"]
