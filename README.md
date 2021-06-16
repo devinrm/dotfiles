@@ -24,6 +24,8 @@ Dependencies
 
 [ripgrep](https://github.com/BurntSushi/ripgrep)
 
+[tpm](https://github.com/tmux-plugins/tpm)
+
 [zsh](https://www.zsh.org/)
 
 [zsh-completions](https://github.com/zsh-users/zsh-completions)
