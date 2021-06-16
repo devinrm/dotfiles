@@ -1,6 +1,7 @@
 brew "bat"
 brew "fd"
 brew "fzf"
+brew "htop"
 brew "hub"
 brew "neovim", args: ["HEAD"]
 brew "openssl"
