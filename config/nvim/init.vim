@@ -6,11 +6,6 @@ require('mappings')
 require('functions')
 EOF
 
-let s:darwin = has('mac')
-if s:darwin
-  set shell=/usr/local/bin/zsh
-endif
-
 let s:clip = '/mnt/c/Windows/System32/clip.exe'
 if executable(s:clip)
   augroup WSLYank
