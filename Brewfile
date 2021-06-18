@@ -5,6 +5,7 @@ brew "htop"
 brew "hub"
 brew "neovim", args: ["HEAD"]
 brew "openssl"
+brew "pgcli"
 brew "postgresql"
 brew "rcm"
 brew "readline"

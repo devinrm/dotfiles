@@ -1,2 +1,9 @@
 ls
 exit
+User.last
+Version.last
+Versions.last
+exit
+Payment.last
+Payment.first
+exit
