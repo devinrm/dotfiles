@@ -54,8 +54,8 @@ alias reds="redis-server"
 
 # Python
 alias pipvenv="python -m pip"
-alias install_pyenv="curl https://pyenv.run | zsh"
-alias install_pyenv_default_packages="git clone https://github.com/jawshooah/pyenv-default-packages.git $HOME/.pyenv/plugins/pyenv-default-packages"
+alias pvenv="python -m venv .venv"
+alias apvenv="source .venv/bin/activate"
 alias runserver="python manage.py runserver"
 alias pmigrate="python manage.py migrate"
 

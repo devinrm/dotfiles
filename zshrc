@@ -64,8 +64,7 @@ export FZF_DEFAULT_OPTS='
 '
 
 # syntax highlighting
-# source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Hub
 eval "$(hub alias -s)"
@@ -75,19 +74,11 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
+. "$HOME/.cargo/env"
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 # necessary for psycopg2
-export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
-
-# export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib"
-# export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include"
+export LDFLAGS="-L$(brew --prefix)/opt/openssl@1.1/lib"
+export CPPFLAGS="-I$(brew --prefix)/opt/openssl@1.1/include"
 
 # ruby
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"

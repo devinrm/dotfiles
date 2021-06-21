@@ -4,6 +4,7 @@
 .env.local
 .tool-versions
 .tool-versions-e
-node_modules
-yarn-error.log
 __pycache__/
+node_modules
+prod.sql
+yarn-error.log

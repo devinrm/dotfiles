@@ -1,6 +1,5 @@
 aws-shell
 awscli
-django
 psycopg2
 pylint
 pynvim

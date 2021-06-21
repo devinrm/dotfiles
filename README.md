@@ -16,10 +16,6 @@ Dependencies
 
 [neovim](https://neovim.io/) (The config does not support Vim only NeoVim >= 0.5)
 
-[pyenv](https://github.com/pyenv/pyenv-installer)
-
-[pyenv-default-packages](https://github.com/jawshooah/pyenv-default-packages)
-
 [rcm](https://github.com/thoughtbot/rcm) (or some other symlink manager)
 
 [ripgrep](https://github.com/BurntSushi/ripgrep)
