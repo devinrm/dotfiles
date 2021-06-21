@@ -25,14 +25,15 @@ return require('packer').startup(function()
   use 'https://github.com/folke/tokyonight.nvim'
 
   -- === completion ===
-  use 'https://github.com/neovim/nvim-lspconfig'
-  use 'https://github.com/hrsh7th/nvim-compe'
-  use 'https://github.com/glepnir/lspsaga.nvim'
-  use 'https://github.com/nvim-telescope/telescope.nvim'
-  use 'https://github.com/kabouzeid/nvim-lspinstall'
-  use 'https://github.com/nvim-lua/popup.nvim'
-  use 'https://github.com/nvim-lua/plenary.nvim'
+  use 'https://github.com/alexaandru/nvim-lspupdate'
   use 'https://github.com/folke/lsp-trouble.nvim'
+  use 'https://github.com/glepnir/lspsaga.nvim'
+  use 'https://github.com/hrsh7th/nvim-compe'
+  use 'https://github.com/kabouzeid/nvim-lspinstall'
+  use 'https://github.com/neovim/nvim-lspconfig'
+  use 'https://github.com/nvim-lua/plenary.nvim'
+  use 'https://github.com/nvim-lua/popup.nvim'
+  use 'https://github.com/nvim-telescope/telescope.nvim'
 
   -- === experiments ===
   use {
