@@ -43,8 +43,6 @@ return require('packer').startup(function()
     end
   }
   use 'https://github.com/Vimjas/vim-python-pep8-indent'
-  use 'https://github.com/tpope/vim-dadbod'
-  use 'https://github.com/kristijanhusak/vim-dadbod-ui'
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run='./install --bin' }
