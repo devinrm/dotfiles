@@ -143,7 +143,6 @@ endfunction
 
 let g:test#custom_strategies = {'neosplit': function('NeoSplit')}
 let g:test#strategy = 'neosplit'
-let test#python#djangotest#executable = 'python manage.py test --settings=homebase.settings.local'
 
 " === debugging ===
 let g:loaded_pry = 1
