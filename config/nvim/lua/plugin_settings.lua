@@ -29,6 +29,11 @@ vim.api.nvim_set_keymap('i', '<C-e>', "compe#close('<C-e>')", {expr = true, nore
 vim.api.nvim_set_keymap('i', '<C-f>', "compe#scroll({ 'delta': +4 })", {expr = true, noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-d>', "compe#scroll({ 'delta': -4 })", {expr = true, noremap = true, silent = true})
 
+-- === kommentary ===
+vim.g.kommentary_create_default_mappings = false
+vim.api.nvim_set_keymap('n', '<C-\\>', '<Plug>kommentary_line_default', {})
+vim.api.nvim_set_keymap('x', '<C-\\>', '<Plug>kommentary_visual_default', {})
+
 -- === lspsaga ===
 local saga = require 'lspsaga'
 saga.init_lsp_saga()
@@ -40,11 +45,6 @@ vim.api.nvim_set_keymap('n', 'gd', '<cmd> lua require("lspsaga.provider").previe
 vim.api.nvim_set_keymap('n', '<Leader>cd', '<cmd> lua require("lspsaga.diagnostic").show_line_diagnostics()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>ca', '<cmd> lua require("lspsaga.codeaction").code_action()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<Leader>ca', '<cmd> lua require("lspsaga.codeaction").range_code_action()<CR>', {noremap = true, silent = true})
-
--- === nvim-commment ===
-require('nvim_comment').setup()
-vim.api.nvim_set_keymap('n', '<C-\\>', ':CommentToggle<CR>', {noremap = true})
-vim.api.nvim_set_keymap('x', '<C-\\>', ':CommentToggle<CR>', {noremap = true})
 
 -- === devdocs ===
 vim.api.nvim_set_keymap('n', 'K', '<Plug>(devdocs-under-cursor)', {silent = true})

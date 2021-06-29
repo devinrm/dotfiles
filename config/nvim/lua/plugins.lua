@@ -81,7 +81,7 @@ return require('packer').startup(function()
   -- === other ===
   use 'https://github.com/stefandtw/quickfix-reflector.vim'
   use 'https://github.com/norcalli/nvim-colorizer.lua'
-  use 'https://github.com/terrortylor/nvim-comment'
+  use 'https://github.com/b3nj5m1n/kommentary'
   use 'https://github.com/rhysd/devdocs.vim'
   use 'https://github.com/tweekmonster/startuptime.vim'
   use 'https://github.com/RRethy/vim-illuminate'
