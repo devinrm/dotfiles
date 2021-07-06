@@ -14,6 +14,8 @@ if executable(s:clip)
   augroup END
 endif
 
+let g:python3_host_prog = '$HOME/.asdf/shims/python'
+
 "  ____ ____ ____ ____ ____ ____  ____ ____ ___
 " ||f |||u |||n |||c |||t |||i |||o |||n |||s ||
 " ||__|||__|||__|||__|||__|||__|||__|||__|||__||

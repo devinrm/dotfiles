@@ -159,7 +159,11 @@ require'lspconfig'.diagnosticls.setup{
       prettier = {
         command = 'prettier',
         args = { '--stdin-filepath', '%filename' }
-      }
+      },
+      autopep8 = {
+        command = 'autopep8',
+        args = { '-' },
+      },
     },
     formatFiletypes = {
       css = 'prettier',
@@ -167,6 +171,7 @@ require'lspconfig'.diagnosticls.setup{
       javascriptreact = 'prettierEslint',
       json = 'prettier',
       python = 'pylint',
+      ruby = 'rubocop',
       scss = 'prettier',
       typescript = 'prettierEslint',
       typescriptreact = 'prettierEslint'
