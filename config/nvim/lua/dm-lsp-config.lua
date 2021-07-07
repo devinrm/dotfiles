@@ -151,11 +151,6 @@ require'lspconfig'.diagnosticls.setup{
       typescriptreact = 'eslint',
     },
     formatters = {
-      prettierEslint = {
-        command = 'prettier-eslint',
-        args = { '--stdin' },
-        rootPatterns = { '.git' },
-      },
       prettier = {
         command = 'prettier',
         args = { '--stdin-filepath', '%filename' }
@@ -167,14 +162,14 @@ require'lspconfig'.diagnosticls.setup{
     },
     formatFiletypes = {
       css = 'prettier',
-      javascript = 'prettierEslint',
-      javascriptreact = 'prettierEslint',
+      javascript = 'prettier',
+      javascriptreact = 'prettier',
       json = 'prettier',
       python = 'pylint',
       ruby = 'rubocop',
       scss = 'prettier',
-      typescript = 'prettierEslint',
-      typescriptreact = 'prettierEslint'
+      typescript = 'prettier',
+      typescriptreact = 'prettier'
     }
   }
 }
