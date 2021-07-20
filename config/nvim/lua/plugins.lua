@@ -22,7 +22,6 @@ return require('packer').startup(function()
 
   -- === colorscheme(s) ===
   use 'https://github.com/devinrm/the-grey'
-  use 'https://github.com/folke/tokyonight.nvim'
 
   -- === completion ===
   use 'https://github.com/alexaandru/nvim-lspupdate'
@@ -36,12 +35,6 @@ return require('packer').startup(function()
   use 'https://github.com/nvim-telescope/telescope.nvim'
 
   -- === experiments ===
-  use {
-    'folke/zen-mode.nvim',
-    config = function()
-      require('zen-mode').setup {}
-    end
-  }
   use 'https://github.com/Vimjas/vim-python-pep8-indent'
 
   -- === find ===

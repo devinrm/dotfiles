@@ -39,16 +39,9 @@ function! s:TrimTrailingWhitespace()
   call setpos('.', l:pos)
 endfunction
 
-function! s:TrimBlankLines()
-  let l:pos = getpos('.')
-  :silent! %s#\($\n\s*\)\+\%$##
-  call setpos('.', l:pos)
-endfunction
-
 augroup vimTrim
   autocmd!
   autocmd BufWritePre * call s:TrimTrailingWhitespace()
-  autocmd BufWritePre * call s:TrimBlankLines()
 augroup END
 
 " === vim-cool ===
