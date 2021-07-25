@@ -4,15 +4,15 @@
 -- |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
 
 vim.bo.smartindent = true
-vim.g.tokyonight_style = 'night'
-vim.g.tokyonight_italic_functions = true
-vim.cmd('colorscheme ' .. 'grey')
+vim.cmd('colorscheme ' .. 'nord')
 vim.cmd('filetype plugin indent on') -- load indent file for language
 vim.cmd('filetype plugin on')
 vim.cmd('runtime! macros/matchit.vim') -- Extended matching with '%'. See :help matchit
 vim.cmd('set spellfile=$HOME//.vim-spell-en.utf-8.add') -- Name of the word list file where words are added for the |zg| and |zw| commands.
 vim.cmd('set undodir=$HOME//.undodir') -- directory name for undo file.
 vim.cmd('syntax on') -- Turn on syntax highlighting. This must come before statusline
+vim.g.nord_cursorline_transparent = true
+vim.g.nord_borders = true
 vim.g.is_posix = 1 -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
 vim.g.mapleader = ' ' -- Set Leader key to <Space> bar
 vim.o.autoread = true

@@ -22,6 +22,7 @@ return require('packer').startup(function()
 
   -- === colorscheme(s) ===
   use 'https://github.com/devinrm/the-grey'
+  use 'https://github.com/shaunsingh/nord.nvim'
 
   -- === completion ===
   use 'https://github.com/alexaandru/nvim-lspupdate'
@@ -47,7 +48,7 @@ return require('packer').startup(function()
   use 'https://github.com/sindrets/diffview.nvim'
 
   -- === language plugins ===
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use { 'nvim-treesitter/nvim-treesitter', branch = '0.5-compat', run = ':TSUpdate' }
   use { 'https://github.com/hail2u/vim-css3-syntax', ft = {'css', 'scss'} }
   use {
     'https://github.com/iamcco/markdown-preview.nvim',
