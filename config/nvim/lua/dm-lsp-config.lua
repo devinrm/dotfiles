@@ -51,6 +51,31 @@ require'lspconfig'.diagnosticls.setup{
           [1] = 'warning'
         }
       },
+      flake8 = {
+        command = 'flake8',
+        debounce = 100,
+        args = { '--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s, -' },
+        offsetLine = 0,
+        offsetColumn = 0,
+        sourceName = 'flake8',
+        formatLines = 1,
+        formatPattern = {
+          '(\\d+),(\\d+),([A-Z]),(.*)(\\r|\\n)*$',
+          {
+            line = 1,
+            column = 2,
+            security = 3,
+            message = 4
+          }
+        },
+        securities = {
+          W = 'warning',
+          E = 'error',
+          F = 'error',
+          C = 'error',
+          N = 'error',
+        }
+      },
       pylint = {
         sourceName = 'pylint',
         command = 'pylint',
@@ -144,7 +169,7 @@ require'lspconfig'.diagnosticls.setup{
     filetypes = {
       javascript = 'eslint',
       javascriptreact = 'eslint',
-      python = 'pylint',
+      python = { 'pylint', 'flake8' },
       ruby = 'rubocop',
       sh = 'shellcheck',
       typescript = 'eslint',
@@ -155,9 +180,13 @@ require'lspconfig'.diagnosticls.setup{
         command = 'prettier',
         args = { '--stdin-filepath', '%filename' }
       },
-      autopep8 = {
-        command = 'autopep8',
-        args = { '-' },
+      yapf = {
+        command = 'yapf',
+        args = { '--quiet' },
+      },
+      isort = {
+        command = 'isort',
+        args = { '--quiet', '-' }
       },
     },
     formatFiletypes = {
@@ -165,7 +194,7 @@ require'lspconfig'.diagnosticls.setup{
       javascript = 'prettier',
       javascriptreact = 'prettier',
       json = 'prettier',
-      python = 'pylint',
+      python = { 'yapf', 'isort' },
       ruby = 'rubocop',
       scss = 'prettier',
       typescript = 'prettier',
