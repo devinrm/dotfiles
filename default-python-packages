@@ -5,3 +5,5 @@ pdbpp
 psycopg2
 pylint
 pynvim
+flake8
+yapf
