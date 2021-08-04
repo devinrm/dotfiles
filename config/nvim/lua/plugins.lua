@@ -78,7 +78,6 @@ return require('packer').startup(function()
   use 'https://github.com/b3nj5m1n/kommentary'
   use 'https://github.com/rhysd/devdocs.vim'
   use 'https://github.com/tweekmonster/startuptime.vim'
-  use 'https://github.com/RRethy/vim-illuminate'
   use 'https://github.com/janko-m/vim-test'
   use 'https://github.com/romainl/vim-cool'
   use 'https://github.com/tpope/vim-fugitive'

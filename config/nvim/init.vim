@@ -101,10 +101,6 @@ endfunction
 
 let g:fzf_layout = { 'window': 'call FloatingFZF(0.9, 0.6, "Comment")' }
 
-" === vim-illuminate ===
-let g:Illuminate_delay = 50
-hi illuminatedWord guibg=#2c323c gui=NONE
-
 " === netrw ===
 " let loaded_netrwPlug = 1
 let g:netrw_browse_split = 4
