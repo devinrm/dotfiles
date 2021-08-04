@@ -6,7 +6,7 @@
 -- === autopairs ===
 require('dm-autopairs')
 
--- === galaxyline ===
+-- === statusline ===
 require('dm-statusline')
 
 -- === nvim-lsp ===
