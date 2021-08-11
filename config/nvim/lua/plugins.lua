@@ -38,6 +38,7 @@ return require('packer').startup(function()
   -- === experiments ===
   use 'https://github.com/Vimjas/vim-python-pep8-indent'
   use 'https://github.com/dominikduda/vim_current_word'
+  use 'https://github.com/kyazdani42/nvim-tree.lua'
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run='./install --bin' }

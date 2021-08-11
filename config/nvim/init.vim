@@ -102,14 +102,15 @@ endfunction
 let g:fzf_layout = { 'window': 'call FloatingFZF(0.9, 0.6, "Comment")' }
 
 " === netrw ===
-" let loaded_netrwPlug = 1
-let g:netrw_browse_split = 4
-let g:netrw_preview = 1
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
-let g:netrw_dirhistmax = 0
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+" let g:netrw_browse_split = 4
+" let g:netrw_preview = 1
+" let g:netrw_banner = 0
+" let g:netrw_liststyle = 3
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 25
+" let g:netrw_dirhistmax = 0
 
 " === vim-signify ===
 let g:signify_sign_show_text = 0

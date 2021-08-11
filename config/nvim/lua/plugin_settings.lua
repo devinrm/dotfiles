@@ -33,6 +33,9 @@ vim.api.nvim_set_keymap('i', '<C-e>', "compe#close('<C-e>')", {expr = true, nore
 vim.api.nvim_set_keymap('i', '<C-f>', "compe#scroll({ 'delta': +4 })", {expr = true, noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-d>', "compe#scroll({ 'delta': -4 })", {expr = true, noremap = true, silent = true})
 
+-- === nvim-tree ===
+vim.api.nvim_set_keymap('n', '<Leader>vt', ':NvimTreeToggle<CR>', {noremap = true, silent = true})
+
 -- === kommentary ===
 vim.g.kommentary_create_default_mappings = false
 vim.api.nvim_set_keymap('n', '<C-\\>', '<Plug>kommentary_line_default', {})
