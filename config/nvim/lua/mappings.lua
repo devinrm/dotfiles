@@ -37,3 +37,6 @@ vim.api.nvim_set_keymap('n', '<Leader>vi', ':tabe $HOME/dotfiles/config/nvim/<CR
 
 -- === debugging ===
 vim.api.nvim_set_keymap('n', '<Leader>d', ':call InsertDebug()<CR>', {noremap = true})
+
+-- === registers ===
+vim.api.nvim_set_keymap('n', "'", ':registers<CR>', {noremap = true})

@@ -1,9 +1,34 @@
--- require'lspconfig'.cssls.setup{}
-require'lspconfig'.html.setup{}
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.solargraph.setup{}
-require'lspconfig'.tsserver.setup{}
-require'lspconfig'.jsonls.setup {
+local lsp = require 'lspconfig'
+local coq = require "coq"
+--[[ require'lspconfig'.cssls.setup{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+} ]]
+lsp.html.setup{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+}
+lsp.pyright.setup{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+}
+lsp.solargraph.setup{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+}
+lsp.tsserver.setup{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+}
+lsp.jsonls.setup{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end,
   commands = {
     Format = {
       function()
@@ -12,8 +37,12 @@ require'lspconfig'.jsonls.setup {
     }
   }
 }
-require'lspconfig'.stylelint_lsp.setup {}
-require'lspconfig'.diagnosticls.setup{
+lsp.stylelint_lsp.setup{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+}
+lsp.diagnosticls.setup{
   filetypes = {
     'javascript',
     'python',

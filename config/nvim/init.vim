@@ -14,8 +14,6 @@ if executable(s:clip)
   augroup END
 endif
 
-let g:python3_host_prog = '$HOME/.asdf/shims/python'
-
 "  ____ ____ ____ ____ ____ ____  ____ ____ ___
 " ||f |||u |||n |||c |||t |||i |||o |||n |||s ||
 " ||__|||__|||__|||__|||__|||__|||__|||__|||__||
@@ -155,3 +153,12 @@ function! InsertDebug()
     call feedkeys("\<Esc>")
   endif
 endfunction
+
+" let g:coq_settings = { "keymap.recommended": v:false }
+" Keybindings
+" ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+" ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
+" ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
+" ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
+" ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"

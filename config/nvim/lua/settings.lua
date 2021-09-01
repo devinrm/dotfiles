@@ -11,6 +11,8 @@ vim.g.nord_cursorline_transparent = true
 vim.g.nord_borders = true
 vim.g.is_posix = 1 -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
 vim.g.mapleader = ' ' -- Set Leader key to <Space> bar
+vim.g.python3_host_prog = (vim.env.HOME .. '/.asdf/shims/python')
+-- vim.g.coq_settings = { auto_start = true }
 vim.o.autowriteall = true
 vim.o.backspace = '2' -- Backspace deletes like most programs in insert mode
 vim.o.backup = false -- Don't make a backup before overwriting a file
@@ -45,7 +47,7 @@ vim.o.swapfile = false -- Do not create a swapfile for a new buffer.
 vim.o.synmaxcol = 200
 vim.o.tabstop = 2 -- Number of spaces that a <Tab> in the file counts for.
 vim.o.termguicolors = true
-vim.o.textwidth = 100 -- Maximum width of text that is being inserted. A longer line will be broken after white space to get this width.
+-- vim.o.textwidth = 100 -- Maximum width of text that is being inserted. A longer line will be broken after white space to get this width.
 vim.o.ttimeout = true -- determine the behavior when part of a key code sequence has been received by the terminal UI.
 vim.o.undofile = true -- Automatically saves undo history to an undo file when writing a buffer to a file, and restores undo history from the same file on buffer read.
 vim.o.undolevels = 500

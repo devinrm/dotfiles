@@ -33,12 +33,12 @@ return require('packer').startup(function()
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-lua/plenary.nvim'
   use 'https://github.com/nvim-lua/popup.nvim'
-  use 'https://github.com/nvim-telescope/telescope.nvim'
 
   -- === experiments ===
   use 'https://github.com/Vimjas/vim-python-pep8-indent'
-  use 'https://github.com/dominikduda/vim_current_word'
   use 'https://github.com/kyazdani42/nvim-tree.lua'
+  use { 'https://github.com/ms-jpq/coq_nvim', branch = 'coq' }
+  use { 'https://github.com/ms-jpq/coq.artifacts', branch = 'artifacts' }
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run='./install --bin' }
@@ -80,6 +80,7 @@ return require('packer').startup(function()
   use 'https://github.com/b3nj5m1n/kommentary'
   use 'https://github.com/rhysd/devdocs.vim'
   use 'https://github.com/tweekmonster/startuptime.vim'
+  use 'https://github.com/RRethy/vim-illuminate'
   use 'https://github.com/janko-m/vim-test'
   use 'https://github.com/romainl/vim-cool'
   use 'https://github.com/tpope/vim-fugitive'

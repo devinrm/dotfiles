@@ -27,10 +27,10 @@ require 'colorizer'.setup()
 -- === nvim-compe ===
 require('dm-nvim-compe')
 
-vim.api.nvim_set_keymap('i', '<C-Space>', 'compe#complete()', {expr = true, noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<CR>', "compe#confirm('<CR>')", {expr = true, noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<C-e>', "compe#close('<C-e>')", {expr = true, noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<C-f>', "compe#scroll({ 'delta': +4 })", {expr = true, noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', {expr = true, noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<cr>', "compe#confirm('<cr>')", {expr = true, noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<c-e>', "compe#close('<c-e>')", {expr = true, noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<c-f>', "compe#scroll({ 'delta': +4 })", {expr = true, noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<C-d>', "compe#scroll({ 'delta': -4 })", {expr = true, noremap = true, silent = true})
 
 -- === nvim-tree ===
@@ -61,21 +61,16 @@ require('dm-diffview')
 
 -- === fzf.vim ===
 vim.api.nvim_set_keymap('n', '<C-b>', ':wa<CR>:Buffers<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-p>', ':wa<CR>:Files<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>p', ':wa<CR>:BLines<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>gc', ':wa<CR>:Commits<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>bgc', ':wa<CR>:BCommits<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '\\', ":Rg<SPACE>-F '' -g '*.'", {noremap = true})
 -- grep the word under the cursor
 vim.api.nvim_set_keymap('n', 'gr', ':Rg <C-R><C-W><CR>', {noremap = true})
 -- Press ; and then start typing to fzf search the whole project for a word or string
 vim.api.nvim_set_keymap('n', '<Leader>;', ':Fg<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<Leader>hi', ':wa<CR>:History<CR>', {noremap = true})
-
--- === telescope ===
-vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files()<CR>', {noremap = true})
--- vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-l>', '<cmd>lua require("telescope.builtin").registers()<CR>', {noremap = true})
--- vim.api.nvim_set_keymap('n', '<Leader>hi', '<cmd>lua require("telescope.builtin").oldfiles()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>p', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>gc', '<cmd>lua require("telescope.builtin").git_commits()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>bgc', '<cmd>lua require("telescope.builtin").git_bcommits()<CR>', {noremap = true})
 
 -- === vim-test ===
 vim.api.nvim_set_keymap('n', '<Leader>t', ':wa<CR>:TestFile<CR>', {noremap = true, silent = true})
