@@ -25,21 +25,20 @@ vim.api.nvim_set_keymap('n', '<Leader>gh', '<cmd>lua vim.lsp.buf.hover()<CR>', {
 require 'colorizer'.setup()
 
 -- === nvim-compe ===
-require('dm-nvim-compe')
+-- require('dm-nvim-compe')
 
-vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', {expr = true, noremap = true, silent = true})
+--[[ vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', {expr = true, noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<cr>', "compe#confirm('<cr>')", {expr = true, noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<c-e>', "compe#close('<c-e>')", {expr = true, noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<c-f>', "compe#scroll({ 'delta': +4 })", {expr = true, noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<C-d>', "compe#scroll({ 'delta': -4 })", {expr = true, noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-d>', "compe#scroll({ 'delta': -4 })", {expr = true, noremap = true, silent = true}) ]]
 
 -- === nvim-tree ===
 vim.api.nvim_set_keymap('n', '<Leader>vt', ':NvimTreeToggle<CR>', {noremap = true, silent = true})
 
--- === kommentary ===
-vim.g.kommentary_create_default_mappings = false
-vim.api.nvim_set_keymap('n', '<C-\\>', '<Plug>kommentary_line_default', {})
-vim.api.nvim_set_keymap('x', '<C-\\>', '<Plug>kommentary_visual_default', {})
+-- === vim-commentary ===
+vim.api.nvim_set_keymap('n', '<C-\\>', 'gcc', {})
+vim.api.nvim_set_keymap('x', '<C-\\>', 'gc', {})
 
 -- === lspsaga ===
 local saga = require 'lspsaga'
@@ -55,9 +54,6 @@ vim.api.nvim_set_keymap('v', '<Leader>ca', '<cmd> lua require("lspsaga.codeactio
 
 -- === devdocs ===
 vim.api.nvim_set_keymap('n', 'K', '<Plug>(devdocs-under-cursor)', {silent = true})
-
--- === diffview ===
-require('dm-diffview')
 
 -- === fzf.vim ===
 vim.api.nvim_set_keymap('n', '<C-b>', ':wa<CR>:Buffers<CR>', {noremap = true})

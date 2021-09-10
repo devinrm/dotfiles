@@ -4,7 +4,7 @@
 -- |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
 
 vim.bo.smartindent = true
-vim.cmd('colorscheme ' .. 'nord')
+vim.cmd('colorscheme ' .. 'grey')
 vim.cmd('filetype plugin on')
 vim.cmd('set spellfile=$HOME//.vim-spell-en.utf-8.add') -- Name of the word list file where words are added for the |zg| and |zw| commands.
 vim.g.nord_cursorline_transparent = true
@@ -12,7 +12,7 @@ vim.g.nord_borders = true
 vim.g.is_posix = 1 -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
 vim.g.mapleader = ' ' -- Set Leader key to <Space> bar
 vim.g.python3_host_prog = (vim.env.HOME .. '/.asdf/shims/python')
--- vim.g.coq_settings = { auto_start = true }
+vim.g.coq_settings = { auto_start = true }
 vim.o.autowriteall = true
 vim.o.backspace = '2' -- Backspace deletes like most programs in insert mode
 vim.o.backup = false -- Don't make a backup before overwriting a file
