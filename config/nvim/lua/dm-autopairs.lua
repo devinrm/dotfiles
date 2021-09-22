@@ -1,20 +1,50 @@
-require('nvim-autopairs').setup()
+-- require('nvim-autopairs').setup()
+-- local remap = vim.api.nvim_set_keymap
+-- local npairs = require('nvim-autopairs')
+
+-- _G.MUtils= {}
+
+-- vim.g.completion_confirm_key = ""
+-- MUtils.completion_confirm=function()
+--   if vim.fn.pumvisible() ~= 0  then
+--     if vim.fn.complete_info()["selected"] ~= -1 then
+--       return vim.fn["compe#confirm"](npairs.esc("<cr>"))
+--     else
+--       return npairs.esc("<cr>")
+--     end
+--   else
+--     return npairs.autopairs_cr()
+--   end
+-- end
+
+-- remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+
 local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
 
+npairs.setup({ map_bs = false })
+
+-- skip it, if you use another global object
 _G.MUtils= {}
 
-vim.g.completion_confirm_key = ""
-MUtils.completion_confirm=function()
-  if vim.fn.pumvisible() ~= 0  then
-    if vim.fn.complete_info()["selected"] ~= -1 then
-      return vim.fn["compe#confirm"](npairs.esc("<cr>"))
+MUtils.CR = function()
+  if vim.fn.pumvisible() ~= 0 then
+    if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
+      return npairs.esc('<c-y>')
     else
-      return npairs.esc("<cr>")
+      return npairs.esc('<c-e>') .. npairs.autopairs_cr()
     end
   else
     return npairs.autopairs_cr()
   end
 end
+remap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
 
-remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+MUtils.BS = function()
+  if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ 'mode' }).mode == 'eval' then
+    return npairs.esc('<c-e>') .. npairs.autopairs_bs()
+  else
+    return npairs.autopairs_bs()
+  end
+end
+remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
