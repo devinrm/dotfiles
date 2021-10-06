@@ -75,25 +75,6 @@ vim.api.nvim_set_keymap('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', {noremap = t
 -- === nvim-treesitter
 require('dm-treesitter')
 
--- === nvim-ts-rainbow ===
-require'nvim-treesitter.configs'.setup {
-  rainbow = {
-    enable = true,
-    extended_mode = true,
-    max_file_lines = nil,
-    colors = {
-    "#8fbcbb",
-    "#81a1c1",
-    "#4c566a",
-    "#b48ead",
-    "#a3be8c",
-    "#bf616a",
-    "#d08770",
-    },
-    -- termcolors = {} -- table of colour name strings
-  }
-}
-
 -- === trouble ===
 require('trouble').setup {}
 vim.api.nvim_set_keymap('n', '<Leader>xx', '<cmd>LspTroubleToggle lsp_document_diagnostics<CR>', {noremap = true})

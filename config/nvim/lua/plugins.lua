@@ -38,7 +38,6 @@ return require('packer').startup(function()
   use 'https://github.com/Vimjas/vim-python-pep8-indent'
   use { 'https://github.com/ms-jpq/coq_nvim', branch = 'coq' }
   use { 'https://github.com/ms-jpq/coq.artifacts', branch = 'artifacts' }
-  use 'https://github.com/p00f/nvim-ts-rainbow'
   use 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring'
 
   -- === find ===
