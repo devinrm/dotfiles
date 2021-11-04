@@ -25,6 +25,11 @@ lsp.tsserver.setup{
     require 'illuminate'.on_attach(client)
   end
 }
+lsp.tailwindcss.setup{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+}
 lsp.jsonls.setup{
   on_attach = function(client)
     require 'illuminate'.on_attach(client)

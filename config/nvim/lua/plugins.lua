@@ -29,7 +29,7 @@ return require('packer').startup(function()
   use 'https://github.com/folke/lsp-trouble.nvim'
   use 'https://github.com/glepnir/lspsaga.nvim'
   use 'https://github.com/hrsh7th/nvim-compe'
-  use 'https://github.com/kabouzeid/nvim-lspinstall'
+  use 'https://github.com/williamboman/nvim-lsp-installer'
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-lua/plenary.nvim'
   use 'https://github.com/nvim-lua/popup.nvim'
@@ -39,6 +39,7 @@ return require('packer').startup(function()
   use { 'https://github.com/ms-jpq/coq_nvim', branch = 'coq' }
   use { 'https://github.com/ms-jpq/coq.artifacts', branch = 'artifacts' }
   use 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring'
+  use 'https://gitlab.com/yorickpeterse/nvim-dd.git'
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run='./install --bin' }
