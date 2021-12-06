@@ -17,37 +17,16 @@ vim.api.nvim_command[[autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_seq_sy
 vim.api.nvim_command[[autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_command[[autocmd BufWritePre *.rb lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>ge', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'ge', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true, silent = true})
 
 -- === nvim-colorizer ===
 require 'colorizer'.setup()
 
--- === nvim-compe ===
--- require('dm-nvim-compe')
-
---[[ vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', {expr = true, noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<cr>', "compe#confirm('<cr>')", {expr = true, noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<c-e>', "compe#close('<c-e>')", {expr = true, noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<c-f>', "compe#scroll({ 'delta': +4 })", {expr = true, noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<C-d>', "compe#scroll({ 'delta': -4 })", {expr = true, noremap = true, silent = true}) ]]
-
 -- === vim-commentary ===
 vim.api.nvim_set_keymap('n', '<C-\\>', 'gcc', {})
 vim.api.nvim_set_keymap('x', '<C-\\>', 'gc', {})
-
--- === lspsaga ===
-local saga = require 'lspsaga'
-saga.init_lsp_saga()
-
-vim.api.nvim_set_keymap('n', '<Leader>gh', '<cmd> lua require("lspsaga.provider").lsp_finder()<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'gs', '<cmd> lua require("lspsaga.signaturehelp").signature_help()<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'rg', '<cmd> lua require("lspsaga.rename").rename()<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'gd', '<cmd> lua require("lspsaga.provider").preview_definition()<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>cd', '<cmd> lua require("lspsaga.diagnostic").show_line_diagnostics()<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>ca', '<cmd> lua require("lspsaga.codeaction").code_action()<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<Leader>ca', '<cmd> lua require("lspsaga.codeaction").range_code_action()<CR>', {noremap = true, silent = true})
 
 -- === devdocs ===
 vim.api.nvim_set_keymap('n', 'K', '<Plug>(devdocs-under-cursor)', {silent = true})
@@ -80,7 +59,7 @@ require('trouble').setup {}
 vim.api.nvim_set_keymap('n', '<Leader>xx', '<cmd>LspTroubleToggle lsp_document_diagnostics<CR>', {noremap = true})
 
 -- === nvim-dd ===
--- require('dd').setup()
+require('dd').setup()
 
 vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
 vim.api.nvim_command [[ hi def link LspReferenceWrite CursorLine ]]

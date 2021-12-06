@@ -27,8 +27,6 @@ return require('packer').startup(function()
   -- === completion ===
   use 'https://github.com/alexaandru/nvim-lspupdate'
   use 'https://github.com/folke/lsp-trouble.nvim'
-  use 'https://github.com/glepnir/lspsaga.nvim'
-  use 'https://github.com/hrsh7th/nvim-compe'
   use 'https://github.com/williamboman/nvim-lsp-installer'
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-lua/plenary.nvim'
