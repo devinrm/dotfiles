@@ -38,6 +38,8 @@ return require('packer').startup(function()
   use { 'https://github.com/ms-jpq/coq.artifacts', branch = 'artifacts' }
   use 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring'
   use 'https://gitlab.com/yorickpeterse/nvim-dd.git'
+  use 'https://github.com/github/copilot.vim'
+  use 'https://github.com/ms-jpq/coq.thirdparty'
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run='./install --bin' }
