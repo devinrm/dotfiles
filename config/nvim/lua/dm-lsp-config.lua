@@ -1,36 +1,43 @@
 local lsp = require 'lspconfig'
-local coq = require "coq"
---[[ require'lspconfig'.cssls.setup{
+local coq = require 'coq'
+
+lsp.cssls.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
-} ]]
-lsp.html.setup{
+})
+
+lsp.html.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
-}
-lsp.pyright.setup{
+})
+
+lsp.pyright.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
-}
-lsp.solargraph.setup{
+})
+
+lsp.solargraph.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
-}
-lsp.tsserver.setup{
+})
+
+lsp.tsserver.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
-}
-lsp.tailwindcss.setup{
+})
+
+lsp.tailwindcss.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
-}
-lsp.jsonls.setup{
+})
+
+lsp.jsonls.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end,
@@ -41,15 +48,18 @@ lsp.jsonls.setup{
       end
     }
   }
-}
-lsp.stylelint_lsp.setup{
+})
+
+lsp.stylelint_lsp.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
-}
-lsp.diagnosticls.setup{
+})
+
+lsp.diagnosticls.setup(coq.lsp_ensure_capabilities{
   filetypes = {
     'javascript',
+    'javascriptreact',
     'python',
     'ruby',
     'sh',
@@ -235,4 +245,4 @@ lsp.diagnosticls.setup{
       typescriptreact = 'prettier'
     }
   }
-}
+})
