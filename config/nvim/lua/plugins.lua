@@ -36,10 +36,10 @@ return require('packer').startup(function()
   use 'https://github.com/Vimjas/vim-python-pep8-indent'
   use { 'https://github.com/ms-jpq/coq_nvim', branch = 'coq' }
   use { 'https://github.com/ms-jpq/coq.artifacts', branch = 'artifacts' }
+  use 'https://github.com/ms-jpq/coq.thirdparty'
   use 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring'
   use 'https://gitlab.com/yorickpeterse/nvim-dd.git'
   use 'https://github.com/github/copilot.vim'
-  use 'https://github.com/ms-jpq/coq.thirdparty'
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run='./install --bin' }
@@ -50,7 +50,7 @@ return require('packer').startup(function()
   use 'https://github.com/mhinz/vim-signify'
 
   -- === language plugins ===
-  use { 'nvim-treesitter/nvim-treesitter', branch = '0.5-compat', run = ':TSUpdate' }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use { 'https://github.com/hail2u/vim-css3-syntax', ft = {'css', 'scss'} }
   use {
     'https://github.com/iamcco/markdown-preview.nvim',
