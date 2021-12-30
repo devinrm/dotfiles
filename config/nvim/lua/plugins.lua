@@ -42,6 +42,7 @@ return require('packer').startup(function()
   use 'https://gitlab.com/yorickpeterse/nvim-dd.git'
   use 'https://github.com/github/copilot.vim'
   use 'https://github.com/kchmck/vim-coffee-script'
+  use 'https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils'
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run ='./install --bin' }
