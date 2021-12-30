@@ -26,23 +26,24 @@ return require('packer').startup(function()
 
   -- === completion ===
   use 'https://github.com/alexaandru/nvim-lspupdate'
-  use 'https://github.com/folke/lsp-trouble.nvim'
+  use {
+    'https://github.com/folke/trouble.nvim',
+    requires = {'https://github.com/kyazdani42/nvim-web-devicons', opt = true}
+  }
   use 'https://github.com/williamboman/nvim-lsp-installer'
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-lua/plenary.nvim'
   use 'https://github.com/nvim-lua/popup.nvim'
-
-  -- === experiments ===
-  use 'https://github.com/Vimjas/vim-python-pep8-indent'
   use { 'https://github.com/ms-jpq/coq_nvim', branch = 'coq' }
   use { 'https://github.com/ms-jpq/coq.artifacts', branch = 'artifacts' }
   use 'https://github.com/ms-jpq/coq.thirdparty'
-  use 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring'
+
+  -- === experiments ===
   use 'https://gitlab.com/yorickpeterse/nvim-dd.git'
   use 'https://github.com/github/copilot.vim'
 
   -- === find ===
-  use { 'https://github.com/junegunn/fzf', run='./install --bin' }
+  use { 'https://github.com/junegunn/fzf', run ='./install --bin' }
   use 'https://github.com/junegunn/fzf.vim'
 
   -- === git ===
@@ -58,6 +59,7 @@ return require('packer').startup(function()
     cmd = 'MarkdownPreview',
     ft = {'markdown'}
   }
+  use 'https://github.com/Vimjas/vim-python-pep8-indent'
   use {
     'https://github.com/maxmellon/vim-jsx-pretty',
     ft = {'javascript', 'javascriptreact', 'typescript', 'typescriptreact'}
@@ -78,6 +80,7 @@ return require('packer').startup(function()
   use 'https://github.com/stefandtw/quickfix-reflector.vim'
   use 'https://github.com/norcalli/nvim-colorizer.lua'
   use 'https://github.com/tpope/vim-commentary'
+  use 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring'
   use 'https://github.com/rhysd/devdocs.vim'
   use 'https://github.com/tweekmonster/startuptime.vim'
   use 'https://github.com/RRethy/vim-illuminate'
