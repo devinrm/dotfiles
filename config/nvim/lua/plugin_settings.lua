@@ -8,7 +8,7 @@ require('dm-autopairs')
 
 --- === coq_nvim ===
 require("coq_3p") {
-  { src = "copilot", short_name = "COP", tmp_accept_key = "<c-l>" }
+  { src = "copilot", short_name = "COP", accept_key = "<c-l>" }
 }
 
 -- === statusline ===
