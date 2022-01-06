@@ -33,7 +33,6 @@ vim.o.matchtime = 0 -- Speed up escape after (){} chars
 vim.o.mouse = 'a' -- Enable mouse for pair programming
 vim.o.pumheight = 10 -- limit size of popup menu
 vim.o.pumblend = 20
-vim.o.redrawtime = 1000 -- Stop highlighting if it takes more than a second
 vim.o.scrolloff = 3 -- show 3 lines above and below cursor
 vim.o.shiftround = true -- Round indent to multiple of 'shiftwidth'.
 vim.o.shiftwidth = 2 -- Returns the effective value of 'shiftwidth'
