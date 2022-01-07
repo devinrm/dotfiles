@@ -109,7 +109,7 @@ alias unstage="git reset"
 alias build-db="docker-compose run app rake db:create && docker-compose run app rake db:reset && docker-compose run app rake db:seed"
 alias drama="docker-compose run app"
 alias ddown="docker-compose down"
-alias dpry="drama --service-ports"
+alias dpry="docker-compose run --service-ports app"
 
 # art
 alias sshstage="art -on stage ssh"
