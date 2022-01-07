@@ -105,10 +105,16 @@ alias stu="git stash -u"
 alias uncommit="git reset --soft HEAD^"
 alias unstage="git reset"
 
-# work
-alias sshstage='art -on stage ssh' # ip / instance
-alias sshprod='art -on prod ssh' # ip / instance
-alias sshpeer='art -on stage ssh' # ip / instance
+# docker
+alias build-db="docker-compose run app rake db:create && docker-compose run app rake db:reset && docker-compose run app rake db:seed"
+alias drama="docker-compose run app"
+alias ddown="docker-compose down"
+alias dpry="drama --service-ports"
+
+# art
+alias sshstage="art -on stage ssh"
+alias sshprod="art -on prod ssh"
+alias sshpeer="art -on stage ssh"
 
 # random
 alias tl="tmux list-sessions"
