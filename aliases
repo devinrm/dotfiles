@@ -105,6 +105,11 @@ alias stu="git stash -u"
 alias uncommit="git reset --soft HEAD^"
 alias unstage="git reset"
 
+# work
+alias sshstage='art -on stage ssh' # ip / instance
+alias sshprod='art -on prod ssh' # ip / instance
+alias sshpeer='art -on stage ssh' # ip / instance
+
 # random
 alias tl="tmux list-sessions"
 
