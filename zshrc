@@ -88,6 +88,9 @@ export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 fpath=(${ASDF_DIR}/completions $fpath)
 export NODEJS_CHECK_SIGNATURES=no
 
+# docker
+export COMPOSE_HTTP_TIMEOUT=300
+
 # keychain
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   /usr/bin/keychain --nogui $HOME/.ssh/id_rsa
