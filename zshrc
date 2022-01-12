@@ -76,10 +76,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 . "$HOME/.cargo/env"
 
-# necessary for psycopg2
-export LDFLAGS="-L$(brew --prefix)/opt/openssl@1.1/lib"
-export CPPFLAGS="-I$(brew --prefix)/opt/openssl@1.1/include"
-
 # ruby
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
