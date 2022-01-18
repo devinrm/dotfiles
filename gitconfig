@@ -72,7 +72,6 @@
 [hub]
   protocol = ssh
 [init]
-  templatedir = ~/.git_template
   defaultBranch = main
 [merge]
   ff = only
