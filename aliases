@@ -109,7 +109,7 @@ alias build-db="docker-compose run app rake db:create && docker-compose run app 
 alias drama="docker-compose run app"
 alias ddown="docker-compose down"
 alias dup="docker-compose up"
-alias dpry="docker-compose run --service-ports app"
+alias dpry="docker-compose run --rm --service-ports app"
 alias dprune="docker system prune --volumes -a"
 
 # art
@@ -129,3 +129,5 @@ alias wifi-ip="ipconfig getifaddr en0"
 alias update="$HOME/dotfiles/bin/update_packages.sh"
 
 alias install_rust="curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
+
+alias intel="arch -x86_64 /bin/zsh"

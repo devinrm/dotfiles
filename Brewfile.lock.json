@@ -947,10 +947,10 @@
         "macOS": "11.4"
       },
       "monterey": {
-        "HOMEBREW_VERSION": "3.3.10",
+        "HOMEBREW_VERSION": "3.3.11",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "7197e4f7b9520649e22e345ef3644e1e38c73b15",
-        "CLT": "13.0.0.0.1.1627064638",
+        "Homebrew/homebrew-core": "c4be1bd8e7990bf26bd3f8efce38c10207156f94",
+        "CLT": "13.2.0.0.1.1638488800",
         "Xcode": "13.2.1",
         "macOS": "12.1"
       }

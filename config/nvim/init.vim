@@ -133,6 +133,7 @@ endfunction
 
 let g:test#custom_strategies = {'neosplit': function('NeoSplit')}
 let g:test#strategy = 'neosplit'
+let test#ruby#rspec#executable = 'docker compose run --rm app bundle exec rspec'
 
 " === debugging ===
 let g:loaded_pry = 1
