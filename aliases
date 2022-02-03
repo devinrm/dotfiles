@@ -105,12 +105,16 @@ alias uncommit="git reset --soft HEAD^"
 alias unstage="git reset"
 
 # docker
-alias build-db="docker-compose run app rake db:create && docker-compose run app rake db:reset && docker-compose run app rake db:seed"
-alias drama="docker-compose run app"
+alias build_db="d_db_create && d_db_reset && art -on stage docker-compose run app rake db:seed"
+alias drama="art -on stage docker-compose run app"
 alias ddown="docker-compose down"
-alias dup="docker-compose up"
-alias dpry="docker-compose run --rm --service-ports app"
+alias dup="art -on stage docker-compose up"
+alias dpry="art -on stage docker-compose run --rm --service-ports app"
 alias dprune="docker system prune --volumes -a"
+alias es_index_create="art -on stage docker-compose run app bundle exec rake index:create"
+alias es_index_refresh="art -on stage docker-compose run app bundle exec rake index:refresh"
+alias d_db_create="art -on stage docker-compose run app rake db:create"
+alias d_db_reset="art -on stage docker-compose run app rake db:reset"
 
 # art
 alias sshstage="art -on stage ssh"
