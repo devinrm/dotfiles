@@ -47,6 +47,7 @@ return require('packer').startup(function()
 	"luukvbaal/nnn.nvim",
 	config = function() require("nnn").setup() end
 }
+use 'https://github.com/RRethy/nvim-treesitter-endwise'
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run ='./install --bin' }
