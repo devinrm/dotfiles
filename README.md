@@ -8,19 +8,25 @@ Dependencies
 
 [bat](https://github.com/sharkdp/bat)
 
-[fzf](https://github.com/junegunn/fzf)
-
 [fd](https://github/sharkdp/fd)
+
+[fzf](https://github.com/junegunn/fzf)
 
 [hub](https://github.com/github/hub)
 
 [neovim](https://neovim.io/) (The config does not support Vim only NeoVim >= 0.5)
 
-[rcm](https://github.com/thoughtbot/rcm) (or some other symlink manager)
+[rcm](https://github.com/thoughtbot/rcm)
 
 [ripgrep](https://github.com/BurntSushi/ripgrep)
 
+[rust](https://www.rust-lang.org/)
+
+[sqllite](https://www.sqlite.org/index.html) (for completion)
+
 [tpm](https://github.com/tmux-plugins/tpm)
+
+[wget](https://www.gnu.org/software/wget/)
 
 [zsh](https://www.zsh.org/)
 
@@ -33,6 +39,8 @@ Dependencies
 Install
 -------
 Clone: `git clone git://github.com/devinrm/dotfiles.git ~/dotfiles`
+
+Make sure you have [rcm](https://github.com/thoughtbot/rcm) installed
 
 Install: `env RCRC=$HOME/dotfiles/rcrc rcup`
 
