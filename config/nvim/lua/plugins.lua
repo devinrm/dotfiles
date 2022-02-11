@@ -48,6 +48,7 @@ return require('packer').startup(function()
 	config = function() require("nnn").setup() end
 }
 use 'https://github.com/RRethy/nvim-treesitter-endwise'
+use 'https://github.com/hashivim/vim-terraform'
 
   -- === find ===
   use { 'https://github.com/junegunn/fzf', run ='./install --bin' }
