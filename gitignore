@@ -7,4 +7,5 @@
 __pycache__/
 node_modules
 prod.sql
+tags
 yarn-error.log
