@@ -20,7 +20,7 @@ require('dm-lsp-config')
 vim.api.nvim_command[[autocmd BufWritePre *.py lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_command[[autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_command[[autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_seq_sync()]]
--- vim.api.nvim_command[[autocmd BufWritePre *.rb lua vim.lsp.buf.formatting_seq_sync()]]
+vim.api.nvim_command[[autocmd BufWritePre *.rb lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'ge', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true, silent = true})
