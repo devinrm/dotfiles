@@ -3,7 +3,6 @@ local npairs = require('nvim-autopairs')
 
 npairs.setup({ map_bs = false })
 
--- skip it, if you use another global object
 _G.MUtils= {}
 
 MUtils.CR = function()
