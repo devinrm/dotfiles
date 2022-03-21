@@ -53,16 +53,6 @@ return require('packer').startup(function()
     config = function() require('dd').setup() end
   }
   use 'https://github.com/kchmck/vim-coffee-script'
-  use {
-      'https://github.com/ThePrimeagen/refactoring.nvim',
-      requires = {
-          {'https://github.com/nvim-lua/plenary.nvim'},
-          {'https://github.com/nvim-treesitter/nvim-treesitter'}
-      },
-      config = function()
-          require('refactoring').setup()
-      end
-  }
 
   -- === find ===
   use {
@@ -86,7 +76,6 @@ return require('packer').startup(function()
             }
           }
         }
-        require('telescope').load_extension('refactoring')
         require('telescope').load_extension('fzf')
       end
     }
