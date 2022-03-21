@@ -1,7 +1,10 @@
 lua << EOF
 require('plugins')
 require('settings')
-require('plugin_settings')
+require('dm-autopairs')
+require('dm-statusline')
+require('dm-lsp-config')
+require('dm-treesitter')
 require('mappings')
 require('functions')
 EOF
