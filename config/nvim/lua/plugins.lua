@@ -80,7 +80,6 @@ return require('packer').startup(function()
     }
 
   -- === git ===
-  use 'https://github.com/junegunn/gv.vim'
   use 'https://github.com/mhinz/vim-signify'
 
   -- === language plugins ===
