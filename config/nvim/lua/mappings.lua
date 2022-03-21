@@ -66,18 +66,6 @@ vim.api.nvim_set_keymap('x', '<C-\\>', 'gc', {})
 -- === devdocs ===
 vim.api.nvim_set_keymap('n', 'K', '<Plug>(devdocs-under-cursor)', {silent = true})
 
--- === fzf.vim ===
--- vim.api.nvim_set_keymap('n', '<C-b>', ':wa<CR>:Buffers<CR>', {noremap = true})
--- vim.api.nvim_set_keymap('n', '<C-p>', ':wa<CR>:Files<CR>', {noremap = true})
--- vim.api.nvim_set_keymap('n', '<Leader>p', ':wa<CR>:BLines<CR>', {noremap = true})
--- vim.api.nvim_set_keymap('n', '<Leader>gc', ':wa<CR>:Commits<CR>', {noremap = true})
--- vim.api.nvim_set_keymap('n', '<Leader>bgc', ':wa<CR>:BCommits<CR>', {noremap = true})
--- -- grep the word under the cursor
--- vim.api.nvim_set_keymap('n', 'gr', ':Rg <C-R><C-W><CR>', {noremap = true})
--- -- Press ; and then start typing to fzf search the whole project for a word or string
--- vim.api.nvim_set_keymap('n', '<Leader>;', ':Fg<CR>', {noremap = true})
--- vim.api.nvim_set_keymap('n', '<Leader>hi', ':wa<CR>:History<CR>', {noremap = true})
-
 -- === telescope ===
 vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files()<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', {noremap = true})
@@ -105,3 +93,15 @@ vim.api.nvim_set_keymap('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', {noremap = t
 
 -- === trouble ===
 vim.api.nvim_set_keymap('n', '<Leader>xx', '<cmd>TroubleToggle document_diagnostics<CR>', {noremap = true})
+
+local actions = require('telescope.actions')
+local trouble = require('trouble.providers.telescope')
+local telescope = require('telescope')
+telescope.setup {
+  defaults = {
+    mappings = {
+      i = { ['<A-t>'] = trouble.open_with_trouble },
+      n = { ['<A-t>'] = trouble.open_with_trouble },
+    },
+  },
+}
