@@ -14,7 +14,7 @@ Dependencies
 
 [hub](https://github.com/github/hub)
 
-[neovim](https://neovim.io/) (The config does not support Vim only NeoVim >= 0.5)
+[neovim](https://neovim.io/) (The config does not support Vim only NeoVim >= 0.7)
 
 [rcm](https://github.com/thoughtbot/rcm)
 

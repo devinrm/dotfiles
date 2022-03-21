@@ -60,6 +60,7 @@ vim.opt.colorcolumn = '+1' -- highlight column after 'textwidth
 vim.opt.completeopt:remove({'i', 't', 'preview'})
 vim.opt.diffopt:append({'vertical'}) -- Start diff mode with vertical splits
 vim.opt.guicursor:append({'a:blinkon0'}) -- Disable blinking cursor on nvim
+vim.opt.laststatus = 3
 vim.opt.list = true
 vim.opt.path:append({'.,,', '.,app/javascript', 'node_modules'})
 vim.opt.shortmess = 'filnxtToOFc' -- vim default with 'c' appended (don't give |ins-completion-menu| messages)
