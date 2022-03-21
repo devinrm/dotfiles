@@ -103,15 +103,15 @@ endfunction
 let g:fzf_layout = { 'window': 'call FloatingFZF(0.9, 0.6, "Comment")' }
 
 " === netrw ===
-" let g:loaded_netrw = 1
-" let g:loaded_netrwPlugin = 1
-let g:netrw_browse_split = 4
-let g:netrw_preview = 1
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
-let g:netrw_dirhistmax = 0
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+" let g:netrw_browse_split = 4
+" let g:netrw_preview = 1
+" let g:netrw_banner = 0
+" let g:netrw_liststyle = 3
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 25
+" let g:netrw_dirhistmax = 0
 
 " === vim-signify ===
 let g:signify_sign_show_text = 0
@@ -157,12 +157,3 @@ function! InsertDebug()
     call feedkeys("\<Esc>")
   endif
 endfunction
-
-" let g:coq_settings = { "keymap.recommended": v:false }
-" Keybindings
-" ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
-" ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
-" ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
-" ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
-" ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-" ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
