@@ -43,21 +43,16 @@ return require('packer').startup(function()
       { src = "copilot", short_name = "COP", accept_key = "<c-l>" }
     } end
   }
+  use 'https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils'
+  use 'https://github.com/github/copilot.vim'
+  use 'https://github.com/RRethy/nvim-treesitter-endwise'
 
   -- === experiments ===
   use {
     'https://gitlab.com/yorickpeterse/nvim-dd.git',
     config = function() require('dd').setup() end
   }
-  use 'https://github.com/github/copilot.vim'
   use 'https://github.com/kchmck/vim-coffee-script'
-  use 'https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils'
-  use {
-    'https://github.com/luukvbaal/nnn.nvim',
-    config = function() require('nnn').setup() end
-  }
-  use 'https://github.com/RRethy/nvim-treesitter-endwise'
-  use 'https://github.com/hashivim/vim-terraform'
   use {
       'https://github.com/ThePrimeagen/refactoring.nvim',
       requires = {
@@ -68,23 +63,28 @@ return require('packer').startup(function()
           require('refactoring').setup()
       end
   }
-  use {
-    'https://github.com/nvim-telescope/telescope.nvim',
-    requires = { {'https://github.com/nvim-lua/plenary.nvim'} },
-    config = function()
-      require('telescope').load_extension('refactoring')
-    end
-  }
 
   -- === find ===
+  use {
+    'https://github.com/luukvbaal/nnn.nvim',
+    config = function() require('nnn').setup() end
+  }
   use { 'https://github.com/junegunn/fzf', run ='./install --bin' }
   use 'https://github.com/junegunn/fzf.vim'
+  use {
+      'https://github.com/nvim-telescope/telescope.nvim',
+      requires = { {'https://github.com/nvim-lua/plenary.nvim'} },
+      config = function()
+        require('telescope').load_extension('refactoring')
+      end
+    }
 
   -- === git ===
   use 'https://github.com/junegunn/gv.vim'
   use 'https://github.com/mhinz/vim-signify'
 
   -- === language plugins ===
+  use 'https://github.com/hashivim/vim-terraform'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use { 'https://github.com/hail2u/vim-css3-syntax', ft = {'css', 'scss'} }
   use {
