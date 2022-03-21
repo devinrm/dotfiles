@@ -77,13 +77,6 @@ vim.api.nvim_set_keymap('n', '<Leader>bgc', '<cmd>lua require("telescope.builtin
 vim.api.nvim_set_keymap('n', '<Leader>;', '<cmd>lua require("telescope.builtin").live_grep()<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua require("telescope.builtin").grep_string()<CR>', {noremap = true})
 
-vim.api.nvim_set_keymap(
-  'n',
-  '<leader>rr',
-  '<Esc><cmd>lua require("telescope").extensions.refactoring.refactors()<CR>',
-  { noremap = true }
-)
-
 -- === vim-test ===
 vim.api.nvim_set_keymap('n', '<Leader>t', ':wa<CR>:TestFile<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>s', ':wa<CR>:TestNearest<CR>', {noremap = true, silent = true})
