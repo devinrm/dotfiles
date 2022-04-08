@@ -7,6 +7,8 @@ pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U 
 pip install --upgrade pip
 asdf update
 asdf plugin-update --all
+gem update
+gem update --system
 npm i -g npm
 npm outdated -g ;
 npm update -g ;
