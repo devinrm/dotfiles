@@ -20,17 +20,18 @@ lsp.pyright.setup(coq.lsp_ensure_capabilities{
 })
 
 lsp.solargraph.setup(coq.lsp_ensure_capabilities{
+  cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
 lsp.tsserver.setup(coq.lsp_ensure_capabilities{
-  init_options = require("nvim-lsp-ts-utils").init_options,
+  init_options = require('nvim-lsp-ts-utils').init_options,
   on_attach = function(client, bufnr)
     require 'illuminate'.on_attach(client)
 
-    local ts_utils = require("nvim-lsp-ts-utils")
+    local ts_utils = require('nvim-lsp-ts-utils')
 
     ts_utils.setup({
       debug = false,

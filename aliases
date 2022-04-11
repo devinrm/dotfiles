@@ -107,7 +107,7 @@ alias unstage="git reset"
 # docker
 alias build_db="d_db_create && d_db_reset && art -on stage docker-compose run app rake db:seed"
 alias drama="art -on stage docker-compose run app"
-alias ddown="docker-compose down"
+alias ddown="docker-compose down --remove-orphans"
 alias dup="art -on stage docker-compose up"
 alias dpry="art -on stage docker-compose run --rm --service-ports app"
 alias dprune="docker system prune --volumes -a"
