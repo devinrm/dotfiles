@@ -53,6 +53,20 @@ return require('packer').startup(function()
     config = function() require('dd').setup() end
   }
   use 'https://github.com/kchmck/vim-coffee-script'
+  use {
+    'https://github.com/jose-elias-alvarez/null-ls.nvim',
+    config = function()
+      require('null-ls').setup()
+    end,
+    requires = { 'nvim-lua/plenary.nvim' },
+  }
+  use {
+    'ThePrimeagen/refactoring.nvim',
+    requires = {
+      {'nvim-lua/plenary.nvim'},
+      {'nvim-treesitter/nvim-treesitter'}
+    }
+  }
 
   -- === find ===
   use {

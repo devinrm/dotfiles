@@ -55,7 +55,9 @@ vim.api.nvim_command[[autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_seq_sy
 vim.api.nvim_command[[autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_command[[autocmd BufWritePre *.js lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_command[[autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_seq_sync()]]
-vim.api.nvim_command[[autocmd BufWritePre *.rb lua vim.lsp.buf.formatting_seq_sync()]]
+vim.api.nvim_command[[autocmd BufWritePre *.rb lua vim.lsp.buf.formatting()]]
+vim.api.nvim_command[[autocmd BufWritePre *.scss lua vim.lsp.buf.formatting_seq_sync()]]
+vim.api.nvim_command[[autocmd BufWritePre *.css lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'ge', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true, silent = true})
@@ -69,15 +71,16 @@ vim.api.nvim_set_keymap('x', '<C-\\>', 'gc', {})
 vim.api.nvim_set_keymap('n', 'K', '<Plug>(devdocs-under-cursor)', {silent = true})
 
 -- === telescope ===
-vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-l>', '<cmd>lua require("telescope.builtin").registers()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>hi', '<cmd>lua require("telescope.builtin").oldfiles()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>p', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>gc', '<cmd>lua require("telescope.builtin").git_commits()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>bgc', '<cmd>lua require("telescope.builtin").git_bcommits()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>;', '<cmd>lua require("telescope.builtin").live_grep()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua require("telescope.builtin").grep_string()<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-l>', '<cmd>lua require("telescope.builtin").registers({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>hi', '<cmd>lua require("telescope.builtin").oldfiles({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>p', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>gc', '<cmd>lua require("telescope.builtin").git_commits({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>bgc', '<cmd>lua require("telescope.builtin").git_bcommits({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>;', '<cmd>lua require("telescope.builtin").live_grep({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua require("telescope.builtin").grep_string({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('v', '<Leader>ca', ':Telescope lsp_range_code_actions<CR>', {noremap = true})
 
 -- === vim-test ===
 vim.api.nvim_set_keymap('n', '<Leader>t', ':wa<CR>:TestFile<CR>', {noremap = true, silent = true})
