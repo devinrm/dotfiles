@@ -14,6 +14,7 @@ neovim
 npm
 npmf
 prettier
+@fsouza/prettierd
 prettier-eslint
 prettier-eslint-cli
 pyright
