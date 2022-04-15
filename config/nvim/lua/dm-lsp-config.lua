@@ -34,44 +34,8 @@ lsp.solargraph.setup(coq.lsp_ensure_capabilities{
 })
 
 lsp.tsserver.setup(coq.lsp_ensure_capabilities{
-  init_options = require('nvim-lsp-ts-utils').init_options,
-  on_attach = function(client, bufnr)
+  on_attach = function(client)
     require 'illuminate'.on_attach(client)
-
-    local ts_utils = require('nvim-lsp-ts-utils')
-
-    ts_utils.setup({
-      debug = false,
-      disable_commands = false,
-      enable_import_on_completion = false,
-
-      import_all_timeout = 5000,
-      import_all_priorities = {
-        same_file = 1, -- add to existing import statement
-        local_files = 2, -- git files or files with relative path markers
-        buffer_content = 3, -- loaded buffer content
-        buffers = 4, -- loaded buffer names
-      },
-      import_all_scan_buffers = 100,
-      import_all_select_source = false,
-
-      filter_out_diagnostics_by_severity = {},
-      filter_out_diagnostics_by_code = {},
-
-      auto_inlay_hints = true,
-      inlay_hints_highlight = "Comment",
-
-      update_imports_on_move = false,
-      require_confirmation_on_move = false,
-      watch_dir = nil,
-    })
-
-    ts_utils.setup_client(client)
-
-    local opts = { silent = true }
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "tlo", ":TSLspOrganize<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "tlr", ":TSLspRenameFile<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "tli", ":TSLspImportAll<CR>", opts)
   end
 })
 

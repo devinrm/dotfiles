@@ -43,7 +43,6 @@ return require('packer').startup(function()
       { src = "copilot", short_name = "COP", accept_key = "<c-l>" }
     } end
   }
-  use 'https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils'
   use 'https://github.com/github/copilot.vim'
   use 'https://github.com/RRethy/nvim-treesitter-endwise'
 
