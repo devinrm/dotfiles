@@ -66,6 +66,12 @@ return require('packer').startup(function()
       {'nvim-treesitter/nvim-treesitter'}
     }
   }
+  use {
+    'https://github.com/jose-elias-alvarez/typescript.nvim',
+    config = function()
+      require('typescript').setup()
+    end,
+  }
 
   -- === find ===
   use {
