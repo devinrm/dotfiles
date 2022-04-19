@@ -1,5 +1,5 @@
 # make nvim the manpager
-export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER="nvim +Man!"
 
 # color man pages
 man() {
