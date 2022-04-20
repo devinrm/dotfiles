@@ -69,6 +69,7 @@ local null_ls_sources = {
   null_ls.builtins.code_actions.shellcheck,
   null_ls.builtins.diagnostics.shellcheck,
   null_ls.builtins.diagnostics.stylelint,
-  null_ls.builtins.formatting.stylelint
+  null_ls.builtins.formatting.stylelint,
+  null_ls.builtins.diagnostics.yamllint
 }
 null_ls.register(null_ls_sources)

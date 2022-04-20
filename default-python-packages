@@ -8,3 +8,4 @@ psycopg2
 pylint
 pynvim
 yapf
+yamllint
