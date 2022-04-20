@@ -1,6 +1,7 @@
 brew "bat"
 brew "fd"
 brew "fzf"
+brew "git-lfs"
 brew "htop"
 brew "hub"
 brew "neovim"
