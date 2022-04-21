@@ -86,9 +86,7 @@ return require('packer').startup(function()
       config = function()
         require('telescope').setup {
           extensions = {
-            fzf = {
-              fuzzy = true,                    -- false will only do exact matching
-            }
+            fzf = { fuzzy = true }
           }
         }
         require('telescope').load_extension('fzf')
