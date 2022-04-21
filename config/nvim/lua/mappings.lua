@@ -70,6 +70,9 @@ vim.api.nvim_set_keymap('x', '<C-\\>', 'gc', {})
 -- === devdocs ===
 vim.api.nvim_set_keymap('n', 'K', '<Plug>(devdocs-under-cursor)', {silent = true})
 
+-- === vim-fugitive ===
+vim.cmd([[ command! -nargs=1 Browse silent exec '!open "<args>"' ]])
+
 -- === telescope ===
 vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files({hidden=true,layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
