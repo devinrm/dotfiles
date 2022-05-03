@@ -44,6 +44,9 @@ vim.api.nvim_set_keymap('n', "'", ':registers<CR>', {noremap = true})
 -- === ripgrep ===
 vim.api.nvim_set_keymap('n', '\\', ":Rg<SPACE>-F '' -g '*.'", {noremap = true})
 
+-- === reload init ===
+vim.api.nvim_set_keymap('n', '<Leader>so', ':source $MYVIMRC<CR>', {noremap = true})
+
 --  ____ ____ ____ ____ ____ ____   ____ ____ ____ ____
 -- ||p |||l |||u |||g |||i |||n || ||m |||a |||p |||s ||
 -- ||__|||__|||__|||__|||__|||__|| ||__|||__|||__|||__||

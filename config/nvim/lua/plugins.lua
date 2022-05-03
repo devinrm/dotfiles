@@ -14,7 +14,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Auto compile when there are changes in plugins.lua
-vim.cmd "autocmd BufWritePost plugins.lua PackerCompile"
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
 
 return require('packer').startup(function()
   -- Packer can manage itself
@@ -47,10 +52,6 @@ return require('packer').startup(function()
   use 'https://github.com/RRethy/nvim-treesitter-endwise'
 
   -- === experiments ===
-  use {
-    'https://gitlab.com/yorickpeterse/nvim-dd.git',
-    config = function() require('dd').setup() end
-  }
   use 'https://github.com/kchmck/vim-coffee-script'
   use {
     'https://github.com/jose-elias-alvarez/null-ls.nvim',
