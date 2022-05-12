@@ -1,3 +1,5 @@
+@fsouza/prettierd
+@tailwindcss/language-server
 coffeescript
 diagnostic-languageserver
 eslint
@@ -10,18 +12,17 @@ eslint_d
 fast-cli
 git-split-diffs
 htmlhint
+jsonlint
 neovim
 npm
 npmf
 prettier
-@fsouza/prettierd
 prettier-eslint
 prettier-eslint-cli
 pyright
 snyk
 stylelint
 stylelint-lsp
-@tailwindcss/language-server
 tldr
 ts-node
 typescript

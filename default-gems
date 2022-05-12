@@ -7,6 +7,7 @@ erubis
 fasterer
 flog
 gem-browse
+haml_lint
 i18n-tasks
 interactive_editor
 mdl
