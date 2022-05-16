@@ -3,6 +3,7 @@
 coffeescript
 diagnostic-languageserver
 eslint
+eslint-config-art
 eslint-config-prettier
 eslint-plugin-jsx-a11y
 eslint-plugin-no-unsanitized
@@ -22,6 +23,7 @@ prettier-eslint-cli
 pyright
 snyk
 stylelint
+stylelint-config-art
 stylelint-lsp
 tldr
 ts-node
