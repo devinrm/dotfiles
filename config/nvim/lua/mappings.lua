@@ -76,16 +76,20 @@ vim.api.nvim_set_keymap('n', 'K', '<Plug>(devdocs-under-cursor)', {silent = true
 -- === vim-fugitive ===
 vim.cmd([[ command! -nargs=1 Browse silent exec '!open "<args>"' ]])
 
+-- === fzf.vim ===
+vim.api.nvim_set_keymap('n', '<C-b>', ':wa<CR>:Buffers<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-p>', ':wa<CR>:Files<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>p', ':wa<CR>:BLines<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>gc', ':wa<CR>:Commits<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>bgc', ':wa<CR>:BCommits<CR>', {noremap = true})
+-- grep the word under the cursor
+vim.api.nvim_set_keymap('n', 'gr', ':Rg <C-R><C-W><CR>', {noremap = true})
+-- Press ; and then start typing to fzf search the whole project for a word or string
+vim.api.nvim_set_keymap('n', '<Leader>;', ':Fg<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>hi', ':wa<CR>:History<CR>', {noremap = true})
+
 -- === telescope ===
-vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files({hidden=true,layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-l>', '<cmd>lua require("telescope.builtin").registers({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>hi', '<cmd>lua require("telescope.builtin").oldfiles({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>p', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>gc', '<cmd>lua require("telescope.builtin").git_commits({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>bgc', '<cmd>lua require("telescope.builtin").git_bcommits({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>;', '<cmd>lua require("telescope.builtin").live_grep({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua require("telescope.builtin").grep_string({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
 vim.api.nvim_set_keymap('v', '<Leader>ca', ':Telescope lsp_range_code_actions<CR>', {noremap = true})
 
 -- === vim-test ===
@@ -97,15 +101,3 @@ vim.api.nvim_set_keymap('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', {noremap = t
 
 -- === trouble ===
 vim.api.nvim_set_keymap('n', '<Leader>xx', '<cmd>TroubleToggle document_diagnostics<CR>', {noremap = true})
-
-local actions = require('telescope.actions')
-local trouble = require('trouble.providers.telescope')
-local telescope = require('telescope')
-telescope.setup {
-  defaults = {
-    mappings = {
-      i = { ['<A-t>'] = trouble.open_with_trouble },
-      n = { ['<A-t>'] = trouble.open_with_trouble },
-    },
-  },
-}
