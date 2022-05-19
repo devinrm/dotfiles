@@ -38,9 +38,6 @@ vim.api.nvim_set_keymap('n', '<Leader>vi', ':NnnExplorer $HOME/dotfiles/<CR>', {
 -- === debugging ===
 vim.api.nvim_set_keymap('n', '<Leader>d', ':call InsertDebug()<CR>', {noremap = true})
 
--- === registers ===
-vim.api.nvim_set_keymap('n', "'", ':registers<CR>', {noremap = true})
-
 -- === ripgrep ===
 vim.api.nvim_set_keymap('n', '\\', ":Rg<SPACE>-F '' -g '*.'", {noremap = true})
 
@@ -89,7 +86,7 @@ vim.api.nvim_set_keymap('n', '<Leader>;', ':Fg<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<Leader>hi', ':wa<CR>:History<CR>', {noremap = true})
 
 -- === telescope ===
-vim.api.nvim_set_keymap('n', '<C-l>', '<cmd>lua require("telescope.builtin").registers({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', "'", '<cmd>lua require("telescope.builtin").registers({layout_strategy="vertical",layout_config={width=0.99}})<CR>', {noremap = true})
 vim.api.nvim_set_keymap('v', '<Leader>ca', ':Telescope lsp_range_code_actions<CR>', {noremap = true})
 
 -- === vim-test ===
