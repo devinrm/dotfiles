@@ -61,7 +61,6 @@ lsp.jsonls.setup(coq.lsp_ensure_capabilities{
 local null_ls_sources = {
   null_ls.builtins.code_actions.eslint_d,
   null_ls.builtins.diagnostics.eslint_d,
-  null_ls.builtins.formatting.eslint_d,
   null_ls.builtins.diagnostics.hadolint,
   null_ls.builtins.diagnostics.haml_lint,
   null_ls.builtins.diagnostics.jsonlint,
@@ -72,7 +71,6 @@ local null_ls_sources = {
   null_ls.builtins.code_actions.shellcheck,
   null_ls.builtins.diagnostics.shellcheck,
   null_ls.builtins.diagnostics.stylelint,
-  null_ls.builtins.formatting.stylelint,
   null_ls.builtins.diagnostics.yamllint,
 }
 
