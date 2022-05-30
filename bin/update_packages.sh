@@ -9,6 +9,6 @@ asdf update
 asdf plugin-update --all
 gem update
 gem update --system
-npm i -g npm
-npm outdated -g ;
-npm update -g ;
+npm i --location=global npm
+npm outdated --location=global ;
+npm update --location=global ;

@@ -1,6 +1,5 @@
 @fsouza/prettierd
 @tailwindcss/language-server
-coffeescript
 diagnostic-languageserver
 eslint
 eslint-config-art
