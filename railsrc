@@ -1,7 +1,5 @@
 --api
 --database=postgresql
---skip-coffee
---skip-sprockets
+--skip-asset-pipeline
 --skip-test
---skip-turbolinks
---webpacker=react
+--javascript=esbuild
