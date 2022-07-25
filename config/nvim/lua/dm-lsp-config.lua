@@ -35,6 +35,7 @@ lsp.solargraph.setup(coq.lsp_ensure_capabilities{
 
 lsp.tsserver.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
+    client.server_capabilities.documentFormattingProvider = false,
     require 'illuminate'.on_attach(client)
   end
 })
