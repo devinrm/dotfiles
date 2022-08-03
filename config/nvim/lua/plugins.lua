@@ -30,13 +30,38 @@ return require('packer').startup(function()
   use 'https://github.com/shaunsingh/nord.nvim'
 
   -- === completion ===
-  use 'https://github.com/alexaandru/nvim-lspupdate'
   use {
     'https://github.com/folke/trouble.nvim',
     requires = {'https://github.com/kyazdani42/nvim-web-devicons', opt = true},
     config = function() require('trouble').setup() end
   }
-  use 'https://github.com/williamboman/nvim-lsp-installer'
+  use {
+    'https://github.com/williamboman/mason.nvim',
+    config = function() require('mason').setup() end
+  }
+  use {
+    'https://github.com/williamboman/mason-lspconfig.nvim',
+    config = function() require('mason-lspconfig').setup({
+      ensure_installed = {
+        "bashls",
+        "codeqlls",
+        "cssls",
+        "dockerls",
+        "graphql",
+        "html",
+        "jsonls",
+        "marksman",
+        "pyright",
+        "rust_analyzer",
+        "solargraph",
+        "sqlls",
+        "sumneko_lua",
+        "tailwindcss",
+        "tsserver",
+      },
+      automatic_installation = true,
+    }) end
+  }
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-lua/plenary.nvim'
   use 'https://github.com/nvim-lua/popup.nvim'

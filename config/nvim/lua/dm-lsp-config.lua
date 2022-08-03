@@ -2,7 +2,31 @@ local coq = require 'coq'
 local lsp = require 'lspconfig'
 local null_ls = require("null-ls")
 
+lsp.bashls.setup(coq.lsp_ensure_capabilities{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+})
+
+lsp.codeqlls.setup(coq.lsp_ensure_capabilities{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+})
+
 lsp.cssls.setup(coq.lsp_ensure_capabilities{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+})
+
+lsp.dockerls.setup(coq.lsp_ensure_capabilities{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+})
+
+lsp.graphql.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
@@ -13,38 +37,6 @@ lsp.html.setup(coq.lsp_ensure_capabilities{
     require 'illuminate'.on_attach(client)
   end
 })
-
-lsp.pyright.setup(coq.lsp_ensure_capabilities{
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
-lsp.solargraph.setup(coq.lsp_ensure_capabilities{
-  cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
-  on_attach = function(client)
-    client.server_capabilities.documentFormattingProvider = false,
-    require 'illuminate'.on_attach(client)
-  end,
-  settings = {
-    solargraph = {
-      diagnostics = false
-    }
-  }
-})
-
-lsp.tsserver.setup(coq.lsp_ensure_capabilities{
-  on_attach = function(client)
-    client.server_capabilities.documentFormattingProvider = false,
-    require 'illuminate'.on_attach(client)
-  end
-})
-
--- lsp.tailwindcss.setup(coq.lsp_ensure_capabilities{
---   on_attach = function(client)
---     require 'illuminate'.on_attach(client)
---   end
--- })
 
 lsp.jsonls.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
@@ -57,6 +49,89 @@ lsp.jsonls.setup(coq.lsp_ensure_capabilities{
       end
     }
   }
+})
+
+lsp.marksman.setup(coq.lsp_ensure_capabilities{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+})
+
+lsp.pyright.setup(coq.lsp_ensure_capabilities{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+})
+
+lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+})
+
+lsp.solargraph.setup(coq.lsp_ensure_capabilities{
+  cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
+  on_attach = function(client)
+    -- client.resolved_capabilities.document_formatting = false,
+    client.server_capabilities.documentFormattingProvider = false
+  end,
+  on_attach_client = function(client)
+    require 'illuminate'.on_attach(client)
+  end,
+  settings = {
+    solargraph = {
+      diagnostics = false
+    }
+  }
+})
+
+lsp.sqlls.setup(coq.lsp_ensure_capabilities{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+})
+
+lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end,
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+})
+
+lsp.tailwindcss.setup(coq.lsp_ensure_capabilities{
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
+})
+
+lsp.tsserver.setup(coq.lsp_ensure_capabilities{
+  on_attach = function(client)
+    -- client.resolved_capabilities.document_formatting = false,
+    require 'illuminate'.on_attach(client)
+  end,
+  on_attach_client = function(client)
+    -- client.resolved_capabilities.document_formatting = false,
+    client.server_capabilities.documentFormattingProvider = false
+  end
 })
 
 local null_ls_sources = {
