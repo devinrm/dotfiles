@@ -72,10 +72,9 @@ lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities{
 lsp.solargraph.setup(coq.lsp_ensure_capabilities{
   cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
   on_attach = function(client)
-    client.server_capabilities.documentFormattingProvider = false
-  end,
-  on_attach_client = function(client)
     require 'illuminate'.on_attach(client)
+    client.resolved_capabilities.document_formatting = false
+    -- client.server_capabilities.documentFormattingProvider = false
   end,
   settings = {
     solargraph = {
@@ -125,10 +124,9 @@ lsp.tailwindcss.setup(coq.lsp_ensure_capabilities{
 lsp.tsserver.setup(coq.lsp_ensure_capabilities{
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
+    client.resolved_capabilities.document_formatting = false
+    -- client.server_capabilities.documentFormattingProvider = false
   end,
-  on_attach_client = function(client)
-    client.server_capabilities.documentFormattingProvider = false
-  end
 })
 
 local null_ls_sources = {
