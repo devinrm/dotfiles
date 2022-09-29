@@ -50,14 +50,17 @@ vim.api.nvim_set_keymap('n', '<Leader>so', ':source $MYVIMRC<CR>', {noremap = tr
 -- |/__\|/__\|/__\|/__\|/__\|/__\| |/__\|/__\|/__\|/__\|
 
 -- === nvim-lsp ===
-vim.api.nvim_command[[autocmd BufWritePre *.py lua vim.lsp.buf.formatting_seq_sync()]]
-vim.api.nvim_command[[autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_seq_sync()]]
-vim.api.nvim_command[[autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_seq_sync()]]
+vim.api.nvim_command[[autocmd BufWritePre *.astro lua vim.lsp.buf.formatting_seq_sync()]]
+vim.api.nvim_command[[autocmd BufWritePre *.css lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_command[[autocmd BufWritePre *.js lua vim.lsp.buf.formatting_seq_sync()]]
+vim.api.nvim_command[[autocmd BufWritePre *.json lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_command[[autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_seq_sync()]]
+vim.api.nvim_command[[autocmd BufWritePre *.py lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_command[[autocmd BufWritePre *.rb lua vim.lsp.buf.formatting()]]
 vim.api.nvim_command[[autocmd BufWritePre *.scss lua vim.lsp.buf.formatting_seq_sync()]]
-vim.api.nvim_command[[autocmd BufWritePre *.css lua vim.lsp.buf.formatting_seq_sync()]]
+vim.api.nvim_command[[autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_seq_sync()]]
+vim.api.nvim_command[[autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_seq_sync()]]
+vim.api.nvim_command[[autocmd BufWritePre *.yml lua vim.lsp.buf.formatting_seq_sync()]]
 vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'ge', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true, silent = true})

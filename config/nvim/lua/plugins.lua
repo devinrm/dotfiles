@@ -92,12 +92,8 @@ return require('packer').startup(function()
       {'nvim-treesitter/nvim-treesitter'}
     }
   }
-  use {
-    'https://github.com/jose-elias-alvarez/typescript.nvim',
-    config = function()
-      require('typescript').setup()
-    end,
-  }
+  use { 'https://github.com/jose-elias-alvarez/typescript.nvim' }
+  use { 'https://github.com/voldikss/vim-floaterm' }
 
   -- === find ===
   use {
@@ -124,6 +120,7 @@ return require('packer').startup(function()
   use 'https://github.com/mhinz/vim-signify'
 
   -- === language plugins ===
+  use 'https://github.com/wuelnerdotexe/vim-astro'
   use 'https://github.com/hashivim/vim-terraform'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use { 'https://github.com/hail2u/vim-css3-syntax', ft = {'css', 'scss'} }

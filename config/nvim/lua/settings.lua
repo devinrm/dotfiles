@@ -4,6 +4,7 @@
 -- |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
 
 vim.bo.smartindent = true
+vim.g.astro_typescript_format = 'enable'
 vim.g.nord_cursorline_transparent = true
 vim.g.nord_borders = true
 vim.g.nord_italic = true

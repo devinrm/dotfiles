@@ -103,6 +103,9 @@ endfunction
 
 let g:fzf_layout = { 'window': 'call FloatingFZF(0.9, 0.6, "Comment")' }
 
+" === floaterm ===
+let g:floaterm_keymap_toggle = '<C-q>'
+
 " === netrw ===
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
