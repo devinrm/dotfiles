@@ -79,8 +79,7 @@ lsp.solargraph.setup(coq.lsp_ensure_capabilities{
   cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
-    client.resolved_capabilities.document_formatting = false
-    -- client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentFormattingProvider = false
   end,
   settings = {
     solargraph = {
@@ -131,15 +130,18 @@ require('typescript').setup(coq.lsp_ensure_capabilities{
   server = {
     on_attach = function(client)
       require 'illuminate'.on_attach(client)
-      client.resolved_capabilities.document_formatting = false
-      -- client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentFormattingProvider = false
     end,
   }
 })
 
 local null_ls_sources = {
-  null_ls.builtins.code_actions.eslint_d,
-  null_ls.builtins.diagnostics.eslint_d,
+  null_ls.builtins.code_actions.eslint_d.with({
+    extra_filetypes = { "astro" }
+  }),
+  null_ls.builtins.diagnostics.eslint_d.with({
+    extra_filetypes = { "astro" }
+  }),
   null_ls.builtins.diagnostics.hadolint,
   null_ls.builtins.diagnostics.haml_lint,
   null_ls.builtins.diagnostics.jsonlint,

@@ -9,14 +9,6 @@ require('mappings')
 require('functions')
 EOF
 
-let s:clip = '/mnt/c/Windows/System32/clip.exe'
-if executable(s:clip)
-  augroup WSLYank
-    autocmd!
-    autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-  augroup END
-endif
-
 "  ____ ____ ____ ____ ____ ____  ____ ____ ___
 " ||f |||u |||n |||c |||t |||i |||o |||n |||s ||
 " ||__|||__|||__|||__|||__|||__|||__|||__|||__||
@@ -44,9 +36,6 @@ augroup vimTrim
   autocmd!
   autocmd BufWritePre * call s:TrimTrailingWhitespace()
 augroup END
-
-" === vim-cool ===
-let g:CoolTotalMatches = 1
 
 " === fzf ===
 " You can pass rg arguments like so: :Rg -F components -g '*jsx'
@@ -102,23 +91,6 @@ function! FloatingFZF(width, height, border_highlight)
 endfunction
 
 let g:fzf_layout = { 'window': 'call FloatingFZF(0.9, 0.6, "Comment")' }
-
-" === floaterm ===
-let g:floaterm_keymap_toggle = '<C-q>'
-
-" === netrw ===
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
-" let g:netrw_browse_split = 4
-" let g:netrw_preview = 1
-" let g:netrw_banner = 0
-" let g:netrw_liststyle = 3
-" let g:netrw_altv = 1
-" let g:netrw_winsize = 25
-" let g:netrw_dirhistmax = 0
-
-" === vim-signify ===
-let g:signify_sign_show_text = 0
 
 " === vim-test ===
 function! NeoSplit(cmd) abort

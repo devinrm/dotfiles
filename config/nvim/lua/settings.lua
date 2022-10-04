@@ -5,9 +5,20 @@
 
 vim.bo.smartindent = true
 vim.g.astro_typescript_format = 'enable'
+vim.g.CoolTotalMatches = 1
 vim.g.nord_cursorline_transparent = true
 vim.g.nord_borders = true
 vim.g.nord_italic = true
+vim.g.signify_sign_show_text = 0
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.netrw_browse_split = 4
+vim.g.netrw_preview = 1
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
+vim.g.netrw_altv = 1
+vim.g.netrw_winsize = 25
+vim.g.netrw_dirhistmax = 0
 vim.cmd('colorscheme nord')
 vim.cmd('filetype plugin on')
 vim.cmd('set spellfile=$HOME//.vim-spell-en.utf-8.add') -- Name of the word list file where words are added for the |zg| and |zw| commands.

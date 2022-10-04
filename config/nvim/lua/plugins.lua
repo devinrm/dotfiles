@@ -93,7 +93,6 @@ return require('packer').startup(function()
     }
   }
   use { 'https://github.com/jose-elias-alvarez/typescript.nvim' }
-  use { 'https://github.com/voldikss/vim-floaterm' }
 
   -- === find ===
   use {
