@@ -2,80 +2,80 @@ local coq = require 'coq'
 local lsp = require 'lspconfig'
 local null_ls = require("null-ls")
 
-lsp.astro.setup(coq.lsp_ensure_capabilities{
+lsp.astro.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.bashls.setup(coq.lsp_ensure_capabilities{
+lsp.bashls.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.codeqlls.setup(coq.lsp_ensure_capabilities{
+lsp.codeqlls.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.cssls.setup(coq.lsp_ensure_capabilities{
+lsp.cssls.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.dockerls.setup(coq.lsp_ensure_capabilities{
+lsp.dockerls.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.graphql.setup(coq.lsp_ensure_capabilities{
+lsp.graphql.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.html.setup(coq.lsp_ensure_capabilities{
+lsp.html.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.jsonls.setup(coq.lsp_ensure_capabilities{
+lsp.jsonls.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end,
   commands = {
     Format = {
       function()
-        vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
+        vim.lsp.formatexpr({}, { 0, 0 }, { vim.fn.line("$"), 0 })
       end
     }
   }
 })
 
-lsp.marksman.setup(coq.lsp_ensure_capabilities{
+lsp.marksman.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.pyright.setup(coq.lsp_ensure_capabilities{
+lsp.pyright.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities{
+lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.solargraph.setup(coq.lsp_ensure_capabilities{
+lsp.solargraph.setup(coq.lsp_ensure_capabilities {
   cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
@@ -88,13 +88,13 @@ lsp.solargraph.setup(coq.lsp_ensure_capabilities{
   }
 })
 
-lsp.sqlls.setup(coq.lsp_ensure_capabilities{
+lsp.sqlls.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities{
+lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end,
@@ -106,7 +106,7 @@ lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities{
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = { 'vim' },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
@@ -120,17 +120,16 @@ lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities{
   },
 })
 
-lsp.tailwindcss.setup(coq.lsp_ensure_capabilities{
+lsp.tailwindcss.setup(coq.lsp_ensure_capabilities {
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-require('typescript').setup(coq.lsp_ensure_capabilities{
+require('typescript').setup(coq.lsp_ensure_capabilities {
   server = {
     on_attach = function(client)
       require 'illuminate'.on_attach(client)
-      client.server_capabilities.documentFormattingProvider = false
     end,
   }
 })
@@ -146,6 +145,9 @@ local null_ls_sources = {
   null_ls.builtins.diagnostics.haml_lint,
   null_ls.builtins.diagnostics.jsonlint,
   null_ls.builtins.formatting.prettierd.with({
+    extra_filetypes = { "astro" }
+  }),
+  null_ls.builtins.formatting.eslint_d.with({
     extra_filetypes = { "astro" }
   }),
   null_ls.builtins.code_actions.refactoring,
