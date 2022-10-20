@@ -78,8 +78,8 @@ lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities {
 lsp.solargraph.setup(coq.lsp_ensure_capabilities {
   cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
   on_attach = function(client)
-    require 'illuminate'.on_attach(client)
     client.server_capabilities.documentFormattingProvider = false
+    require 'illuminate'.on_attach(client)
   end,
   settings = {
     solargraph = {
