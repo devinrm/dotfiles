@@ -86,15 +86,6 @@ return require('packer').startup(function()
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-lua/plenary.nvim'
   use 'https://github.com/nvim-lua/popup.nvim'
-  -- use { 'https://github.com/ms-jpq/coq_nvim', branch = 'coq' }
-  -- use { 'https://github.com/ms-jpq/coq.artifacts', branch = 'artifacts' }
-  -- use {
-  --   'https://github.com/ms-jpq/coq.thirdparty',
-  --   config = function() require('coq_3p') {
-  --       { src = "copilot", short_name = "COP", accept_key = "<c-l>" }
-  --     }
-  --   end
-  -- }
   use {
     'https://github.com/zbirenbaum/copilot.lua',
     event = "VimEnter",
