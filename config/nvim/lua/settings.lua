@@ -3,8 +3,8 @@
 -- ||__|||__|||__|||__|||__|||__|||__|||__||
 -- |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
 
+vim.o.termguicolors = true
 vim.bo.smartindent = true
-vim.g.astro_typescript_format = 'enable'
 vim.g.CoolTotalMatches = 1
 vim.g.nord_cursorline_transparent = true
 vim.g.nord_borders = true
@@ -19,6 +19,11 @@ vim.g.netrw_liststyle = 3
 vim.g.netrw_altv = 1
 vim.g.netrw_winsize = 25
 vim.g.netrw_dirhistmax = 0
+-- vim.g.neobones = {
+--   lighten_cursor_line = 0,
+--   darkness = 'warm',
+--   colorize_diagnostic_underline_text = true
+-- }
 vim.cmd('colorscheme nord')
 vim.cmd('filetype plugin on')
 vim.cmd('set spellfile=$HOME//.vim-spell-en.utf-8.add') -- Name of the word list file where words are added for the |zg| and |zw| commands.
@@ -58,7 +63,6 @@ vim.o.suffixesadd = '.js,.jsx,.ts,.tsx'
 vim.o.swapfile = false -- Do not create a swapfile for a new buffer.
 vim.o.synmaxcol = 200
 vim.o.tabstop = 2 -- Number of spaces that a <Tab> in the file counts for.
-vim.o.termguicolors = true
 vim.o.textwidth = 120 -- Maximum width of text that is being inserted. A longer line will be broken after white space to get this width.
 vim.o.ttimeout = true -- determine the behavior when part of a key code sequence has been received by the terminal UI.
 vim.o.undofile = true -- Automatically saves undo history to an undo file when writing a buffer to a file, and restores undo history from the same file on buffer read.
@@ -69,12 +73,12 @@ vim.o.wildignore = 'tmp/**' -- Ignore stuff that can't be opened
 vim.o.wildmode = 'list:longest,list:full'
 vim.o.writebackup = false -- Don't make a backup before overwriting a file.
 vim.opt.colorcolumn = '+1' -- highlight column after 'textwidth
-vim.opt.completeopt:remove({'i', 't', 'preview'})
-vim.opt.diffopt:append({'vertical'}) -- Start diff mode with vertical splits
-vim.opt.guicursor:append({'a:blinkon0'}) -- Disable blinking cursor on nvim
+vim.opt.completeopt:remove({ 'i', 't', 'preview' })
+vim.opt.diffopt:append({ 'vertical' }) -- Start diff mode with vertical splits
+vim.opt.guicursor:append({ 'a:blinkon0' }) -- Disable blinking cursor on nvim
 vim.opt.laststatus = 3
 vim.opt.list = true
-vim.opt.path:append({'.,,', '.,app/javascript', 'node_modules'})
+vim.opt.path:append({ '.,,', '.,app/javascript', 'node_modules' })
 vim.opt.shortmess = 'filnxtToOFc' -- vim default with 'c' appended (don't give |ins-completion-menu| messages)
 vim.wo.cursorline = true
 vim.wo.number = true -- Turn on line numbers

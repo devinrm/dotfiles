@@ -1,50 +1,113 @@
-local coq = require 'coq'
-local lsp = require 'lspconfig'
-local null_ls = require("null-ls")
+local lsp = require('lspconfig')
+local null_ls = require('null-ls')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local cmp = require('cmp')
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+local luasnip = require("luasnip")
 
-lsp.astro.setup(coq.lsp_ensure_capabilities {
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { name = 'copilot', group_index = 2 },
+    { name = 'nvim_lua' }
+  }, {
+    { name = 'buffer' },
+    { name = 'path' }
+  })
+})
+
+lsp.astro.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.bashls.setup(coq.lsp_ensure_capabilities {
+lsp.bashls.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.codeqlls.setup(coq.lsp_ensure_capabilities {
+lsp.codeqlls.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.cssls.setup(coq.lsp_ensure_capabilities {
+lsp.cssls.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.dockerls.setup(coq.lsp_ensure_capabilities {
+lsp.dockerls.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.graphql.setup(coq.lsp_ensure_capabilities {
+lsp.graphql.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.html.setup(coq.lsp_ensure_capabilities {
+lsp.html.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.jsonls.setup(coq.lsp_ensure_capabilities {
+lsp.jsonls.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end,
@@ -57,29 +120,33 @@ lsp.jsonls.setup(coq.lsp_ensure_capabilities {
   }
 })
 
-lsp.marksman.setup(coq.lsp_ensure_capabilities {
+lsp.marksman.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.pyright.setup(coq.lsp_ensure_capabilities {
+lsp.pyright.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities {
+lsp.rust_analyzer.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.solargraph.setup(coq.lsp_ensure_capabilities {
+lsp.solargraph.setup({
+  capabilities = capabilities,
   cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
   on_attach = function(client)
-    client.server_capabilities.documentFormattingProvider = false
     require 'illuminate'.on_attach(client)
+    client.server_capabilities.documentFormattingProvider = false
   end,
   settings = {
     solargraph = {
@@ -88,13 +155,15 @@ lsp.solargraph.setup(coq.lsp_ensure_capabilities {
   }
 })
 
-lsp.sqlls.setup(coq.lsp_ensure_capabilities {
+lsp.sqlls.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities {
+lsp.sumneko_lua.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end,
@@ -120,13 +189,15 @@ lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities {
   },
 })
 
-lsp.tailwindcss.setup(coq.lsp_ensure_capabilities {
+lsp.tailwindcss.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end
 })
 
-require('typescript').setup(coq.lsp_ensure_capabilities {
+require('typescript').setup({
+  capabilities = capabilities,
   server = {
     on_attach = function(client)
       require 'illuminate'.on_attach(client)

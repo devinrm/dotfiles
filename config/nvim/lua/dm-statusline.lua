@@ -29,10 +29,11 @@ local config = {
   options = {
     component_separators = "░",
     section_separators = "░",
-    theme = {
-      normal = {c = {fg = colors.fg, bg = colors.bg}},
-      inactive = {c = {fg = colors.fg, bg = colors.bg}}
-    }
+    theme = 'neobones'
+    -- theme = {
+    -- normal = {c = {fg = colors.fg, bg = colors.bg}},
+    -- inactive = {c = {fg = colors.fg, bg = colors.bg}}
+    -- }
   },
   sections = {
     lualine_a = {},
@@ -63,7 +64,7 @@ end
 ins_left {
   function() return '▊' end,
 
-  color = {fg = colors.blue}, -- Sets highlighting of component
+  color = { fg = colors.blue }, -- Sets highlighting of component
   left_padding = 0
 }
 
@@ -105,12 +106,12 @@ ins_left {
   'branch',
   icon = '',
   condition = conditions.check_git_workspace,
-  color = {fg = colors.violet, gui = 'bold'}
+  color = { fg = colors.violet, gui = 'bold' }
 }
 
 ins_left {
   'diff',
-  symbols = {added = ' ', modified = '柳 ', removed = ' '},
+  symbols = { added = ' ', modified = '柳 ', removed = ' ' },
   color_added = colors.green,
   color_modified = colors.orange,
   color_removed = colors.red,
@@ -120,20 +121,20 @@ ins_left {
 ins_left {
   'filename',
   condition = conditions.buffer_not_empty,
-  color = {fg = colors.blue, gui = 'bold'},
+  color = { fg = colors.blue, gui = 'bold' },
   path = 1,
 }
 
 ins_left {
   'diagnostics',
-  sources = {'nvim_diagnostic'},
-  symbols = {error = ' ', warn = ' ', info = ' '},
+  sources = { 'nvim_diagnostic' },
+  symbols = { error = ' ', warn = ' ', info = ' ' },
   color_error = colors.red,
   color_warn = colors.yellow,
   color_info = colors.cyan
 }
 
-ins_left {function() return '%=' end}
+ins_left { function() return '%=' end }
 
 ins_left {
   function()
@@ -154,26 +155,26 @@ ins_left {
   end,
 
   icon = ' LSP:',
-  color = {fg = '#ffffff', gui = 'bold'}
+  color = { fg = '#ffffff', gui = 'bold' }
 }
 
 ins_right {
   'filetype',
-  color = {fg = colors.blue, gui = 'bold'}
+  color = { fg = colors.blue, gui = 'bold' }
 }
 
 ins_right {
   'o:encoding',
   upper = true,
   condition = conditions.hide_in_width,
-  color = {fg = colors.green, gui = 'bold'}
+  color = { fg = colors.green, gui = 'bold' }
 }
 
 ins_right {
   'fileformat',
   upper = true,
   icons_enabled = true,
-  color = {fg = colors.green, gui = 'bold'}
+  color = { fg = colors.green, gui = 'bold' }
 }
 
 ins_right {
@@ -183,7 +184,7 @@ ins_right {
 
       if size <= 0 then return '' end
 
-      local sufixes = {'b', 'k', 'm', 'g'}
+      local sufixes = { 'b', 'k', 'm', 'g' }
       local i = 1
 
       while size > 1024 do
@@ -204,14 +205,14 @@ ins_right {
   condition = conditions.buffer_not_empty
 }
 
-ins_right {'location'}
+ins_right { 'location' }
 
-ins_right {'progress', color = {fg = colors.fg, gui = 'bold'}}
+ins_right { 'progress', color = { fg = colors.fg, gui = 'bold' } }
 
 ins_right {
   function() return '▊' end,
 
-  color = {fg = colors.blue},
+  color = { fg = colors.blue },
   right_padding = 0
 }
 

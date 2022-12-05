@@ -28,6 +28,10 @@ return require('packer').startup(function()
   -- === colorscheme(s) ===
   use 'https://github.com/devinrm/the-grey'
   use 'https://github.com/shaunsingh/nord.nvim'
+  use {
+    'https://github.com/mcchrish/zenbones.nvim',
+    requires = 'rktjmp/lush.nvim'
+  }
 
   -- === completion ===
   use {
@@ -35,6 +39,22 @@ return require('packer').startup(function()
     requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true },
     config = function() require('trouble').setup() end
   }
+
+  use { 'https://github.com/hrsh7th/cmp-nvim-lsp' }
+  use { 'https://github.com/hrsh7th/cmp-buffer' }
+  use { 'https://github.com/hrsh7th/cmp-path' }
+  use { 'https://github.com/hrsh7th/cmp-cmdline' }
+  use { 'https://github.com/hrsh7th/nvim-cmp' }
+  use { 'https://github.com/hrsh7th/cmp-nvim-lua' }
+  use {
+    "https://github.com/zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end
+  }
+  use { 'https://github.com/L3MON4D3/LuaSnip' }
+
   use {
     'https://github.com/williamboman/mason.nvim',
     config = function() require('mason').setup() end
@@ -66,16 +86,24 @@ return require('packer').startup(function()
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-lua/plenary.nvim'
   use 'https://github.com/nvim-lua/popup.nvim'
-  use { 'https://github.com/ms-jpq/coq_nvim', branch = 'coq' }
-  use { 'https://github.com/ms-jpq/coq.artifacts', branch = 'artifacts' }
+  -- use { 'https://github.com/ms-jpq/coq_nvim', branch = 'coq' }
+  -- use { 'https://github.com/ms-jpq/coq.artifacts', branch = 'artifacts' }
+  -- use {
+  --   'https://github.com/ms-jpq/coq.thirdparty',
+  --   config = function() require('coq_3p') {
+  --       { src = "copilot", short_name = "COP", accept_key = "<c-l>" }
+  --     }
+  --   end
+  -- }
   use {
-    'https://github.com/ms-jpq/coq.thirdparty',
-    config = function() require('coq_3p') {
-        { src = "copilot", short_name = "COP", accept_key = "<c-l>" }
-      }
-    end
+    'https://github.com/zbirenbaum/copilot.lua',
+    event = "VimEnter",
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup()
+      end, 100)
+    end,
   }
-  use 'https://github.com/github/copilot.vim'
   use 'https://github.com/RRethy/nvim-treesitter-endwise'
 
   -- === experiments ===
@@ -165,6 +193,7 @@ return require('packer').startup(function()
   use { 'https://github.com/tpope/vim-rails', ft = { 'ruby' } }
   use 'https://github.com/tpope/vim-rhubarb'
   use 'https://github.com/tpope/vim-rsi'
+  use 'https://github.com/kyazdani42/nvim-web-devicons'
   use {
     'hoob3rt/lualine.nvim',
     requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
