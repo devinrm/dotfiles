@@ -29,11 +29,10 @@ local config = {
   options = {
     component_separators = "░",
     section_separators = "░",
-    theme = 'neobones'
-    -- theme = {
-    -- normal = {c = {fg = colors.fg, bg = colors.bg}},
-    -- inactive = {c = {fg = colors.fg, bg = colors.bg}}
-    -- }
+    theme = {
+      normal = { c = { fg = colors.fg, bg = colors.bg } },
+      inactive = { c = { fg = colors.fg, bg = colors.bg } }
+    }
   },
   sections = {
     lualine_a = {},

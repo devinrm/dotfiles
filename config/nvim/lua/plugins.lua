@@ -26,12 +26,7 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   -- === colorscheme(s) ===
-  use 'https://github.com/devinrm/the-grey'
-  use 'https://github.com/shaunsingh/nord.nvim'
-  use {
-    'https://github.com/mcchrish/zenbones.nvim',
-    requires = 'rktjmp/lush.nvim'
-  }
+  use { 'https://github.com/nyoom-engineering/oxocarbon.nvim' }
 
   -- === completion ===
   use {
