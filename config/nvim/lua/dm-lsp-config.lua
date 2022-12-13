@@ -57,13 +57,6 @@ cmp.setup({
   })
 })
 
-lsp.astro.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
 lsp.bashls.setup({
   capabilities = capabilities,
   on_attach = function(client)
@@ -205,32 +198,23 @@ require('typescript').setup({
   }
 })
 
-local null_ls_sources = {
-  null_ls.builtins.code_actions.eslint_d.with({
-    extra_filetypes = { "astro" }
-  }),
-  null_ls.builtins.diagnostics.eslint_d.with({
-    extra_filetypes = { "astro" }
-  }),
-  null_ls.builtins.diagnostics.hadolint,
-  null_ls.builtins.diagnostics.haml_lint,
-  null_ls.builtins.diagnostics.jsonlint,
-  null_ls.builtins.formatting.prettierd.with({
-    extra_filetypes = { "astro" }
-  }),
-  null_ls.builtins.formatting.eslint_d.with({
-    extra_filetypes = { "astro" }
-  }),
-  null_ls.builtins.code_actions.refactoring,
-  null_ls.builtins.diagnostics.rubocop,
-  null_ls.builtins.formatting.rubocop,
-  null_ls.builtins.formatting.rustywind.with({
-    extra_filetypes = { "erb" }
-  }),
-  null_ls.builtins.code_actions.shellcheck,
-  null_ls.builtins.diagnostics.shellcheck,
-  null_ls.builtins.diagnostics.stylelint,
-  null_ls.builtins.diagnostics.yamllint,
-}
-
-null_ls.register(null_ls_sources)
+null_ls.setup({
+  sources = {
+    null_ls.builtins.code_actions.eslint_d,
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.diagnostics.hadolint,
+    null_ls.builtins.diagnostics.haml_lint,
+    null_ls.builtins.diagnostics.jsonlint,
+    null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.code_actions.refactoring,
+    null_ls.builtins.diagnostics.rubocop,
+    null_ls.builtins.formatting.rubocop,
+    null_ls.builtins.formatting.rustywind.with({
+      extra_filetypes = { "erb" }
+    }),
+    null_ls.builtins.code_actions.shellcheck,
+    null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.diagnostics.stylelint,
+    null_ls.builtins.diagnostics.yamllint,
+  }
+})

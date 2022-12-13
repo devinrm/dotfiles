@@ -93,20 +93,9 @@ return require('packer').startup(function()
   use 'https://github.com/RRethy/nvim-treesitter-endwise'
 
   -- === experiments ===
-  use 'https://github.com/kchmck/vim-coffee-script'
   use {
     'https://github.com/jose-elias-alvarez/null-ls.nvim',
-    config = function()
-      require('null-ls').setup()
-    end,
     requires = { 'nvim-lua/plenary.nvim' },
-  }
-  use {
-    'ThePrimeagen/refactoring.nvim',
-    requires = {
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-treesitter/nvim-treesitter' }
-    }
   }
   use { 'https://github.com/jose-elias-alvarez/typescript.nvim' }
 
