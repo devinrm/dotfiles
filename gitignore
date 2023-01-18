@@ -1,7 +1,5 @@
 .DS_Store
 .bundle
-.env
-.env.local
 .tool-versions
 .tool-versions-e
 __pycache__/
