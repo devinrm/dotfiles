@@ -166,13 +166,7 @@ lsp.solargraph.setup({
   cmd = { 'solargraph', 'stdio' },
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
-    client.server_capabilities.documentFormattingProvider = false
-  end,
-  settings = {
-    solargraph = {
-      diagnostics = false
-    }
-  }
+  end
 })
 
 lsp.sqlls.setup({
@@ -234,8 +228,6 @@ null_ls.setup({
     null_ls.builtins.diagnostics.jsonlint,
     null_ls.builtins.formatting.prettierd,
     null_ls.builtins.code_actions.refactoring,
-    null_ls.builtins.diagnostics.rubocop,
-    null_ls.builtins.formatting.rubocop,
     null_ls.builtins.formatting.rustywind.with({
       extra_filetypes = { "erb" }
     }),
