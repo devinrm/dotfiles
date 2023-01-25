@@ -47,6 +47,7 @@
   oldNormal = red bold
 [commit]
   template = ~/.gitmessage
+  gpgsign = true
 [core]
   autocrlf = input
   excludesfile = ~/.gitignore
@@ -91,3 +92,4 @@
 [user]
   name = Devin Morgenstern
   email = devin.morgenstern@protonmail.com
+  signingkey = 0324EC8F36BF5F44
