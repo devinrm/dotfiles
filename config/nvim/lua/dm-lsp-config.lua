@@ -39,206 +39,206 @@ local luasnip = require("luasnip")
 -- end
 
 cmp.setup({
-    snippet = {
-        expand = function(args)
-          require('luasnip').lsp_expand(args.body)
-        end,
-    },
-    window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-        ['<C-b>'] = cmp.mapping.scroll_docs( -4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
-        ["<Tab>"] = vim.schedule_wrap(function(fallback)
-          if cmp.visible() and has_words_before() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-          else
-            fallback()
-          end
-        end),
-        ["<S-Tab>"] = vim.schedule_wrap(function(fallback)
-          if cmp.visible() and has_words_before() then
-            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-          else
-            fallback()
-          end
-        end),
-    }),
-    sources = cmp.config.sources({
-        { name = 'copilot',  group_index = 2 },
-        { name = 'nvim_lsp', group_index = 2 },
-        { name = 'luasnip',  group_index = 2 },
-        { name = 'nvim_lua', group_index = 2 }
-    }, {
-        { name = 'buffer', group_index = 2 },
-        { name = 'path',   group_index = 2 }
-    })
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs( -4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ["<Tab>"] = vim.schedule_wrap(function(fallback)
+      if cmp.visible() and has_words_before() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      else
+        fallback()
+      end
+    end),
+    ["<S-Tab>"] = vim.schedule_wrap(function(fallback)
+      if cmp.visible() and has_words_before() then
+        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+      else
+        fallback()
+      end
+    end),
+  }),
+  sources = cmp.config.sources({
+    { name = 'copilot',  group_index = 2 },
+    { name = 'nvim_lsp', group_index = 2 },
+    { name = 'luasnip',  group_index = 2 },
+    { name = 'nvim_lua', group_index = 2 }
+  }, {
+    { name = 'buffer', group_index = 2 },
+    { name = 'path',   group_index = 2 }
+  })
 })
 
 lsp.bashls.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
 })
 
 lsp.codeqlls.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
 })
 
 lsp.cssls.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
 })
 
 lsp.dockerls.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
 })
 
 lsp.graphql.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
 })
 
 lsp.html.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
 })
 
 lsp.jsonls.setup({
-    capabilities = capabilities,
-    cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end,
-    commands = {
-        Format = {
-            function()
-              vim.lsp.formatexpr({}, { 0, 0 }, { vim.fn.line("$"), 0 })
-            end
-        }
+  capabilities = capabilities,
+  cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end,
+  commands = {
+    Format = {
+      function()
+        vim.lsp.formatexpr({}, { 0, 0 }, { vim.fn.line("$"), 0 })
+      end
     }
+  }
 })
 
 lsp.marksman.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
 })
 
 lsp.pyright.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
 })
 
 lsp.rust_analyzer.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
 })
 
 lsp.solargraph.setup({
-    capabilities = capabilities,
-    cmd = { 'solargraph', 'stdio' },
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-      client.server_capabilities.documentFormattingProvider = false
-    end,
-    settings = {
-        solargraph = {
-            diagnostics = false
-        }
+  capabilities = capabilities,
+  cmd = { 'solargraph', 'stdio' },
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+    client.server_capabilities.documentFormattingProvider = false
+  end,
+  settings = {
+    solargraph = {
+      diagnostics = false
     }
+  }
 })
 
 lsp.sqlls.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
 })
 
 lsp.sumneko_lua.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end,
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { 'vim' },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
-        },
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end,
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
     },
+  },
 })
 
 lsp.tailwindcss.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
+  capabilities = capabilities,
+  on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+  end
 })
 
 require('typescript').setup({
-    capabilities = capabilities,
-    server = {
-        on_attach = function(client)
-          require 'illuminate'.on_attach(client)
-        end,
-    }
+  capabilities = capabilities,
+  server = {
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end,
+  }
 })
 
 null_ls.setup({
-    sources = {
-        null_ls.builtins.code_actions.eslint_d,
-        null_ls.builtins.diagnostics.eslint_d,
-        null_ls.builtins.diagnostics.hadolint,
-        null_ls.builtins.diagnostics.haml_lint,
-        null_ls.builtins.diagnostics.jsonlint,
-        null_ls.builtins.formatting.prettierd,
-        null_ls.builtins.code_actions.refactoring,
-        null_ls.builtins.formatting.rustywind.with({
-            extra_filetypes = { "erb" }
-        }),
-        null_ls.builtins.diagnostics.rubocop,
-        null_ls.builtins.formatting.rubocop,
-        null_ls.builtins.code_actions.shellcheck,
-        null_ls.builtins.diagnostics.shellcheck,
-        null_ls.builtins.diagnostics.stylelint,
-        null_ls.builtins.diagnostics.yamllint,
-    }
+  sources = {
+    null_ls.builtins.code_actions.eslint_d,
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.diagnostics.hadolint,
+    null_ls.builtins.diagnostics.haml_lint,
+    null_ls.builtins.diagnostics.jsonlint,
+    null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.code_actions.refactoring,
+    null_ls.builtins.formatting.rustywind.with({
+      extra_filetypes = { "erb" }
+    }),
+    null_ls.builtins.diagnostics.rubocop,
+    null_ls.builtins.formatting.rubocop,
+    null_ls.builtins.code_actions.shellcheck,
+    null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.diagnostics.stylelint,
+    null_ls.builtins.diagnostics.yamllint,
+  }
 })

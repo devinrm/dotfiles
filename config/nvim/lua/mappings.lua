@@ -49,7 +49,6 @@ vim.api.nvim_set_keymap('n', '<Leader>so', ':source $MYVIMRC<CR>', { noremap = t
 -- ||__|||__|||__|||__|||__|||__|| ||__|||__|||__|||__||
 -- |/__\|/__\|/__\|/__\|/__\|/__\| |/__\|/__\|/__\|/__\|
 
-vim.api.nvim_command [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 vim.api.nvim_command [[autocmd BufWritePre *.rb lua vim.lsp.buf.format({ async = true })]]
 vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'ge', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
@@ -79,8 +78,8 @@ vim.api.nvim_set_keymap('n', '<Leader>hi', ':wa<CR>:History<CR>', { noremap = tr
 
 -- === telescope ===
 vim.api.nvim_set_keymap('n', "'",
-  '<cmd>lua require("telescope.builtin").registers({layout_strategy="vertical",layout_config={width=0.99}})<CR>',
-  { noremap = true })
+    '<cmd>lua require("telescope.builtin").registers({layout_strategy="vertical",layout_config={width=0.99}})<CR>',
+    { noremap = true })
 vim.api.nvim_set_keymap('v', '<Leader>ca', ':Telescope lsp_range_code_actions<CR>', { noremap = true })
 
 -- === vim-test ===
