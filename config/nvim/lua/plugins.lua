@@ -26,8 +26,12 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   -- === colorscheme(s) ===
-  use { 'https://github.com/nyoom-engineering/oxocarbon.nvim' }
   use 'https://github.com/xero/sourcerer.vim'
+  use {
+    "https://github.com/jesseleite/nvim-noirbuddy",
+    requires = { "https://github.com/tjdevries/colorbuddy.nvim", branch = "dev" },
+    config = function() require('noirbuddy').setup() end
+  }
 
   -- === completion ===
   use {
@@ -112,6 +116,19 @@ return require('packer').startup(function()
     requires = { 'nvim-lua/plenary.nvim' },
   }
   use { 'https://github.com/jose-elias-alvarez/typescript.nvim' }
+  use({
+  "https://github.com/jackMort/ChatGPT.nvim",
+    config = function()
+      require("chatgpt").setup({
+        -- optional configuration
+      })
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  })
 
   -- === find ===
   use {
