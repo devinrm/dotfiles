@@ -82,7 +82,7 @@ return require('packer').startup(function()
           "sorbet",
           "sqlls",
           "stylelint_lsp",
-          "sumneko_lua",
+          "lua_ls",
           "tailwindcss",
           "terraformls",
           "tflint",

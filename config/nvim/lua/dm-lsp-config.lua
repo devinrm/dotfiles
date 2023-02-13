@@ -179,7 +179,7 @@ lsp.sqlls.setup({
   end
 })
 
-lsp.sumneko_lua.setup({
+lsp.lua_ls.setup({
   capabilities = capabilities,
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
