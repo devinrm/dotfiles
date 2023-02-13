@@ -44,9 +44,6 @@ vim.api.nvim_set_keymap('n', '\\', ":Rg<SPACE>-F '' -g '*.'", { noremap = true }
 -- === reload init ===
 vim.api.nvim_set_keymap('n', '<Leader>so', ':source $MYVIMRC<CR>', { noremap = true })
 
--- === lsp-format ===
-vim.cmd [[cabbrev x execute "Format sync" <bar> x]]
-
 --  ____ ____ ____ ____ ____ ____   ____ ____ ____ ____
 -- ||p |||l |||u |||g |||i |||n || ||m |||a |||p |||s ||
 -- ||__|||__|||__|||__|||__|||__|| ||__|||__|||__|||__||
