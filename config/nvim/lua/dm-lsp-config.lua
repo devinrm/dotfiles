@@ -124,7 +124,6 @@ lsp.html.setup({
 
 lsp.jsonls.setup({
   capabilities = capabilities,
-  cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
   end,
@@ -160,7 +159,7 @@ lsp.rust_analyzer.setup({
 
 lsp.solargraph.setup({
   capabilities = capabilities,
-  cmd = { 'solargraph', 'stdio' },
+  cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
   on_attach = function(client)
     require 'illuminate'.on_attach(client)
     client.server_capabilities.documentFormattingProvider = false
