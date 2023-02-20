@@ -126,8 +126,11 @@ return require('packer').startup(function()
 
   -- === find ===
   use {
-    'https://github.com/luukvbaal/nnn.nvim',
-    config = function() require('nnn').setup() end
+    'https://github.com/nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    tag = 'nightly'
   }
   use { 'https://github.com/junegunn/fzf', run = './install --bin' }
   use { 'https://github.com/ibhagwan/fzf-lua',

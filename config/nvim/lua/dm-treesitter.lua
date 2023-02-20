@@ -1,4 +1,4 @@
-require 'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "astro",
     "bash",
@@ -27,4 +27,4 @@ require 'nvim-treesitter.configs'.setup {
   endwise = {
     enable = true
   }
-}
+})

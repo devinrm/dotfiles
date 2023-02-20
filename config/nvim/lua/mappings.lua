@@ -33,7 +33,9 @@ vim.api.nvim_set_keymap('n', '<Leader>mv', ':!mv % <C-r>=expand("%:p:h") . "/" <
 vim.api.nvim_set_keymap('n', '<Leader>cp', ':!cp % <C-r>=expand("%:p:h") . "/" <CR><C-d>', { noremap = true })
 
 -- === Open dotfiles in new tab ===
-vim.api.nvim_set_keymap('n', '<Leader>vi', ':NnnExplorer $HOME/dotfiles/<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>vi', ':NvimTreeToggle $HOME/dotfiles/<CR>', { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<Leader>ve', ':NvimTreeFindFileToggle<CR>', { noremap = true })
 
 -- === debugging ===
 vim.api.nvim_set_keymap('n', '<Leader>d', ':call InsertDebug()<CR>', { noremap = true })
