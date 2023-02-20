@@ -68,23 +68,50 @@ vim.api.nvim_set_keymap('n', 'K', '<Plug>(devdocs-under-cursor)', { silent = tru
 -- === vim-fugitive ===
 vim.cmd([[ command! -nargs=1 Browse silent exec '!open "<args>"' ]])
 
--- === fzf.vim ===
-vim.api.nvim_set_keymap('n', '<C-b>', ':wa<CR>:Buffers<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-p>', ':wa<CR>:Files<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>p', ':wa<CR>:BLines<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>gc', ':wa<CR>:Commits<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>bgc', ':wa<CR>:BCommits<CR>', { noremap = true })
--- grep the word under the cursor
-vim.api.nvim_set_keymap('n', 'gr', ':Rg <C-R><C-W><CR>', { noremap = true })
--- Press ; and then start typing to fzf search the whole project for a word or string
-vim.api.nvim_set_keymap('n', '<Leader>;', ':Fg<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>hi', ':wa<CR>:History<CR>', { noremap = true })
+-- === fzf.lua ===
+vim.api.nvim_set_keymap('n', '<C-p>',
+"<cmd>lua require('fzf-lua').files()<CR>",
+{ noremap = true, silent = true })
 
--- === telescope ===
+vim.api.nvim_set_keymap('n', '<C-b>',
+"<cmd>lua require('fzf-lua').buffers()<CR>",
+{ noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<Leader>p',
+"<cmd>lua require('fzf-lua').blines()<CR>",
+{ noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<Leader>gc',
+"<cmd>lua require('fzf-lua').commits()<CR>",
+{ noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<Leader>bgc',
+"<cmd>lua require('fzf-lua').bcommits()<CR>",
+{ noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<Leader>hi',
+"<cmd>lua require('fzf-lua').oldfiles()<CR>",
+{ noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', 'gr',
+"<cmd>lua require('fzf-lua').grep_cword()<CR>",
+{ noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<Leader>;',
+"<cmd>lua require('fzf-lua').live_grep_glob()<CR>",
+{ noremap = true, silent = true })
+
 vim.api.nvim_set_keymap('n', "'",
-  '<cmd>lua require("telescope.builtin").registers({layout_strategy="vertical",layout_config={width=0.99}})<CR>',
-  { noremap = true })
-vim.api.nvim_set_keymap('v', '<Leader>ca', ':Telescope lsp_range_code_actions<CR>', { noremap = true })
+"<cmd>lua require('fzf-lua').registers()<CR>",
+{ noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('v', '<Leader>ca',
+"<cmd>lua require('fzf-lua').lsp_code_actions()<CR>",
+{ noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<Leader>xx',
+"<cmd>lua require('fzf-lua').diagnostics_document()<CR>",
+{ noremap = true, silent = true })
 
 -- === vim-test ===
 vim.api.nvim_set_keymap('n', '<Leader>t', ':wa<CR>:TestFile<CR>', { noremap = true, silent = true })
@@ -92,6 +119,3 @@ vim.api.nvim_set_keymap('n', '<Leader>s', ':wa<CR>:TestNearest<CR>', { noremap =
 vim.api.nvim_set_keymap('n', '<Leader>l', ':wa<CR>:TestLast<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>a', ':wa<CR>:TestSuite<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', { noremap = true, silent = true })
-
--- === trouble ===
-vim.api.nvim_set_keymap('n', '<Leader>xx', '<cmd>TroubleToggle document_diagnostics<CR>', { noremap = true })

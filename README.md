@@ -8,6 +8,10 @@ Dependencies
 
 [bat](https://github.com/sharkdp/bat)
 
+[chafa](https://github.com/hpjansson/chafa)
+
+[delta](https://github.com/dandavison/delta)
+
 [fd](https://github/sharkdp/fd)
 
 [fzf](https://github.com/junegunn/fzf)

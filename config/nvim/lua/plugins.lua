@@ -34,12 +34,6 @@ return require('packer').startup(function()
   }
 
   -- === completion ===
-  use {
-    'https://github.com/folke/trouble.nvim',
-    requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true },
-    config = function() require('trouble').setup() end
-  }
-
   use { 'https://github.com/hrsh7th/cmp-nvim-lsp' }
   use { 'https://github.com/hrsh7th/cmp-buffer' }
   use { 'https://github.com/hrsh7th/cmp-path' }
@@ -136,20 +130,10 @@ return require('packer').startup(function()
     config = function() require('nnn').setup() end
   }
   use { 'https://github.com/junegunn/fzf', run = './install --bin' }
-  use 'https://github.com/junegunn/fzf.vim'
-  use {
-    'https://github.com/nvim-telescope/telescope.nvim',
-    requires = { { 'https://github.com/nvim-lua/plenary.nvim' } },
-    config = function()
-      require('telescope').setup {
-        extensions = {
-          fzf = { fuzzy = true }
-        }
-      }
-      require('telescope').load_extension('fzf')
-    end
+  use { 'https://github.com/ibhagwan/fzf-lua',
+    requires = { 'nvim-tree/nvim-web-devicons' },
+    config = function() require('fzf-lua').setup({'fzf-tmux'}) end
   }
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   -- === git ===
   use 'https://github.com/mhinz/vim-signify'

@@ -34,17 +34,7 @@
 [color]
   ui = always
 [color "diff"]
-  commit = green bold
-  frag = magenta bold
-  meta = yellow bold
-  new = green bold
-  old = red bold
-  whitespace = red reverse
-[color "diff-highlight"]
-  newHighlight = "green bold 22"
-  newNormal = "green bold"
-  oldHighlight = "red bold 52"
-  oldNormal = red bold
+  colorMoved = default
 [commit]
   template = ~/.gitmessage
   gpgsign = true
@@ -52,13 +42,17 @@
   autocrlf = input
   excludesfile = ~/.gitignore
   ignorecase = false
-  pager = git-split-diffs
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  light = false
+  side-by-side = true
+  line-numbers = true
 [diff]
   colorMoved = zebra
   compactionHeuristic = true
-[difftool]
-  prompt = false
-  trustExitCode = true
 [fetch]
   prune = true
 [filter "lfs"]
@@ -76,9 +70,7 @@
   defaultBranch = main
 [merge]
   ff = only
-[pretty]
-  colored = format:%Cred%h%Creset %s %Cgreen(%cr) %C(bold blue)%an%Creset
-  coloredwithrefs = format:%Cred%h%Creset %Cblue%d%Creset %s %Cgreen(%cr)%C(bold blue)%an%Creset
+  conflictstyle = diff3
 [pull]
   rebase = true
 [push]
@@ -87,8 +79,6 @@
   autosquash = true
 [rerere]
   enabled = true
-[split-diffs]
-  theme-name = arctic
 [user]
   name = Devin Morgenstern
   email = devin.morgenstern@protonmail.com
