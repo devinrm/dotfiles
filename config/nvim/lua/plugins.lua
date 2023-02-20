@@ -52,40 +52,7 @@ return require('packer').startup(function()
     'https://github.com/williamboman/mason.nvim',
     config = function() require('mason').setup() end
   }
-  use {
-    'https://github.com/williamboman/mason-lspconfig.nvim',
-    config = function()
-      require('mason-lspconfig').setup({
-        ensure_installed = {
-          "astro",
-          "bashls",
-          "codeqlls",
-          "cssls",
-          "cssmodules_ls",
-          "diagnosticls",
-          "dockerls",
-          "graphql",
-          "html",
-          "jsonls",
-          "marksman",
-          "prismals",
-          "pyright",
-          "rust_analyzer",
-          "solargraph",
-          "sorbet",
-          "sqlls",
-          "stylelint_lsp",
-          "lua_ls",
-          "tailwindcss",
-          "terraformls",
-          "tflint",
-          "tsserver",
-          "yamlls",
-        },
-        automatic_installation = true,
-      })
-    end
-  }
+  use { 'https://github.com/williamboman/mason-lspconfig.nvim' }
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-lua/plenary.nvim'
   use 'https://github.com/nvim-lua/popup.nvim'
@@ -144,7 +111,6 @@ return require('packer').startup(function()
   use 'https://github.com/wuelnerdotexe/vim-astro'
   use 'https://github.com/hashivim/vim-terraform'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use { 'https://github.com/hail2u/vim-css3-syntax', ft = { 'css', 'scss' } }
   use {
     'https://github.com/iamcco/markdown-preview.nvim',
     run = 'cd app && yarn install',
@@ -152,21 +118,7 @@ return require('packer').startup(function()
     ft = { 'markdown' }
   }
   use 'https://github.com/Vimjas/vim-python-pep8-indent'
-  use {
-    'https://github.com/maxmellon/vim-jsx-pretty',
-    ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
-  }
-  use {
-    'https://github.com/HerringtonDarkholme/yats.vim',
-    ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
-  }
-  use { 'https://github.com/othree/html5.vim', ft = { 'html' } }
-  use {
-    'https://github.com/yuezk/vim-js',
-    ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
-  }
   use { 'https://github.com/rust-lang/rust.vim', ft = { 'rust' } }
-  use { 'https://github.com/vim-python/python-syntax', ft = { 'python' } }
 
   -- === other ===
   use 'https://github.com/stefandtw/quickfix-reflector.vim'

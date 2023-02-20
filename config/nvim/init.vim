@@ -7,6 +7,7 @@ require('dm-lsp-config')
 require('dm-treesitter')
 require('dm-nvim-tree')
 require('dm-nvim-noirbuddy')
+require('dm-mason-lspconfig')
 require('mappings')
 require('functions')
 EOF
