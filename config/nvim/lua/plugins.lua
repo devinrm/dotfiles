@@ -29,8 +29,7 @@ return require('packer').startup(function()
   use 'https://github.com/xero/sourcerer.vim'
   use {
     "https://github.com/jesseleite/nvim-noirbuddy",
-    requires = { "https://github.com/tjdevries/colorbuddy.nvim", branch = "dev" },
-    config = function() require('noirbuddy').setup() end
+    requires = { "https://github.com/tjdevries/colorbuddy.nvim", branch = "dev" }
   }
 
   -- === completion ===

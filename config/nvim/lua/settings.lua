@@ -16,7 +16,6 @@ vim.cmd('set spellfile=$HOME//.vim-spell-en.utf-8.add') -- Name of the word list
 vim.g.is_posix = 1 -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
 vim.g.mapleader = ' ' -- Set Leader key to <Space> bar
 vim.g.python3_host_prog = (vim.env.HOME .. '/.asdf/shims/python')
-vim.g.coq_settings = { auto_start = true }
 vim.o.autowriteall = true
 vim.o.backspace = '2' -- Backspace deletes like most programs in insert mode
 vim.o.backup = false -- Don't make a backup before overwriting a file
