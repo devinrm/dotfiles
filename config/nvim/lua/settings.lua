@@ -10,7 +10,6 @@ vim.bo.smartindent = true
 vim.g.CoolTotalMatches = 1
 vim.g.signify_sign_show_text = 0
 vim.opt.background = 'dark'
--- vim.cmd.colorscheme 'sourcerer'
 vim.cmd('filetype plugin on')
 vim.cmd('set spellfile=$HOME//.vim-spell-en.utf-8.add') -- Name of the word list file where words are added for the |zg| and |zw| commands.
 vim.g.is_posix = 1 -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.

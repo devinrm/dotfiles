@@ -26,7 +26,6 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   -- === colorscheme(s) ===
-  use 'https://github.com/xero/sourcerer.vim'
   use {
     "https://github.com/jesseleite/nvim-noirbuddy",
     requires = { "https://github.com/tjdevries/colorbuddy.nvim", branch = "dev" }
@@ -79,9 +78,7 @@ return require('packer').startup(function()
   use({
   "https://github.com/jackMort/ChatGPT.nvim",
     config = function()
-      require("chatgpt").setup({
-        -- optional configuration
-      })
+      require("chatgpt").setup()
     end,
     requires = {
       "MunifTanjim/nui.nvim",
