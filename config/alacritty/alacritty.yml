@@ -434,7 +434,7 @@ selection:
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: /opt/homebrew/bin/zsh
+  program: /bin/zsh
   args:
     - --login
 
