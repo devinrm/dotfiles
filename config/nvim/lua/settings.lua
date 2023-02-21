@@ -31,7 +31,6 @@ vim.o.inccommand = 'split' -- this is necessary for using this %s with a quickfi
 vim.o.joinspaces = false -- Insert one space after a '.', '?' and '!' with a join command.
 vim.o.lazyredraw = true
 vim.o.matchtime = 0 -- Speed up escape after (){} chars
-vim.o.mouse = 'a' -- Enable mouse for pair programming
 vim.o.pumheight = 10 -- limit size of popup menu
 vim.o.pumblend = 20
 vim.o.scrolloff = 3 -- show 3 lines above and below cursor
@@ -43,12 +42,10 @@ vim.o.smartcase = true -- overrides ignorecase if pattern contains upcase
 vim.o.spelllang = 'en_us' -- Set region to US English
 vim.o.splitbelow = true -- When on, splitting a window will put the new window below the current one.
 vim.o.splitright = true -- When on, splitting a window will put the new window right of the current one.
-vim.o.suffixesadd = '.js,.jsx,.ts,.tsx'
 vim.o.swapfile = false -- Do not create a swapfile for a new buffer.
 vim.o.synmaxcol = 200
 vim.o.tabstop = 2 -- Number of spaces that a <Tab> in the file counts for.
 vim.o.textwidth = 120 -- Maximum width of text that is being inserted. A longer line will be broken after white space to get this width.
-vim.o.ttimeout = true -- determine the behavior when part of a key code sequence has been received by the terminal UI.
 vim.o.undofile = true -- Automatically saves undo history to an undo file when writing a buffer to a file, and restores undo history from the same file on buffer read.
 vim.o.undolevels = 500
 vim.o.undoreload = 500
@@ -57,12 +54,10 @@ vim.o.wildignore = 'tmp/**' -- Ignore stuff that can't be opened
 vim.o.wildmode = 'list:longest,list:full'
 vim.o.writebackup = false -- Don't make a backup before overwriting a file.
 vim.opt.colorcolumn = '+1' -- highlight column after 'textwidth
-vim.opt.completeopt:remove({ 'i', 't', 'preview' })
 vim.opt.diffopt:append({ 'vertical' }) -- Start diff mode with vertical splits
-vim.opt.guicursor:append({ 'a:blinkon0' }) -- Disable blinking cursor on nvim
 vim.opt.laststatus = 3
 vim.opt.list = true
-vim.opt.path:append({ '.,,', '.,app/javascript', 'node_modules' })
+vim.opt.path:append({ '.,,', 'node_modules' })
 vim.opt.shortmess = 'filnxtToOFc' -- vim default with 'c' appended (don't give |ins-completion-menu| messages)
 vim.wo.cursorline = true
 vim.wo.number = true -- Turn on line numbers
