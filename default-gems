@@ -1,4 +1,3 @@
-art-rubocop
 awesome_print
 brakeman
 bundler-audit
@@ -19,11 +18,7 @@ rb-readline
 readline-ext
 reek
 rubocop
-rubocop-performance
-rubocop-rspec
 solargraph
-sorbet
-sorbet-runtime
 sqlint
 test-prof
 wirble

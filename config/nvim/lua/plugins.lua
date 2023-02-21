@@ -47,10 +47,7 @@ return require('packer').startup(function()
   }
   use { 'https://github.com/L3MON4D3/LuaSnip' }
 
-  use {
-    'https://github.com/williamboman/mason.nvim',
-    config = function() require('mason').setup() end
-  }
+  use { 'https://github.com/williamboman/mason.nvim' }
   use { 'https://github.com/williamboman/mason-lspconfig.nvim' }
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-lua/plenary.nvim'
@@ -75,7 +72,7 @@ return require('packer').startup(function()
     requires = { 'nvim-lua/plenary.nvim' },
   }
   use { 'https://github.com/jose-elias-alvarez/typescript.nvim' }
-  use({
+  use {
   "https://github.com/jackMort/ChatGPT.nvim",
     config = function()
       require("chatgpt").setup()
@@ -85,7 +82,14 @@ return require('packer').startup(function()
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim"
     }
-  })
+  }
+  use {
+    "https://github.com/princejoogie/chafa.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "m00qek/baleia.nvim"
+    },
+  }
 
   -- === find ===
   use {
