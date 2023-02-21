@@ -65,13 +65,13 @@ return require('packer').startup(function()
     end,
   }
   use 'https://github.com/RRethy/nvim-treesitter-endwise'
-
-  -- === experiments ===
   use {
     'https://github.com/jose-elias-alvarez/null-ls.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
   }
   use { 'https://github.com/jose-elias-alvarez/typescript.nvim' }
+
+  -- === experiments ===
   use {
   "https://github.com/jackMort/ChatGPT.nvim",
     config = function()
