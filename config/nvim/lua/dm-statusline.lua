@@ -30,9 +30,21 @@ local theme = {
     y = { fg = colors.violet, bg = colors.cyan },
     z = { fg = colors.violet, bg = colors.cyan },
   },
-  insert = { a = { fg = colors.white, bg = colors.green } },
-  visual = { a = { fg = colors.white, bg = colors.orange } },
-  replace = { a = { fg = colors.white, bg = colors.red } },
+  insert = {
+    a = { fg = colors.cyan, bg = colors.violet },
+    b = { bg = colors.black },
+    c = { fg = colors.cyan, bg = colors.violet },
+  },
+  visual = {
+    a = { fg = colors.white, bg = colors.orange },
+    b = { bg = colors.black },
+    c = { fg = colors.white, bg = colors.orange },
+  },
+  replace = {
+    a = { fg = colors.white, bg = colors.red },
+    b = { bg = colors.black },
+    c = { fg = colors.white, bg = colors.red },
+  },
 }
 
 local empty = require('lualine.component'):extend()
