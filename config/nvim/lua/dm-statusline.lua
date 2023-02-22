@@ -101,13 +101,6 @@ require('lualine').setup {
     },
     lualine_c = {
       {
-        'filename',
-        condition = conditions.buffer_not_empty,
-        color = { gui = 'bold' },
-        file_status = true,
-        path = 1,
-      },
-      {
         function()
           local msg = 'No Active Lsp'
           local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
@@ -128,9 +121,6 @@ require('lualine').setup {
         icon = '  LSP:',
         color = { gui = 'bold' },
       },
-    },
-    lualine_x = {
-      {search_result, color = { fg = colors.white, bg = colors.red }},
       {
         'diagnostics',
         sources = { 'nvim_diagnostic' },
@@ -139,19 +129,24 @@ require('lualine').setup {
         color_warn = colors.yellow,
         color_info = colors.cyan
       },
-      '%l:%c',
+    },
+    lualine_x = {
+      {search_result, color = { fg = colors.white, bg = colors.red }},
     },
     lualine_y = {},
     lualine_z = {
+      {
+        'filename',
+        condition = conditions.buffer_not_empty,
+        color = { gui = 'bold' },
+        file_status = true,
+        path = 1,
+      },
       {'filetype', color = { bg = colors.black, gui = 'bold' }},
-      '%p%%/%L'
+      '%l:%c / %p%% / LL:%L'
     },
   },
   inactive_sections = {
-    lualine_a = {},
-    lualine_v = {},
-    lualine_y = {},
-    lualine_z = {},
     lualine_c = { '%f %y %m' },
     lualine_x = {},
   },
