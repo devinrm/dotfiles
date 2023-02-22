@@ -132,7 +132,7 @@ return require('packer').startup(function()
   use 'https://github.com/tpope/vim-rsi'
   use 'https://github.com/kyazdani42/nvim-web-devicons'
   use {
-    'hoob3rt/lualine.nvim',
+    'https://github.com/hoob3rt/lualine.nvim',
     requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
   }
   use 'https://github.com/windwp/nvim-autopairs'

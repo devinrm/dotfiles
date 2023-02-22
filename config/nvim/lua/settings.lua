@@ -7,7 +7,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.o.termguicolors = true
 vim.bo.smartindent = true
-vim.g.CoolTotalMatches = 1
 vim.opt.background = 'dark'
 vim.cmd('filetype plugin on')
 vim.cmd('set spellfile=$HOME//.vim-spell-en.utf-8.add') -- Name of the word list file where words are added for the |zg| and |zw| commands.
@@ -57,7 +56,7 @@ vim.opt.diffopt:append({ 'vertical' }) -- Start diff mode with vertical splits
 vim.opt.laststatus = 3
 vim.opt.list = true
 vim.opt.path:append({ '.,,', 'node_modules' })
-vim.opt.shortmess = 'filnxtToOFc' -- vim default with 'c' appended (don't give |ins-completion-menu| messages)
+vim.opt.shortmess = 'SfxtToOFc' -- vim default with 'c' appended (don't give |ins-completion-menu| messages)
 vim.wo.cursorline = true
 vim.wo.number = true -- Turn on line numbers
 vim.wo.numberwidth = 1 -- Minimal number of columns to use for the line number.
