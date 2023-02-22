@@ -52,18 +52,7 @@ return require('packer').startup(function()
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-lua/plenary.nvim'
   use 'https://github.com/nvim-lua/popup.nvim'
-  use {
-    'https://github.com/zbirenbaum/copilot.lua',
-    event = "VimEnter",
-    config = function()
-      vim.defer_fn(function()
-        require("copilot").setup({
-          suggestion = { enabled = false },
-          panel = { enabled = false },
-        })
-      end, 100)
-    end,
-  }
+  use 'https://github.com/zbirenbaum/copilot.lua'
   use 'https://github.com/RRethy/nvim-treesitter-endwise'
   use {
     'https://github.com/jose-elias-alvarez/null-ls.nvim',

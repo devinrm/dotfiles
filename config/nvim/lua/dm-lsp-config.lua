@@ -53,15 +53,18 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ["<Tab>"] = vim.schedule_wrap(function(fallback)
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = false,
+    }),
+    ['<Tab>'] = vim.schedule_wrap(function(fallback)
       if cmp.visible() and has_words_before() then
         cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
       else
         fallback()
       end
     end),
-    ["<S-Tab>"] = vim.schedule_wrap(function(fallback)
+    ['<S-Tab>'] = vim.schedule_wrap(function(fallback)
       if cmp.visible() and has_words_before() then
         cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
       else
@@ -73,8 +76,7 @@ cmp.setup({
     { name = 'copilot',  group_index = 2 },
     { name = 'nvim_lsp', group_index = 2 },
     { name = 'luasnip',  group_index = 2 },
-    { name = 'nvim_lua', group_index = 2 }
-  }, {
+    { name = 'nvim_lua', group_index = 2 },
     { name = 'buffer', group_index = 2 },
     { name = 'path',   group_index = 2 }
   })
