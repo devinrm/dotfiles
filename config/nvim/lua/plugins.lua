@@ -95,7 +95,11 @@ return require('packer').startup(function()
   }
 
   -- === git ===
-  use 'https://github.com/mhinz/vim-signify'
+  use { 'https://github.com/lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
 
   -- === language plugins ===
   use 'https://github.com/wuelnerdotexe/vim-astro'

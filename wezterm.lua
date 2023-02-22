@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm'
 
 return {
-  font = wezterm.font("BlexMono Nerd Font"),
+  font = wezterm.font("BlexMono Nerd Font", { weight = "Medium" }),
   font_size = 14.0,
   color_scheme = "Slate",
   enable_scroll_bar = false,
