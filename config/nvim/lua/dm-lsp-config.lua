@@ -168,7 +168,13 @@ lsp.solargraph.setup({
   end,
   settings = {
     solargraph = {
-      diagnostics = false
+      formatting = false,
+      completion = true,
+      diagnostics = false,
+      references = true,
+      rename = true,
+      symbols = true,
+      useLibraryCode = true
     }
   }
 })
