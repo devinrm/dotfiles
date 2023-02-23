@@ -112,7 +112,7 @@ vim.api.nvim_set_keymap('v', '<Leader>ca',
 { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<Leader>xx',
-"<cmd>lua require('fzf-lua').diagnostics_document()<CR>",
+"<cmd>lua require('fzf-lua').diagnostics_document({ winopts = { preview = { layout = 'vertical' }}})<CR>",
 { noremap = true, silent = true })
 
 -- === vim-test ===

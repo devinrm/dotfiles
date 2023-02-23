@@ -91,7 +91,7 @@ return require('packer').startup(function()
   use { 'https://github.com/junegunn/fzf', run = './install --bin' }
   use { 'https://github.com/ibhagwan/fzf-lua',
     requires = { 'nvim-tree/nvim-web-devicons' },
-    config = function() require('fzf-lua').setup({'fzf-tmux'}) end
+    config = function() require('fzf-lua').setup({'fzf-native'}) end
   }
 
   -- === git ===
