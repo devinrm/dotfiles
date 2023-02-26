@@ -11,8 +11,20 @@ return {
   window_padding = {
     left = 0,
     right = 0,
-    top = 0,
-    bottom = 0,
   },
-  underline_position = "-3pt"
+  underline_position = "-3pt",
+  -- leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 },
+  -- keys = {
+  --   {
+  --     key = '\\',
+  --     mods = 'LEADER|SHIFT',
+  --     action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+  --   },
+  --   -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
+  --   {
+  --     key = 'a',
+  --     mods = 'LEADER|CTRL',
+  --     action = wezterm.action.SendString '\x01',
+  --   },
+  -- },
 }

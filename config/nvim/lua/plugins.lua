@@ -47,16 +47,18 @@ return require('packer').startup(function()
   }
   use { 'https://github.com/L3MON4D3/LuaSnip' }
 
-  use { 'https://github.com/williamboman/mason.nvim' }
-  use { 'https://github.com/williamboman/mason-lspconfig.nvim' }
-  use 'https://github.com/neovim/nvim-lspconfig'
+  use {
+    'https://github.com/williamboman/mason.nvim',
+    'https://github.com/williamboman/mason-lspconfig.nvim',
+    'https://github.com/neovim/nvim-lspconfig',
+  }
   use 'https://github.com/nvim-lua/plenary.nvim'
   use 'https://github.com/nvim-lua/popup.nvim'
   use 'https://github.com/zbirenbaum/copilot.lua'
   use 'https://github.com/RRethy/nvim-treesitter-endwise'
   use {
     'https://github.com/jose-elias-alvarez/null-ls.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
+    requires = { 'https://github.com/nvim-lua/plenary.nvim' },
   }
   use { 'https://github.com/jose-elias-alvarez/typescript.nvim' }
 

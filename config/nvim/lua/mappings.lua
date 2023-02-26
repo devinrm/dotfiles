@@ -51,11 +51,7 @@ vim.api.nvim_set_keymap('n', '<Leader>so', ':source $MYVIMRC<CR>', { noremap = t
 -- ||__|||__|||__|||__|||__|||__|| ||__|||__|||__|||__||
 -- |/__\|/__\|/__\|/__\|/__\|/__\| |/__\|/__\|/__\|/__\|
 
-vim.api.nvim_command [[autocmd BufWritePre *.rb lua vim.lsp.buf.format({ async = true })]]
-vim.api.nvim_command [[autocmd BufWritePre *.ts lua vim.lsp.buf.format()]]
-vim.api.nvim_command [[autocmd BufWritePre *.tsx lua vim.lsp.buf.format()]]
-vim.api.nvim_command [[autocmd BufWritePre *.js lua vim.lsp.buf.format()]]
-vim.api.nvim_command [[autocmd BufWritePre *.jsx lua vim.lsp.buf.format()]]
+vim.api.nvim_command [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'ge', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true })

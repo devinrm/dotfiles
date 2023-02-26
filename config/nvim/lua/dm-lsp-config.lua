@@ -1,3 +1,5 @@
+require('mason').setup()
+local mason_lspconfig = require("mason-lspconfig")
 local lsp = require('lspconfig')
 local null_ls = require('null-ls')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -8,8 +10,6 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 end
 local luasnip = require("luasnip")
-
-
 
 -- local lsp_formatting = function(bufnr)
 --   vim.lsp.buf.format({
@@ -82,147 +82,177 @@ cmp.setup({
   })
 })
 
-lsp.bashls.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
-lsp.codeqlls.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
-lsp.cssls.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
-lsp.dockerls.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
-lsp.graphql.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
-lsp.html.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
-lsp.jsonls.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end,
-  commands = {
-    Format = {
-      function()
-        vim.lsp.formatexpr({}, { 0, 0 }, { vim.fn.line("$"), 0 })
-      end
-    }
-  }
-})
-
-lsp.marksman.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
-lsp.pyright.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
-lsp.rust_analyzer.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
-lsp.solargraph.setup({
-  capabilities = capabilities,
-  cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-    client.server_capabilities.documentFormattingProvider = false
-  end,
-  settings = {
-    solargraph = {
-      formatting = false,
-      completion = true,
-      diagnostics = false,
-      references = true,
-      rename = true,
-      symbols = true,
-      useLibraryCode = true
-    }
-  }
-})
-
-lsp.sqlls.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
-
-lsp.lua_ls.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end,
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
+mason_lspconfig.setup({
+  ensure_installed = {
+    "astro",
+    "bashls",
+    "codeqlls",
+    "cssls",
+    "cssmodules_ls",
+    "dockerls",
+    "graphql",
+    "html",
+    "jsonls",
+    "marksman",
+    "prismals",
+    "pyright",
+    "rust_analyzer",
+    "solargraph",
+    "sorbet",
+    "sqlls",
+    "stylelint_lsp",
+    "lua_ls",
+    "tailwindcss",
+    "terraformls",
+    "tflint",
+    "tsserver",
+    "yamlls",
   },
+  automatic_installation = true,
 })
 
-lsp.tailwindcss.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    require 'illuminate'.on_attach(client)
-  end
-})
+mason_lspconfig.setup_handlers({
+  lsp.bashls.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
 
-require('typescript').setup({
-  capabilities = capabilities,
-  server = {
+  lsp.codeqlls.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.cssls.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.dockerls.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.graphql.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.html.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.jsonls.setup({
+    capabilities = capabilities,
     on_attach = function(client)
       require 'illuminate'.on_attach(client)
     end,
-  }
+    commands = {
+      Format = {
+        function()
+          vim.lsp.formatexpr({}, { 0, 0 }, { vim.fn.line("$"), 0 })
+        end
+      }
+    }
+  }),
+
+  lsp.marksman.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.pyright.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.rust_analyzer.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.solargraph.setup({
+    capabilities = capabilities,
+    cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end,
+    settings = {
+      solargraph = {
+        formatting = false,
+        completion = true,
+        diagnostics = false,
+        references = true,
+        rename = true,
+        symbols = true,
+        useLibraryCode = true
+      }
+    }
+  }),
+
+  lsp.sqlls.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.lua_ls.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end,
+    settings = {
+      Lua = {
+        runtime = {
+          version = 'LuaJIT',
+        },
+        diagnostics = {
+          globals = { 'vim' },
+        },
+        workspace = {
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
+        telemetry = {
+          enable = false,
+        },
+      },
+    },
+  }),
+
+  lsp.tailwindcss.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  require('typescript').setup({
+    capabilities = capabilities,
+    server = {
+      on_attach = function(client)
+        require 'illuminate'.on_attach(client)
+      end,
+    }
+  })
 })
 
 null_ls.setup({
