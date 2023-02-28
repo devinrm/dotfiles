@@ -41,7 +41,7 @@ local luasnip = require("luasnip")
 cmp.setup({
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   window = {
@@ -77,8 +77,8 @@ cmp.setup({
     { name = 'nvim_lsp', group_index = 2 },
     { name = 'luasnip',  group_index = 2 },
     { name = 'nvim_lua', group_index = 2 },
-    { name = 'buffer', group_index = 2 },
-    { name = 'path',   group_index = 2 }
+    { name = 'buffer',   group_index = 2 },
+    { name = 'path',     group_index = 2 }
   })
 })
 
@@ -90,6 +90,7 @@ mason_lspconfig.setup({
     "cssls",
     "cssmodules_ls",
     "dockerls",
+    "docker_compose_language_service",
     "graphql",
     "html",
     "jsonls",
@@ -98,9 +99,7 @@ mason_lspconfig.setup({
     "pyright",
     "rust_analyzer",
     "solargraph",
-    "sorbet",
     "sqlls",
-    "stylelint_lsp",
     "lua_ls",
     "tailwindcss",
     "terraformls",
@@ -112,6 +111,13 @@ mason_lspconfig.setup({
 })
 
 mason_lspconfig.setup_handlers({
+  lsp.astro.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
   lsp.bashls.setup({
     capabilities = capabilities,
     on_attach = function(client)
@@ -133,7 +139,21 @@ mason_lspconfig.setup_handlers({
     end
   }),
 
+  lsp.cssmodules_ls.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
   lsp.dockerls.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.docker_compose_language_service.setup({
     capabilities = capabilities,
     on_attach = function(client)
       require 'illuminate'.on_attach(client)
@@ -168,7 +188,37 @@ mason_lspconfig.setup_handlers({
     }
   }),
 
+  lsp.lua_ls.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end,
+    settings = {
+      Lua = {
+        runtime = {
+          version = 'LuaJIT',
+        },
+        diagnostics = {
+          globals = { 'vim' },
+        },
+        workspace = {
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
+        telemetry = {
+          enable = false,
+        },
+      },
+    },
+  }),
+
   lsp.marksman.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.prismals.setup({
     capabilities = capabilities,
     on_attach = function(client)
       require 'illuminate'.on_attach(client)
@@ -194,6 +244,7 @@ mason_lspconfig.setup_handlers({
     cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
     on_attach = function(client)
       require 'illuminate'.on_attach(client)
+      client.server_capabilities.documentFormattingProvider = false
     end,
     settings = {
       solargraph = {
@@ -215,29 +266,6 @@ mason_lspconfig.setup_handlers({
     end
   }),
 
-  lsp.lua_ls.setup({
-    capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end,
-    settings = {
-      Lua = {
-        runtime = {
-          version = 'LuaJIT',
-        },
-        diagnostics = {
-          globals = { 'vim' },
-        },
-        workspace = {
-          library = vim.api.nvim_get_runtime_file("", true),
-        },
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
-  }),
-
   lsp.tailwindcss.setup({
     capabilities = capabilities,
     on_attach = function(client)
@@ -245,20 +273,41 @@ mason_lspconfig.setup_handlers({
     end
   }),
 
-  require('typescript').setup({
+  lsp.terraformls.setup({
     capabilities = capabilities,
-    server = {
-      on_attach = function(client)
-        require 'illuminate'.on_attach(client)
-      end,
-    }
-  })
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.tflint.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.tsserver.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
+
+  lsp.yamlls.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end
+  }),
 })
 
 null_ls.setup({
   sources = {
     null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.code_actions.proselint,
+    null_ls.builtins.diagnostics.proselint,
     null_ls.builtins.diagnostics.hadolint,
     null_ls.builtins.diagnostics.haml_lint,
     null_ls.builtins.diagnostics.jsonlint,
@@ -271,6 +320,7 @@ null_ls.setup({
     null_ls.builtins.formatting.rubocop,
     null_ls.builtins.code_actions.shellcheck,
     null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.formatting.shellharden,
     null_ls.builtins.diagnostics.stylelint,
     null_ls.builtins.diagnostics.yamllint
   }
