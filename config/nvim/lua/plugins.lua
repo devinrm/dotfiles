@@ -60,11 +60,10 @@ return require('packer').startup(function()
     'https://github.com/jose-elias-alvarez/null-ls.nvim',
     requires = { 'https://github.com/nvim-lua/plenary.nvim' },
   }
-  use { 'https://github.com/jose-elias-alvarez/typescript.nvim' }
 
   -- === experiments ===
   use {
-  "https://github.com/jackMort/ChatGPT.nvim",
+    "https://github.com/jackMort/ChatGPT.nvim",
     config = function()
       require("chatgpt").setup()
     end,
@@ -81,6 +80,14 @@ return require('packer').startup(function()
       "m00qek/baleia.nvim"
     },
   }
+  use 'https://github.com/stevearc/aerial.nvim'
+  use {
+    'https://github.com/j-hui/fidget.nvim',
+    config = function()
+      require('fidget').setup()
+    end
+  }
+  use 'https://github.com/DanilaMihailov/beacon.nvim'
 
   -- === find ===
   use {
@@ -93,7 +100,7 @@ return require('packer').startup(function()
   use { 'https://github.com/junegunn/fzf', run = './install --bin' }
   use { 'https://github.com/ibhagwan/fzf-lua',
     requires = { 'nvim-tree/nvim-web-devicons' },
-    config = function() require('fzf-lua').setup({'fzf-native'}) end
+    config = function() require('fzf-lua').setup({ 'fzf-native' }) end
   }
 
   -- === git ===
@@ -122,7 +129,20 @@ return require('packer').startup(function()
     'https://github.com/norcalli/nvim-colorizer.lua',
     config = function() require('colorizer').setup() end
   }
-  use 'https://github.com/tpope/vim-commentary'
+  use {
+    'https://github.com/numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup({
+        toggler = {
+          line = "<C-\\>",
+        },
+        opleader = {
+          block = '<C-\\>',
+        },
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+      })
+    end
+  }
   use 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring'
   use 'https://github.com/rhysd/devdocs.vim'
   use 'https://github.com/RRethy/vim-illuminate'
@@ -141,5 +161,12 @@ return require('packer').startup(function()
   use {
     'https://github.com/windwp/nvim-ts-autotag',
     ft = { 'html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
+  }
+  use {
+    "https://github.com/folke/trouble.nvim",
+    requires = "https://github.com/nvim-tree/nvim-web-devicons",
+    config = function()
+      require("trouble").setup()
+    end
   }
 end)
