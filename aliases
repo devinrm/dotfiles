@@ -40,7 +40,7 @@ alias weather="curl http://v2\.wttr\.in/los_angeles"
 alias be="bundle exec"
 alias ber="bundle exec rspec"
 alias irb='irb --readline -r irb/completion'
-alias migrate="bundle exec rake db:migrate db:rollback && bundle exec rake db:migrate db:test:prepare"
+alias migrate="bundle exec rails db:migrate db:rollback && bundle exec rails db:migrate db:test:prepare"
 alias racer="ruby -r tracer"
 alias rake="RUBYOPT='-W0' rake"
 alias ras="bundle exec rails s"
@@ -106,7 +106,7 @@ alias uncommit="git reset --soft HEAD^"
 alias unstage="git reset"
 
 # docker
-alias build_db="art -on legacy-stage docker-compose run app rake db:setup"
+alias build_db="art -on legacy-stage docker-compose run app rails db:setup"
 alias drama="art -on legacy-stage docker-compose run app"
 alias ddown="docker-compose down --remove-orphans"
 alias dstop="docker-compose stop"
@@ -115,8 +115,8 @@ alias dce="docker-compose exec"
 alias ddup="art -on legacy-stage docker-compose up"
 alias dpry="art -on legacy-stage docker-compose run --rm --service-ports app"
 alias dprune="docker system prune --volumes -a"
-alias es_index_create="art -on legacy-stage docker-compose run app bundle exec rake index:create"
-alias es_index_refresh="art -on legacy-stage docker-compose run app bundle exec rake index:refresh"
+alias es_index_create="art -on legacy-stage docker-compose run app bundle exec rails index:create"
+alias es_index_refresh="art -on legacy-stage docker-compose run app bundle exec rails index:refresh"
 
 # art
 alias sshstage="art -on stage ssh"
