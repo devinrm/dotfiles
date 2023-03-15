@@ -32,12 +32,13 @@ return require('packer').startup(function()
   }
 
   -- === completion ===
-  use { 'https://github.com/hrsh7th/cmp-nvim-lsp' }
-  use { 'https://github.com/hrsh7th/cmp-buffer' }
-  use { 'https://github.com/hrsh7th/cmp-path' }
-  use { 'https://github.com/hrsh7th/cmp-cmdline' }
-  use { 'https://github.com/hrsh7th/nvim-cmp' }
-  use { 'https://github.com/hrsh7th/cmp-nvim-lua' }
+  use 'https://github.com/hrsh7th/cmp-nvim-lsp'
+  use 'https://github.com/hrsh7th/cmp-buffer'
+  use 'https://github.com/hrsh7th/cmp-path'
+  use 'https://github.com/hrsh7th/cmp-cmdline'
+  use 'https://github.com/hrsh7th/nvim-cmp'
+  use 'https://github.com/hrsh7th/cmp-nvim-lua'
+  use 'https://github.com/hrsh7th/cmp-nvim-lsp-signature-help'
   use {
     "https://github.com/zbirenbaum/copilot-cmp",
     after = { "copilot.lua" },
@@ -45,7 +46,7 @@ return require('packer').startup(function()
       require("copilot_cmp").setup()
     end
   }
-  use { 'https://github.com/L3MON4D3/LuaSnip' }
+  use 'https://github.com/L3MON4D3/LuaSnip'
 
   use {
     'https://github.com/williamboman/mason.nvim',
@@ -98,7 +99,8 @@ return require('packer').startup(function()
     tag = 'nightly'
   }
   use { 'https://github.com/junegunn/fzf', run = './install --bin' }
-  use { 'https://github.com/ibhagwan/fzf-lua',
+  use {
+    'https://github.com/ibhagwan/fzf-lua',
     requires = { 'nvim-tree/nvim-web-devicons' },
     config = function() require('fzf-lua').setup({ 'fzf-native' }) end
   }
