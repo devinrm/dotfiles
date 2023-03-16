@@ -136,6 +136,7 @@ require("lazy").setup({
       'https://github.com/nvim-tree/nvim-web-devicons',
     },
     version = 'nightly',
+    lazy = false,
     config = function()
       require("nvim-tree").setup({
         sort_by = "case_sensitive",
@@ -205,8 +206,10 @@ require("lazy").setup({
           "typescript",
           "yaml"
         },
+        auto_install = false,
         highlight = {
-          enable = true
+          enable = true,
+          additional_vim_regex_highlighting = false,
         },
         autotag = {
           enable = true
