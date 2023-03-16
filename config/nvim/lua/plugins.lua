@@ -20,7 +20,20 @@ require("lazy").setup({
   -- === colorscheme(s) ===
   {
     "https://github.com/jesseleite/nvim-noirbuddy",
-    dependencies = { "https://github.com/tjdevries/colorbuddy.nvim", branch = "dev" }
+    lazy = false,
+    priority = 1000,
+    dependencies = { "https://github.com/tjdevries/colorbuddy.nvim", branch = "dev" },
+    config = function()
+      require("noirbuddy").setup({
+        preset = 'slate',
+        styles = {
+          italic = true,
+          bold = true,
+          underline = true,
+          undercurl = true,
+        },
+      })
+    end
   },
 
   -- === completion ===
@@ -41,6 +54,7 @@ require("lazy").setup({
   {
     "https://github.com/zbirenbaum/copilot-cmp",
     after = { "copilot.lua" },
+    dependencies = "https://github.com/zbirenbaum/copilot.lua",
     config = function()
       require("copilot_cmp").setup()
     end
@@ -48,8 +62,19 @@ require("lazy").setup({
 
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/nvim-lua/popup.nvim',
-  'https://github.com/zbirenbaum/copilot.lua',
-  'https://github.com/RRethy/nvim-treesitter-endwise',
+  {
+    'https://github.com/zbirenbaum/copilot.lua',
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+        filetypes = {
+          yaml = true,
+          markdown = true,
+        },
+      })
+    end
+  },
   {
     'https://github.com/jose-elias-alvarez/null-ls.nvim',
     dependencies = { 'https://github.com/nvim-lua/plenary.nvim' },
@@ -73,8 +98,29 @@ require("lazy").setup({
       "https://github.com/nvim-lua/plenary.nvim",
       "https://github.com/m00qek/baleia.nvim"
     },
+    config = function()
+      require("chafa").setup({
+        render = {
+          min_padding = 5,
+          show_label = true,
+        },
+        events = {
+          update_on_nvim_resize = true,
+        },
+      })
+    end
   },
-  'https://github.com/stevearc/aerial.nvim',
+  {
+    'https://github.com/stevearc/aerial.nvim',
+    config = function()
+      require('aerial').setup({
+        on_attach = function(bufnr)
+          vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
+          vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
+        end
+      })
+    end
+  },
   {
     'https://github.com/j-hui/fidget.nvim',
     config = function()
@@ -89,7 +135,26 @@ require("lazy").setup({
     dependencies = {
       'https://github.com/nvim-tree/nvim-web-devicons',
     },
-    version = 'nightly'
+    version = 'nightly',
+    config = function()
+      require("nvim-tree").setup({
+        sort_by = "case_sensitive",
+        view = {
+          width = 30,
+          mappings = {
+            list = {
+              { key = "-", action = "dir_up" },
+            },
+          },
+        },
+        renderer = {
+          group_empty = true,
+        },
+        filters = {
+          dotfiles = false,
+        },
+      })
+    end
   },
   {
     'https://github.com/junegunn/fzf',
@@ -98,7 +163,9 @@ require("lazy").setup({
   {
     'https://github.com/ibhagwan/fzf-lua',
     dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
-    config = function() require('fzf-lua').setup({ 'fzf-native' }) end
+    config = function()
+      require('fzf-lua').setup({ 'fzf-native' })
+    end
   },
 
   -- === git ===
@@ -112,7 +179,47 @@ require("lazy").setup({
   -- === language plugins ===
   'https://github.com/wuelnerdotexe/vim-astro',
   'https://github.com/hashivim/vim-terraform',
-  { 'https://github.com/nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  {
+    'https://github.com/nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    dependencies = {
+      'https://github.com/RRethy/nvim-treesitter-endwise',
+      'https://github.com/windwp/nvim-ts-autotag',
+      'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
+    },
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "astro",
+          "bash",
+          "css",
+          "html",
+          "javascript",
+          "json",
+          "lua",
+          "python",
+          "ruby",
+          "rust",
+          "scss",
+          "tsx",
+          "typescript",
+          "yaml"
+        },
+        highlight = {
+          enable = true
+        },
+        autotag = {
+          enable = true
+        },
+        context_commentstring = {
+          enable = true
+        },
+        endwise = {
+          enable = true
+        }
+      })
+    end
+  },
   {
     'https://github.com/iamcco/markdown-preview.nvim',
     build = 'cd app && yarn install',
@@ -133,6 +240,7 @@ require("lazy").setup({
   },
   {
     'https://github.com/numToStr/Comment.nvim',
+    dependencies = 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
     config = function()
       require('Comment').setup({
         toggler = {
@@ -145,13 +253,12 @@ require("lazy").setup({
       })
     end
   },
-  'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
   'https://github.com/rhysd/devdocs.vim',
   'https://github.com/RRethy/vim-illuminate',
   'https://github.com/janko-m/vim-test',
   'https://github.com/romainl/vim-cool',
   'https://github.com/tpope/vim-fugitive',
-  { 'https://github.com/tpope/vim-rails',                 ft = { 'ruby' } },
+  { 'https://github.com/tpope/vim-rails', ft = { 'ruby' } },
   'https://github.com/tpope/vim-rhubarb',
   'https://github.com/tpope/vim-rsi',
   'https://github.com/nvim-tree/nvim-web-devicons',
@@ -159,7 +266,39 @@ require("lazy").setup({
     'https://github.com/hoob3rt/lualine.nvim',
     dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons', lazy = true }
   },
-  'https://github.com/windwp/nvim-autopairs',
+  {
+    'https://github.com/windwp/nvim-autopairs',
+    config = function()
+      local remap = vim.api.nvim_set_keymap
+      local npairs = require('nvim-autopairs')
+
+      npairs.setup({ map_bs = false })
+
+      _G.MUtils = {}
+
+      MUtils.CR = function()
+        if vim.fn.pumvisible() ~= 0 then
+          if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
+            return npairs.esc('<c-y>')
+          else
+            return npairs.esc('<c-e>') .. npairs.autopairs_cr()
+          end
+        else
+          return npairs.autopairs_cr()
+        end
+      end
+      remap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
+
+      MUtils.BS = function()
+        if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ 'mode' }).mode == 'eval' then
+          return npairs.esc('<c-e>') .. npairs.autopairs_bs()
+        else
+          return npairs.autopairs_bs()
+        end
+      end
+      remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
+    end
+  },
   {
     'https://github.com/windwp/nvim-ts-autotag',
     ft = { 'html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
@@ -173,7 +312,6 @@ require("lazy").setup({
   }
 },
   {
-    defaults = { lazy = true },
     checker = { enabled = true },
     rtp = { disabled_plugins = { "netrwPlugin" } }
   })

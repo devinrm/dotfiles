@@ -7,7 +7,7 @@ local cmp = require('cmp')
 local has_words_before = function()
   unpack = unpack
   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0).nvim_win_get_cursor(0))
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 end
 local luasnip = require("luasnip")
@@ -115,72 +115,42 @@ mason_lspconfig.setup({
 mason_lspconfig.setup_handlers({
   lsp.astro.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.bashls.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.codeqlls.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.cssls.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.cssmodules_ls.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.dockerls.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.docker_compose_language_service.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.graphql.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.html.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.jsonls.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end,
     commands = {
       Format = {
         function()
@@ -192,9 +162,6 @@ mason_lspconfig.setup_handlers({
 
   lsp.lua_ls.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end,
     settings = {
       Lua = {
         runtime = {
@@ -215,37 +182,24 @@ mason_lspconfig.setup_handlers({
 
   lsp.marksman.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.prismals.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.pyright.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.rust_analyzer.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.solargraph.setup({
     capabilities = capabilities,
     cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
     on_attach = function(client)
-      require 'illuminate'.on_attach(client)
       client.server_capabilities.documentFormattingProvider = false
     end,
     settings = {
@@ -263,44 +217,26 @@ mason_lspconfig.setup_handlers({
 
   lsp.sqlls.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.tailwindcss.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.terraformls.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.tflint.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.tsserver.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 
   lsp.yamlls.setup({
     capabilities = capabilities,
-    on_attach = function(client)
-      require 'illuminate'.on_attach(client)
-    end
   }),
 })
 
