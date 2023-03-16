@@ -1,6 +1,6 @@
+require('settings')
 require('plugins')
 require('dm-lsp-config')
-require('settings')
 require('dm-autopairs')
 require('dm-statusline')
 require('dm-treesitter')
