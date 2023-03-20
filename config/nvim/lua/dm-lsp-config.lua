@@ -50,7 +50,7 @@ cmp.setup({
     documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs( -4),
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
@@ -172,6 +172,7 @@ mason_lspconfig.setup_handlers({
         },
         workspace = {
           library = vim.api.nvim_get_runtime_file("", true),
+          checkThirdParty = false,
         },
         telemetry = {
           enable = false,
