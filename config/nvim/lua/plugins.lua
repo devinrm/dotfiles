@@ -146,6 +146,9 @@ require("lazy").setup({
         "https://github.com/SmiteshP/nvim-navic",
         "https://github.com/nvim-tree/nvim-web-devicons",
       },
+      config = function()
+        require("barbecue").setup()
+      end,
     },
     -- === find ===
     {
