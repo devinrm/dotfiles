@@ -113,9 +113,6 @@ require("lazy").setup({
         vim.keymap.set('n', 'ge', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true }),
         vim.keymap.set('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }),
       },
-      config = function()
-        vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
-      end
     },
     {
       'https://github.com/williamboman/mason.nvim',
@@ -243,9 +240,6 @@ require("lazy").setup({
             lsp.solargraph.setup({
               capabilities = capabilities,
               cmd = { 'docker-compose', 'exec', '-T', 'app', 'solargraph', 'stdio' },
-              on_attach = function(client)
-                client.server_capabilities.documentFormattingProvider = false
-              end,
               settings = {
                 solargraph = {
                   formatting = false,
@@ -384,7 +378,24 @@ require("lazy").setup({
       dependencies = { 'https://github.com/nvim-lua/plenary.nvim' },
       config = function()
         local null_ls = require('null-ls')
+        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
         null_ls.setup({
+          on_attach = function(client, bufnr)
+            if client.supports_method("textDocument/formatting") then
+              vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function()
+                  vim.lsp.buf.format({
+                    bufnr = bufnr,
+                    filter = function(cli) return cli.name ~= "solargraph" end
+                  })
+                end,
+              })
+            end
+          end,
           sources = {
             null_ls.builtins.code_actions.eslint_d,
             null_ls.builtins.diagnostics.eslint_d,

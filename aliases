@@ -137,3 +137,5 @@ alias update="$HOME/dotfiles/bin/update_packages.sh"
 alias install_rust="curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
 
 alias intel="arch -x86_64 /bin/zsh"
+
+alias clone_website="wget --mirror --convert-links --adjust-extension --page-requisites --no-parent"
