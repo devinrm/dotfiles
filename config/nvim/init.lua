@@ -930,61 +930,63 @@ require("lazy").setup({
 -- ||__|||__|||__|||__|||__|||__|||__|||__|||__||
 -- |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
 
-vim.cmd([[
-augroup highlight_yank
-  autocmd!
-  au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=false}
-augroup END
-]])
+local augroupHY = vim.api.nvim_create_augroup("HighlightYank", {})
+vim.api.nvim_clear_autocmds({ group = augroupHY })
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = augroupHY,
+  callback = function()
+    vim.highlight.on_yank { higroup="IncSearch", timeout=1000, on_visual=false }
+  end,
+})
 
-vim.cmd([[
-augroup TerminalNumbers
-  autocmd!
-  autocmd TermOpen * setlocal nonumber norelativenumber
-augroup END
-]])
+local augroupNT = vim.api.nvim_create_augroup("NoTerminalNumbers", {})
+vim.api.nvim_clear_autocmds({ group = augroupNT })
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = augroupNT,
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+  end,
+})
 
-vim.cmd([[
-augroup TerminalExitStatus
-  autocmd!
-  autocmd TermClose * call feedkeys("\<CR>")
-augroup END
-]])
-
--- === automatically rebalance windows on vim resize ===
-vim.cmd([[
-augroup resize
-  autocmd!
-  autocmd VimResized * :wincmd =
-augroup END
-]])
+local augroupTE = vim.api.nvim_create_augroup("TerminalExitStatus", {})
+vim.api.nvim_clear_autocmds({ group = augroupTE })
+vim.api.nvim_create_autocmd("TermClose", {
+  group = augroupTE,
+  callback = function()
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n", true)
+  end,
+})
 
 -- When editing a file, always jump to the last known cursor position.
 -- Don't do it for commit messages, when the position is invalid, or when
 -- inside an event handler.
-vim.cmd([[
-augroup LastKnownCursorPosition
-  autocmd!
-  autocmd BufReadPost *
-        \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-        \   exe "normal g`\"" |
-        \ endif
-augroup END
-]])
+local augroupLK = vim.api.nvim_create_augroup("LastKnownCursorPosition", {})
+vim.api.nvim_clear_autocmds({ group = augroupLK })
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = augroupLK,
+  callback = function()
+    if vim.bo.filetype ~= 'gitcommit' and vim.fn.line('"') > 0 and vim.fn.line('"') <= vim.fn.line('$') then
+      vim.cmd("normal g`\"")
+    end
+  end,
+})
 
 -- Trim trailing whitespace and extra lines
-vim.cmd([[
-function! s:TrimTrailingWhitespace()
-  let l:pos = getpos('.')
-  %s/\s\+$//e
-  call setpos('.', l:pos)
-endfunction
+function TrimTrailingWhitespace()
+  local pos = vim.fn.getpos('.')
+  vim.cmd('%s/\\s\\+$//e')
+  vim.fn.setpos('.', pos)
+end
 
-augroup vimTrim
-  autocmd!
-  autocmd BufWritePre * call s:TrimTrailingWhitespace()
-augroup END
-]])
+local augroupVT = vim.api.nvim_create_augroup("VimTrim", {})
+vim.api.nvim_clear_autocmds({ group = augroupVT })
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = augroupVT,
+  callback = function()
+    TrimTrailingWhitespace()
+  end,
+})
 
 -- === vim-test ===
 vim.cmd([[
@@ -1011,17 +1013,17 @@ let test#ruby#rspec#executable = 'docker-compose exec app bundle exec rspec'
 ]])
 
 -- === debugging ===
-vim.cmd([[
-let g:loaded_pry = 1
-let g:debug_map = {
-      \ 'ruby' : 'require "pry"; binding.pry',
-      \ 'javascript' : 'debugger;',
-      \ 'typescript' : 'debugger;',
-      \ 'javascriptreact' : 'debugger;',
-      \ 'typescriptreact' : 'debugger;',
-      \ 'python': 'import ipdb; ipdb.set_trace()'
-      \}
+vim.g.loaded_pry = 1
+vim.g.debug_map = {
+  ['ruby'] = 'require "pry"; binding.pry',
+  ['javascript'] = 'debugger;',
+  ['typescript'] = 'debugger;',
+  ['javascriptreact'] = 'debugger;',
+  ['typescriptreact'] = 'debugger;',
+  ['python'] = 'import ipdb; ipdb.set_trace()',
+}
 
+vim.cmd([[
 function! InsertDebug()
   if has_key(g:debug_map, &filetype)
     let text = get(g:debug_map, &filetype)
@@ -1032,12 +1034,13 @@ function! InsertDebug()
 endfunction
 ]])
 
+
 --  ____ ____ ____ ____
 -- ||m |||a |||p |||s ||
 -- ||__|||__|||__|||__||
 -- |/__\|/__\|/__\|/__\|
 
--- === zoom a vim pane, <C-w>= to re-balance ===
+-- === zoom a vim pane ===
 vim.keymap.set('n', '<Leader>-', ':wincmd _<CR>:wincmd |<CR>', { noremap = true })
 vim.keymap.set('n', '<Leader>=', ':wincmd =<CR>', { noremap = true })
 
