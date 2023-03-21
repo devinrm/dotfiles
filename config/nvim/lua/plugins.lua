@@ -10,7 +10,7 @@ if not vim.loop.fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
     lazypath,
   })
 end
@@ -37,29 +37,43 @@ require("lazy").setup({
     },
 
     -- === completion ===
-    'https://github.com/neovim/nvim-lspconfig',
-    'https://github.com/williamboman/mason.nvim',
-    'https://github.com/williamboman/mason-lspconfig.nvim',
-    'https://github.com/hrsh7th/nvim-cmp',
-    'https://github.com/hrsh7th/cmp-buffer',
-    'https://github.com/hrsh7th/cmp-path',
-    'https://github.com/saadparwaiz1/cmp_luasnip',
-    'https://github.com/hrsh7th/cmp-nvim-lsp',
-    'https://github.com/hrsh7th/cmp-nvim-lua',
-    'https://github.com/hrsh7th/cmp-cmdline',
-    'https://github.com/hrsh7th/cmp-nvim-lsp-signature-help',
-    'https://github.com/L3MON4D3/LuaSnip',
-    'https://github.com/rafamadriz/friendly-snippets',
-
     {
-      "https://github.com/zbirenbaum/copilot-cmp",
-      after = { "copilot.lua" },
-      dependencies = "https://github.com/zbirenbaum/copilot.lua",
+      'https://github.com/neovim/nvim-lspconfig',
+      keys = {
+        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true }),
+        vim.keymap.set('n', 'ge', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true }),
+        vim.keymap.set('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }),
+      },
       config = function()
-        require("copilot_cmp").setup()
+        vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
       end
     },
-
+    {
+      'https://github.com/williamboman/mason.nvim',
+      dependencies = 'https://github.com/williamboman/mason-lspconfig.nvim',
+    },
+    {
+      'https://github.com/hrsh7th/nvim-cmp',
+      dependencies = {
+        'https://github.com/hrsh7th/cmp-buffer',
+        'https://github.com/hrsh7th/cmp-path',
+        'https://github.com/saadparwaiz1/cmp_luasnip',
+        'https://github.com/hrsh7th/cmp-nvim-lsp',
+        'https://github.com/hrsh7th/cmp-nvim-lua',
+        'https://github.com/hrsh7th/cmp-cmdline',
+        'https://github.com/hrsh7th/cmp-nvim-lsp-signature-help',
+        'https://github.com/L3MON4D3/LuaSnip',
+        'https://github.com/rafamadriz/friendly-snippets',
+        {
+          "https://github.com/zbirenbaum/copilot-cmp",
+          after = { "copilot.lua" },
+          dependencies = "https://github.com/zbirenbaum/copilot.lua",
+          config = function()
+            require("copilot_cmp").setup()
+          end
+        },
+      }
+    },
     'https://github.com/nvim-lua/plenary.nvim',
     'https://github.com/nvim-lua/popup.nvim',
     {
@@ -78,6 +92,32 @@ require("lazy").setup({
     {
       'https://github.com/jose-elias-alvarez/null-ls.nvim',
       dependencies = { 'https://github.com/nvim-lua/plenary.nvim' },
+      config = function()
+        local null_ls = require('null-ls')
+        null_ls.setup({
+          sources = {
+            null_ls.builtins.code_actions.eslint_d,
+            null_ls.builtins.diagnostics.eslint_d,
+            null_ls.builtins.code_actions.proselint,
+            null_ls.builtins.diagnostics.proselint,
+            null_ls.builtins.diagnostics.hadolint,
+            null_ls.builtins.diagnostics.haml_lint,
+            null_ls.builtins.diagnostics.jsonlint,
+            null_ls.builtins.formatting.prettierd,
+            null_ls.builtins.code_actions.refactoring,
+            null_ls.builtins.formatting.rustywind.with({
+              extra_filetypes = { "erb" }
+            }),
+            null_ls.builtins.diagnostics.rubocop,
+            null_ls.builtins.formatting.rubocop,
+            null_ls.builtins.code_actions.shellcheck,
+            null_ls.builtins.diagnostics.shellcheck,
+            null_ls.builtins.formatting.shellharden,
+            null_ls.builtins.diagnostics.stylelint,
+            null_ls.builtins.diagnostics.yamllint
+          }
+        })
+      end
     },
 
     -- === experiments ===
@@ -150,29 +190,33 @@ require("lazy").setup({
         require("barbecue").setup()
       end,
     },
+
     -- === find ===
     {
-      'https://github.com/nvim-tree/nvim-tree.lua',
+      "https://github.com/nvim-neo-tree/neo-tree.nvim",
+      branch = "v2.x",
       dependencies = {
-        'https://github.com/nvim-tree/nvim-web-devicons',
+        "https://github.com/nvim-lua/plenary.nvim",
+        "https://github.com/nvim-tree/nvim-web-devicons",
+        "https://github.com/MunifTanjim/nui.nvim",
       },
-      lazy = false,
+      keys = {
+        vim.keymap.set('n', '<Leader>vi', ':Neotree $HOME/dotfiles/<CR>', { noremap = true }),
+        vim.keymap.set('n', '<Leader>ve', ':NeoTreeRevealToggle<CR>', { noremap = true })
+      },
       config = function()
-        require("nvim-tree").setup({
-          sort_by = "case_sensitive",
-          view = {
-            width = 30,
+        vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+        require("neo-tree").setup({
+          filesystem = {
+            filtered_items = {
+              hide_dotfiles = false,
+              hide_gitignored = false,
+            }
+          },
+          window = {
             mappings = {
-              list = {
-                { key = "-", action = "dir_up" },
-              },
-            },
-          },
-          renderer = {
-            group_empty = true,
-          },
-          filters = {
-            dotfiles = false,
+              ["-"] = "navigate_up",
+            }
           },
         })
       end
@@ -186,7 +230,48 @@ require("lazy").setup({
       dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
       config = function()
         require('fzf-lua').setup({ 'fzf-native' })
-      end
+      end,
+      keys = {
+        vim.keymap.set('n', '<C-p>',
+          "<cmd>lua require('fzf-lua').files()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<C-b>',
+          "<cmd>lua require('fzf-lua').buffers()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>p',
+          "<cmd>lua require('fzf-lua').blines()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>gc',
+          "<cmd>lua require('fzf-lua').commits()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>bgc',
+          "<cmd>lua require('fzf-lua').bcommits()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>hi',
+          "<cmd>lua require('fzf-lua').oldfiles()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', 'gr',
+          "<cmd>lua require('fzf-lua').grep_cword()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>;',
+          "<cmd>lua require('fzf-lua').live_grep_glob()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', "'",
+          "<cmd>lua require('fzf-lua').registers()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('v', '<Leader>ca',
+          "<cmd>lua require('fzf-lua').lsp_code_actions()<CR>",
+          { noremap = true, silent = true })
+      }
     },
 
     -- === git ===
@@ -322,11 +407,30 @@ require("lazy").setup({
       'https://github.com/norcalli/nvim-colorizer.lua',
       config = function() require('colorizer').setup() end
     },
-    'https://github.com/rhysd/devdocs.vim',
+    {
+      'https://github.com/rhysd/devdocs.vim',
+      keys = {
+        vim.keymap.set('n', 'K', '<Plug>(devdocs-under-cursor)', { silent = true })
+      }
+    },
     'https://github.com/RRethy/vim-illuminate',
-    'https://github.com/janko-m/vim-test',
+    {
+      'https://github.com/janko-m/vim-test',
+      keys = {
+        vim.keymap.set('n', '<Leader>t', ':wa<CR>:TestFile<CR>', { noremap = true, silent = true }),
+        vim.keymap.set('n', '<Leader>s', ':wa<CR>:TestNearest<CR>', { noremap = true, silent = true }),
+        vim.keymap.set('n', '<Leader>l', ':wa<CR>:TestLast<CR>', { noremap = true, silent = true }),
+        vim.keymap.set('n', '<Leader>a', ':wa<CR>:TestSuite<CR>', { noremap = true, silent = true }),
+        vim.keymap.set('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', { noremap = true, silent = true }),
+      }
+    },
     'https://github.com/romainl/vim-cool',
-    'https://github.com/tpope/vim-fugitive',
+    {
+      'https://github.com/tpope/vim-fugitive',
+      config = function()
+        vim.cmd([[ command! -nargs=1 Browse silent exec '!open "<args>"' ]])
+      end
+    },
     { 'https://github.com/tpope/vim-rails', ft = { 'ruby' } },
     'https://github.com/tpope/vim-rhubarb',
     'https://github.com/tpope/vim-rsi',
@@ -340,7 +444,12 @@ require("lazy").setup({
       dependencies = "https://github.com/nvim-tree/nvim-web-devicons",
       config = function()
         require("trouble").setup()
-      end
+      end,
+      keys = {
+        vim.keymap.set('n', '<Leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>',
+          { silent = true, noremap = true }
+        )
+      }
     }
   },
   {

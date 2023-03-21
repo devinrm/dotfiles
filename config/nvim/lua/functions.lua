@@ -4,14 +4,6 @@
 -- |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
 
 vim.cmd([[
-augroup ItalicComments
-  autocmd!
-  autocmd ColorScheme * highlight Comment gui=italic
-  autocmd ColorScheme * highlight Comment cterm=italic
-augroup END
-]])
-
-vim.cmd([[
 augroup highlight_yank
   autocmd!
   au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=false}
