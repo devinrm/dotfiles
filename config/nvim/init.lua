@@ -118,7 +118,9 @@ require("lazy").setup({
       dependencies = {
         'https://github.com/williamboman/mason-lspconfig.nvim',
         config = function()
+          require("neodev").setup()
           require('mason').setup()
+
           local mason_lspconfig = require("mason-lspconfig")
           local lsp = require('lspconfig')
           local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -589,7 +591,7 @@ require("lazy").setup({
     {
       'https://github.com/nvim-treesitter/nvim-treesitter',
       build = ':TSUpdate',
-      version = nil,
+      version = false,
       lazy = false,
       dependencies = {
         'https://github.com/RRethy/nvim-treesitter-endwise',
@@ -664,6 +666,7 @@ require("lazy").setup({
             "scss",
             "tsx",
             "typescript",
+            "vim",
             "yaml"
           },
           highlight = {
@@ -725,6 +728,7 @@ require("lazy").setup({
         vim.keymap.set('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', { noremap = true, silent = true }),
       }
     },
+    "https://github.com/folke/neodev.nvim",
     'https://github.com/romainl/vim-cool',
     {
       'https://github.com/tpope/vim-fugitive',
