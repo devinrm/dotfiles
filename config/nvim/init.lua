@@ -500,12 +500,13 @@ require("lazy").setup({
         "https://github.com/nvim-tree/nvim-web-devicons",
         "https://github.com/MunifTanjim/nui.nvim",
       },
+      lazy = false,
       keys = {
         vim.keymap.set('n', '<Leader>vi', ':Neotree $HOME/dotfiles/<CR>', { noremap = true }),
         vim.keymap.set('n', '<Leader>ve', ':NeoTreeRevealToggle<CR>', { noremap = true })
       },
       config = function()
-        vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+        vim.g.neo_tree_remove_legacy_commands = 1
         require("neo-tree").setup({
           filesystem = {
             filtered_items = {
@@ -588,7 +589,7 @@ require("lazy").setup({
     {
       'https://github.com/nvim-treesitter/nvim-treesitter',
       build = ':TSUpdate',
-      version = false,
+      version = nil,
       lazy = false,
       dependencies = {
         'https://github.com/RRethy/nvim-treesitter-endwise',
@@ -683,7 +684,7 @@ require("lazy").setup({
           }
         })
         require('ufo').setup({
-          provider_selector = function(bufnr, filetype, buftype)
+          provider_selector = function()
             return { 'treesitter', 'indent' }
           end
         })
@@ -728,7 +729,7 @@ require("lazy").setup({
     {
       'https://github.com/tpope/vim-fugitive',
       config = function()
-        vim.cmd([[ command! -nargs=1 Browse silent exec '!open "<args>"' ]])
+        vim.cmd("command! -nargs=1 Browse silent exec '!open \"<args>\"'")
       end
     },
     { 'https://github.com/tpope/vim-rails', ft = { 'ruby' } },
@@ -966,7 +967,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   group = augroupLK,
   callback = function()
     if vim.bo.filetype ~= 'gitcommit' and vim.fn.line('"') > 0 and vim.fn.line('"') <= vim.fn.line('$') then
-      vim.cmd("normal g`\"")
+      vim.api.nvim_feedkeys('g`\""', 'n', true)
     end
   end,
 })
@@ -1032,7 +1033,6 @@ function! InsertDebug()
   endif
 endfunction
 ]])
-
 
 --  ____ ____ ____ ____
 -- ||m |||a |||p |||s ||
