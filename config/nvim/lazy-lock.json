@@ -38,7 +38,7 @@
   "nvim-lspconfig": { "branch": "master", "commit": "0f94c5fded29c0024254259f3d8a0284bfb507ea" },
   "nvim-navic": { "branch": "master", "commit": "ca34afcd15c7f6dd0836fc4fca2e37024bfa5019" },
   "nvim-noirbuddy": { "branch": "master", "commit": "7d92fc64ae4c23213fd06f0464a72de45887b0ba" },
-  "nvim-treesitter": { "branch": "master", "commit": "dbdbd71b41a3627e0f2784eff746ad4366e2a21c" },
+  "nvim-treesitter": { "branch": "master", "commit": "9db3769c4b34447bea5894beead79283639ed903" },
   "nvim-treesitter-endwise": { "branch": "master", "commit": "0cf4601c330cf724769a2394df555a57d5fd3f34" },
   "nvim-ts-autotag": { "branch": "main", "commit": "25698e4033cd6cd3745454bfc837dd670eba0480" },
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "729d83ecb990dc2b30272833c213cc6d49ed5214" },
@@ -60,6 +60,6 @@
   "vim-rhubarb": { "branch": "master", "commit": "cad60fe382f3f501bbb28e113dfe8c0de6e77c75" },
   "vim-rsi": { "branch": "master", "commit": "4c673fb6c70652a09682c50a0e308184731ca70b" },
   "vim-terraform": { "branch": "master", "commit": "d00503de9bed3a1da7206090cb148c6a1acce870" },
-  "vim-test": { "branch": "master", "commit": "ed2bf46b30776cd6b7782edfbe2f367b04e9fc35" },
+  "vim-test": { "branch": "master", "commit": "3995a9419dbea1d93ab916bc8f53ee9f19435223" },
   "workspaces.nvim": { "branch": "master", "commit": "dd9574c8a6fbd4910bf298fcd1175a0222e9a09d" }
 }
