@@ -711,6 +711,7 @@ require("lazy").setup({
     },
     {
       'https://github.com/rhysd/devdocs.vim',
+      lazy = false,
       keys = {
         vim.keymap.set('n', 'K', '<Plug>(devdocs-under-cursor)', { silent = true })
       }
@@ -718,6 +719,7 @@ require("lazy").setup({
     'https://github.com/RRethy/vim-illuminate',
     {
       'https://github.com/janko-m/vim-test',
+      lazy = false,
       keys = {
         vim.keymap.set('n', '<Leader>t', ':wa<CR>:TestFile<CR>', { noremap = true, silent = true }),
         vim.keymap.set('n', '<Leader>s', ':wa<CR>:TestNearest<CR>', { noremap = true, silent = true }),
@@ -761,7 +763,7 @@ require("lazy").setup({
           white = '#f3f3f3',
           green = '#7cb0b0',
           orange = '#ff9400',
-          yellow = '#ECBE7B',
+          yellow = '#ecbe7b',
           cyan = '#334040',
           violet = '#5f5f8a',
         }
@@ -923,7 +925,7 @@ require("lazy").setup({
     }
   },
   {
-    checker = { enabled = true },
+    checker = { enabled = false },
     rtp = { disabled_plugins = { "netrwPlugin" } }
   })
 

@@ -6,25 +6,37 @@ return {
   color_scheme = "Slate",
   enable_scroll_bar = false,
   enable_tab_bar = false,
-  use_fancy_tab_bar = false,
+  use_fancy_tab_bar = true,
   window_decorations = "RESIZE",
   window_padding = {
     left = 0,
     right = 0,
   },
   underline_position = "-3pt",
-  -- leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 },
-  -- keys = {
-  --   {
-  --     key = '\\',
-  --     mods = 'LEADER|SHIFT',
-  --     action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
-  --   },
-  --   -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
-  --   {
-  --     key = 'a',
-  --     mods = 'LEADER|CTRL',
-  --     action = wezterm.action.SendString '\x01',
-  --   },
-  -- },
+  -- leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 1000 },
+  keys = {
+    -- {
+      -- key = 's',
+      -- mods = 'LEADER|CTRL',
+      -- action = wezterm.action.SendString '\x01',
+    -- },
+    -- {
+      -- key = '\\',
+      -- mods = 'CMD',
+      -- action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+    -- },
+    -- {
+      -- key = '-',
+      -- mods = 'CMD',
+      -- action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+    -- },
+    -- { key = 'f', mods = 'LEADER', action = wezterm.action.SwitchToWorkspace },
+    -- {
+      -- key = 'n',
+      -- mods = 'LEADER',
+      -- action = wezterm.action.ShowLauncherArgs {
+        -- flags = 'FUZZY|WORKSPACES',
+      -- },
+    -- },
+  },
 }
