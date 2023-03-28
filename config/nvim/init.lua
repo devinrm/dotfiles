@@ -637,18 +637,22 @@ require("lazy").setup({
           'https://github.com/windwp/nvim-ts-autotag',
           ft = { 'html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
         },
+
         {
-          'https://github.com/numToStr/Comment.nvim',
+        'https://github.com/echasnovski/mini.nvim',
+          version = false,
           dependencies = 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
           config = function()
-            require('Comment').setup({
-              toggler = {
-                line = "<C-\\>",
+            require('mini.comment').setup({
+              mappings = {
+                comment_line = "<C-\\>",
+                comment = '<C-\\>',
               },
-              opleader = {
-                block = '<C-\\>',
-              },
-              pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+              hooks = {
+                pre = function()
+                  require('ts_context_commentstring.internal').update_commentstring()
+                end
+              }
             })
           end
         },
@@ -668,7 +672,8 @@ require("lazy").setup({
             enable = true
           },
           context_commentstring = {
-            enable = true
+            enable = true,
+            enable_autocmd = false,
           },
           endwise = {
             enable = true
