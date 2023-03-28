@@ -65,6 +65,9 @@ vim.wo.number = true            -- Turn on line numbers
 vim.wo.numberwidth = 1          -- Minimal number of columns to use for the line number.
 vim.wo.signcolumn = 'yes'       -- Leave signcolumn enabled otherwise it's a little jarring
 vim.wo.wrap = false             -- Don't wrap lines longer than the width of the window
+vim.diagnostic.config({
+  virtual_text = false,
+})
 
 --  ____ ____ ____ ____ ____ ____ ____
 -- ||p |||l |||u |||g |||i |||n |||s ||
@@ -490,7 +493,11 @@ require("lazy").setup({
         require("barbecue").setup()
       end,
     },
-
+    {
+      "https://github.com/chrishrb/gx.nvim",
+      event = { "BufEnter" },
+      config = true,
+    },
     -- === find ===
     {
       "https://github.com/nvim-neo-tree/neo-tree.nvim",
@@ -593,7 +600,6 @@ require("lazy").setup({
       lazy = false,
       dependencies = {
         'https://github.com/RRethy/nvim-treesitter-endwise',
-        'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
         {
           'https://github.com/windwp/nvim-autopairs',
           config = function()
@@ -650,23 +656,7 @@ require("lazy").setup({
       },
       config = function()
         require("nvim-treesitter.configs").setup({
-          ensure_installed = {
-            "astro",
-            "bash",
-            "css",
-            "html",
-            "javascript",
-            "json",
-            "lua",
-            "python",
-            "ruby",
-            "rust",
-            "scss",
-            "tsx",
-            "typescript",
-            "vim",
-            "yaml"
-          },
+          ensure_installed = "all",
           highlight = {
             enable = true,
             additional_vim_regex_highlighting = false,
@@ -933,6 +923,21 @@ require("lazy").setup({
 -- ||f |||u |||n |||c |||t |||i |||o |||n |||s ||
 -- ||__|||__|||__|||__|||__|||__|||__|||__|||__||
 -- |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  buffer = bufnr,
+  callback = function()
+    local opts = {
+      focusable = false,
+      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      border = 'rounded',
+      source = 'always',
+      prefix = ' ',
+      scope = 'cursor',
+    }
+    vim.diagnostic.open_float(nil, opts)
+  end
+})
 
 local augroupHY = vim.api.nvim_create_augroup("HighlightYank", {})
 vim.api.nvim_clear_autocmds({ group = augroupHY })
