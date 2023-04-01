@@ -102,6 +102,7 @@ alias reb="git rebase -i -"
 alias rename="git branch -m"
 alias st="git status"
 alias stu="git stash -u"
+alias stou="git stou"
 alias uncommit="git reset --soft HEAD^"
 alias unstage="git reset"
 

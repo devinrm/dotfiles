@@ -28,6 +28,11 @@
   sla = log --oneline --decorate --graph --all
   st = status
   stu = stash -u
+  stou = "!f() { \
+    git stash; \
+    git stash -u; \
+    git stash pop stash@{1}; \
+  }; f"
   uncommit = reset --soft HEAD^
   unstage = reset
   upstream = rev-parse --abbrev-ref --symbolic-full-name @{upstream}
