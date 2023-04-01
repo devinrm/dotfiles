@@ -94,17 +94,15 @@ require("lazy").setup({
       lazy = false,
       priority = 1000,
       dependencies = { "https://github.com/tjdevries/colorbuddy.nvim", branch = "dev" },
-      config = function()
-        require("noirbuddy").setup({
-          preset = 'slate',
-          styles = {
-            italic = true,
-            bold = true,
-            underline = true,
-            undercurl = true,
-          },
-        })
-      end
+      opts = {
+        preset = 'slate',
+        styles = {
+          italic = true,
+          bold = true,
+          underline = true,
+          undercurl = true,
+        },
+      }
     },
 
     -- === completion ===
@@ -157,41 +155,16 @@ require("lazy").setup({
           })
 
           mason_lspconfig.setup_handlers({
-            lsp.astro.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.bashls.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.codeqlls.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.cssls.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.cssmodules_ls.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.dockerls.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.docker_compose_language_service.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.graphql.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.html.setup({
-              capabilities = capabilities,
-            }),
+            lsp.astro.setup({ capabilities = capabilities }),
+            lsp.bashls.setup({ capabilities = capabilities }),
+            lsp.codeqlls.setup({ capabilities = capabilities }),
+            lsp.cssls.setup({ capabilities = capabilities }),
+            lsp.cssmodules_ls.setup({ capabilities = capabilities }),
+            lsp.dockerls.setup({ capabilities = capabilities }),
+            lsp.docker_compose_language_service.setup({ capabilities = capabilities }),
+            lsp.eslint.setup({ capabilities = capabilities }),
+            lsp.graphql.setup({ capabilities = capabilities }),
+            lsp.html.setup({ capabilities = capabilities }),
 
             lsp.jsonls.setup({
               capabilities = capabilities,
@@ -225,21 +198,10 @@ require("lazy").setup({
               },
             }),
 
-            lsp.marksman.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.prismals.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.pyright.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.rust_analyzer.setup({
-              capabilities = capabilities,
-            }),
+            lsp.marksman.setup({ capabilities = capabilities }),
+            lsp.prismals.setup({ capabilities = capabilities }),
+            lsp.pyright.setup({ capabilities = capabilities }),
+            lsp.rust_analyzer.setup({ capabilities = capabilities }),
 
             lsp.solargraph.setup({
               capabilities = capabilities,
@@ -257,29 +219,12 @@ require("lazy").setup({
               }
             }),
 
-            lsp.sqlls.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.tailwindcss.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.terraformls.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.tflint.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.tsserver.setup({
-              capabilities = capabilities,
-            }),
-
-            lsp.yamlls.setup({
-              capabilities = capabilities,
-            }),
+            lsp.sqlls.setup({ capabilities = capabilities }),
+            lsp.tailwindcss.setup({ capabilities = capabilities }),
+            lsp.terraformls.setup({ capabilities = capabilities }),
+            lsp.tflint.setup({ capabilities = capabilities }),
+            lsp.tsserver.setup({ capabilities = capabilities }),
+            lsp.yamlls.setup({ capabilities = capabilities }),
           })
         end
       },
@@ -365,16 +310,14 @@ require("lazy").setup({
     'https://github.com/nvim-lua/popup.nvim',
     {
       'https://github.com/zbirenbaum/copilot.lua',
-      config = function()
-        require("copilot").setup({
-          suggestion = { enabled = false },
-          panel = { enabled = false },
-          filetypes = {
-            yaml = true,
-            markdown = true,
-          },
-        })
-      end
+      opts = {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+        filetypes = {
+          yaml = true,
+          markdown = true,
+        },
+      }
     },
     {
       'https://github.com/jose-elias-alvarez/null-ls.nvim',
@@ -400,14 +343,12 @@ require("lazy").setup({
             end
           end,
           sources = {
-            null_ls.builtins.code_actions.eslint_d,
-            null_ls.builtins.diagnostics.eslint_d,
             null_ls.builtins.code_actions.proselint,
             null_ls.builtins.diagnostics.proselint,
             null_ls.builtins.diagnostics.hadolint,
             null_ls.builtins.diagnostics.haml_lint,
             null_ls.builtins.diagnostics.jsonlint,
-            null_ls.builtins.formatting.prettierd,
+            null_ls.builtins.formatting.prettier,
             null_ls.builtins.formatting.rustywind.with({
               extra_filetypes = { "erb" }
             }),
@@ -441,28 +382,24 @@ require("lazy").setup({
         "https://github.com/nvim-lua/plenary.nvim",
         "https://github.com/m00qek/baleia.nvim"
       },
-      config = function()
-        require("chafa").setup({
-          render = {
-            min_padding = 5,
-            show_label = true,
-          },
-          events = {
-            update_on_nvim_resize = true,
-          },
-        })
-      end
+      opts = {
+        render = {
+          min_padding = 5,
+          show_label = true,
+        },
+        events = {
+          update_on_nvim_resize = true,
+        },
+      }
     },
     {
       'https://github.com/stevearc/aerial.nvim',
-      config = function()
-        require('aerial').setup({
-          on_attach = function(bufnr)
-            vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
-            vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
-          end
-        })
-      end
+      opts = {
+        on_attach = function(bufnr)
+          vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
+          vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
+        end
+      }
     },
     {
       'https://github.com/j-hui/fidget.nvim',
@@ -473,31 +410,23 @@ require("lazy").setup({
     'https://github.com/DanilaMihailov/beacon.nvim',
     {
       'https://github.com/natecraddock/workspaces.nvim',
-      config = function()
-        local workspaces = require("workspaces")
-        workspaces.setup({
-          cd_type = "local",
-          hooks = { open = { "FzfLua files" } }
-        })
-      end
-    },
-    {
-      "https://github.com/utilyre/barbecue.nvim",
-      name = "barbecue",
-      version = "*",
-      dependencies = {
-        "https://github.com/SmiteshP/nvim-navic",
-        "https://github.com/nvim-tree/nvim-web-devicons",
-      },
-      config = function()
-        require("barbecue").setup()
-      end,
+      opts = {
+        cd_type = "local",
+        hooks = { open = { "FzfLua files" } }
+      }
     },
     {
       "https://github.com/chrishrb/gx.nvim",
       event = { "BufEnter" },
       config = true,
     },
+    {
+      'https://github.com/laytan/cloak.nvim',
+      config = function()
+        require('cloak').setup()
+      end
+    },
+
     -- === find ===
     {
       "https://github.com/nvim-neo-tree/neo-tree.nvim",
@@ -514,7 +443,7 @@ require("lazy").setup({
       },
       config = function()
         vim.g.neo_tree_remove_legacy_commands = 1
-        require("neo-tree").setup({
+        require('neo-tree').setup({
           filesystem = {
             filtered_items = {
               hide_dotfiles = false,
@@ -527,7 +456,7 @@ require("lazy").setup({
             }
           },
         })
-      end
+      end,
     },
     {
       'https://github.com/junegunn/fzf',
@@ -736,6 +665,20 @@ require("lazy").setup({
     'https://github.com/tpope/vim-rsi',
     'https://github.com/nvim-tree/nvim-web-devicons',
     {
+    'https://github.com/kdheepak/tabline.nvim',
+      dependencies = {
+        'https://github.com/hoob3rt/lualine.nvim',
+        'https://github.com/nvim-tree/nvim-web-devicons'
+      },
+      opts = {
+        options = {
+          show_filename_only = true,
+          show_tabs_only = true,
+          show_tabs_always = false,
+        }
+      },
+    },
+    {
       'https://github.com/hoob3rt/lualine.nvim',
       dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons', lazy = true },
       config = function()
@@ -752,12 +695,12 @@ require("lazy").setup({
         }
 
         local colors = {
-          red = '#ff005c',
+          red = '#ff0167',
           grey = '#949494',
           black = '#1c1c1c',
           white = '#f3f3f3',
-          green = '#7cb0b0',
-          orange = '#ff9400',
+          green = '#22bac5',
+          orange = '#f39e8c',
           yellow = '#ecbe7b',
           cyan = '#334040',
           violet = '#5f5f8a',
@@ -931,6 +874,7 @@ require("lazy").setup({
 
 vim.api.nvim_create_autocmd("CursorHold", {
   buffer = bufnr,
+
   callback = function()
     local opts = {
       focusable = false,
@@ -940,7 +884,11 @@ vim.api.nvim_create_autocmd("CursorHold", {
       prefix = ' ',
       scope = 'cursor',
     }
-    vim.diagnostic.open_float(nil, opts)
+
+    local _, winnr = vim.diagnostic.open_float(nil, opts)
+    if winnr then
+      vim.api.nvim_win_set_option(winnr, "winblend", 10)
+    end
   end
 })
 
