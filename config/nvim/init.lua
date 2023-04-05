@@ -366,49 +366,6 @@ require("lazy").setup({
 
     -- === experiments ===
     {
-      "https://github.com/jackMort/ChatGPT.nvim",
-      config = function()
-        require("chatgpt").setup()
-      end,
-      dependencies = {
-        "https://github.com/MunifTanjim/nui.nvim",
-        "https://github.com/nvim-lua/plenary.nvim",
-        "https://github.com/nvim-telescope/telescope.nvim"
-      }
-    },
-    {
-      "https://github.com/princejoogie/chafa.nvim",
-      dependencies = {
-        "https://github.com/nvim-lua/plenary.nvim",
-        "https://github.com/m00qek/baleia.nvim"
-      },
-      opts = {
-        render = {
-          min_padding = 5,
-          show_label = true,
-        },
-        events = {
-          update_on_nvim_resize = true,
-        },
-      }
-    },
-    {
-      'https://github.com/stevearc/aerial.nvim',
-      opts = {
-        on_attach = function(bufnr)
-          vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
-          vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
-        end
-      }
-    },
-    {
-      'https://github.com/j-hui/fidget.nvim',
-      config = function()
-        require('fidget').setup()
-      end
-    },
-    'https://github.com/DanilaMihailov/beacon.nvim',
-    {
       'https://github.com/natecraddock/workspaces.nvim',
       opts = {
         cd_type = "local",
@@ -416,14 +373,23 @@ require("lazy").setup({
       }
     },
     {
-      "https://github.com/chrishrb/gx.nvim",
-      event = { "BufEnter" },
-      config = true,
+      'https://github.com/stevearc/overseer.nvim',
+      config = function()
+        require('overseer').setup()
+      end
     },
     {
-      'https://github.com/laytan/cloak.nvim',
+      "https://github.com/james1236/backseat.nvim",
       config = function()
-        require('cloak').setup()
+        require("backseat").setup({
+          openai_model_id = 'gpt-3.5-turbo', --gpt-4 (If you do not have access to a model, it says "The model does not exist")
+          split_threshold = 100,
+          -- additional_instruction = "Respond snarkily", -- (GPT-3 will probably deny this request, but GPT-4 complies)
+          highlight = {
+            icon = '',
+            group = 'Comment',
+          }
+        })
       end
     },
 
@@ -628,6 +594,60 @@ require("lazy").setup({
     },
 
     -- === other ===
+    {
+      "https://github.com/jackMort/ChatGPT.nvim",
+      config = function()
+        require("chatgpt").setup()
+      end,
+      dependencies = {
+        "https://github.com/MunifTanjim/nui.nvim",
+        "https://github.com/nvim-lua/plenary.nvim",
+        "https://github.com/nvim-telescope/telescope.nvim"
+      }
+    },
+    {
+      "https://github.com/princejoogie/chafa.nvim",
+      dependencies = {
+        "https://github.com/nvim-lua/plenary.nvim",
+        "https://github.com/m00qek/baleia.nvim"
+      },
+      opts = {
+        render = {
+          min_padding = 5,
+          show_label = true,
+        },
+        events = {
+          update_on_nvim_resize = true,
+        },
+      }
+    },
+    {
+      'https://github.com/stevearc/aerial.nvim',
+      opts = {
+        on_attach = function(bufnr)
+          vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
+          vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
+        end
+      }
+    },
+    {
+      'https://github.com/j-hui/fidget.nvim',
+      config = function()
+        require('fidget').setup()
+      end
+    },
+    'https://github.com/DanilaMihailov/beacon.nvim',
+    {
+      "https://github.com/chrishrb/gx.nvim",
+      event = { "BufEnter" },
+      config = true,
+    },
+    {
+      'https://github.com/laytan/cloak.nvim',
+      config = function()
+        require('cloak').setup()
+      end
+    },
     'https://github.com/stefandtw/quickfix-reflector.vim',
     {
       'https://github.com/norcalli/nvim-colorizer.lua',
@@ -664,20 +684,6 @@ require("lazy").setup({
     'https://github.com/tpope/vim-rhubarb',
     'https://github.com/tpope/vim-rsi',
     'https://github.com/nvim-tree/nvim-web-devicons',
-    {
-    'https://github.com/kdheepak/tabline.nvim',
-      dependencies = {
-        'https://github.com/hoob3rt/lualine.nvim',
-        'https://github.com/nvim-tree/nvim-web-devicons'
-      },
-      opts = {
-        options = {
-          show_filename_only = true,
-          show_tabs_only = true,
-          show_tabs_always = false,
-        }
-      },
-    },
     {
       'https://github.com/hoob3rt/lualine.nvim',
       dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons', lazy = true },
@@ -776,6 +782,25 @@ require("lazy").setup({
             theme = theme,
             component_separators = '',
             section_separators = { left = '', right = '' },
+          },
+          extensions = {
+            'aerial',
+            'fugitive',
+            'fzf',
+            'lazy',
+            'man',
+            'neo-tree',
+            'overseer',
+            'quickfix',
+            'trouble',
+          },
+          tabline = {
+            lualine_a = {'filename'},
+            lualine_b = {},
+            lualine_c = {},
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = {'tabs'}
           },
           sections = process_sections {
             lualine_a = {
