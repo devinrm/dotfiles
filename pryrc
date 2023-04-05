@@ -1,42 +1,141 @@
+# coding:utf-8 vim:ft=ruby
+
 Pry.config.editor = "nvim"
+Pry.config.pager = false
+Pry.config.color = true
+if Pry.config.respond_to?(:history_save)
+  Pry.config.history_save = true
+else
+  Pry.config.history.should_save = true
+end
+Pry.config.should_load_local_rc = Dir.pwd != Dir.home
 
-require 'rubygems'
-require 'pp'
 require 'readline'
-require 'rb-readline'
+if Readline::VERSION =~ /editline/i
+  warn "Warning: Using Editline instead of Readline."
+end
 
-if defined?(RbReadline)
-  def RbReadline.rl_reverse_search_history(sign, key)
-    rl_insert_text  `cat ~/.pry_history | fzf --tac |  tr '\n' ' '`
+# wrap ANSI codes so Readline knows where the prompt ends
+def colour(name, text)
+  if Pry.color
+    str = Pry::Helpers::Text.send(name, text)
+    unless str.start_with?("\001")
+      str = "\001#{Pry::Helpers::Text.send name, '{text}'}\002".sub '{text}', "\002#{text}\001"
+    end
+    str
+  else
+    text
   end
 end
 
-color_escape_codes = {
-  black: "\033[0;30m",
-  red: "\033[0;31m",
-  green: "\033[0;32m",
-  yellow: "\033[0;33m",
-  blue: "\033[0;34m",
-  purple: "\033[0;35m",
-  cyan: "\033[0;36m",
-  reset: "\033[0;0m"
-}
-
-env_colors = {
-  "development" => color_escape_codes[:white],
-  "test" => color_escape_codes[:purple],
-  "staging" => color_escape_codes[:yellow],
-  "production" => color_escape_codes[:red],
-}
-
-def app_name
-  File.basename(Rails.root)
+# pretty prompt
+prompt_procs = [
+  proc { |target_self, nest_level, pry|
+    prompt = colour :bright_black, Pry.view_clip(target_self)
+    prompt += ":#{nest_level}" if nest_level > 0
+    prompt += colour :cyan, ' » '
+  },
+  proc { |target_self, nest_level, pry|
+    colour :red, '?> '
+  }
+]
+Pry.config.prompt = if defined?(Pry::Prompt)
+  Pry::Prompt.new(nil, nil, prompt_procs)
+else
+  prompt_procs
 end
 
-if defined?(Rails)
-  Pry.config.prompt = proc do |obj, nest_level, _|
-    color = env_colors.fetch(Rails.env, color_escape_codes[:reset])
-    colored_environment_name = "#{color}#{Rails.env}#{color_escape_codes[:reset]}"
-    "[#{app_name}]""(#{colored_environment_name}) #{obj}:#{nest_level}>"
+# tell Readline when the window resizes
+old_winch = trap 'WINCH' do
+  if `stty size` =~ /\A(\d+) (\d+)\n\z/
+    Readline.set_screen_size $1.to_i, $2.to_i
   end
+  old_winch.call unless old_winch.nil? || old_winch == 'SYSTEM_DEFAULT'
+end
+
+# use awesome print for output if available
+org_print = Pry.config.print
+Pry.config.print = proc do |output, value, _pry_|
+  begin
+    require 'awesome_print'
+    case
+    when defined?(Capybara) && value.is_a?(Capybara::Node::Element)
+      org_print.call(output, value, _pry_)
+    when defined?(ActiveSupport::SafeBuffer) && value.is_a?(ActiveSupport::SafeBuffer)
+      output.print value.to_str.ai
+      if value.html_safe?
+        output.print ' (HTML safe)'
+      end
+      output.puts
+    when defined?(ActionController::Parameters) && value.is_a?(ActionController::Parameters)
+      output.puts value.to_unsafe_h.ai
+    when defined?(Heroics) && value.is_a?(Heroics::Client)
+      output.puts value.instance_variable_get('@resources').keys.ai(multiline: false)
+    when defined?(Heroics) && value.is_a?(Heroics::Resource)
+      output.puts value.instance_variable_get('@links').keys.ai(multiline: false)
+    else
+      value = value.to_a if %w[ActiveRecord::Relation ActiveRecord::Result].include?(value.class.name)
+      output.puts value.ai
+    end
+  rescue LoadError => err
+    org_print.call(output, value, _pry_)
+  end
+  Pry.history.save if Pry.history.respond_to? :save
+end
+
+org_logger_active_record = nil
+org_logger_rails = nil
+
+Pry.hooks.add_hook :before_session, :rails do |output, target, pry|
+  require 'logger'
+  new_logger = if defined?(ActiveSupport::Logger)
+    ActiveSupport::Logger.new(STDOUT)
+  else
+    Logger.new(STDOUT)
+  end
+  if defined?(ActiveSupport::TaggedLogging)
+    new_logger = ActiveSupport::TaggedLogging.new(new_logger)
+  end
+
+  # show ActiveRecord SQL queries in the console
+  if defined? ActiveRecord
+    org_logger_active_record = ActiveRecord::Base.logger
+    ActiveRecord::Base.logger = new_logger
+  end
+
+  if defined?(Rails) && Rails.env
+    # output all other log info such as deprecation warnings to the console
+    if Rails.respond_to? :logger=
+      org_logger_rails = Rails.logger
+      Rails.logger = new_logger
+    end
+
+    # load Rails console commands
+    if Rails::VERSION::MAJOR >= 3
+      require 'rails/console/app'
+      require 'rails/console/helpers'
+      if Rails.const_defined? :ConsoleMethods
+        extend Rails::ConsoleMethods
+      end
+    else
+      require 'console_app'
+      require 'console_with_helpers'
+    end
+  end
+end
+
+Pry.hooks.add_hook :after_session, :rails do |output, target, pry|
+  ActiveRecord::Base.logger = org_logger_active_record if org_logger_active_record
+  Rails.logger = org_logger_rails if org_logger_rails
+end
+
+def pbcopy(data)
+  IO.popen 'pbcopy', 'w' do |io|
+    io << data
+  end
+  nil
+end
+
+def pbpaste
+  `pbpaste`
 end

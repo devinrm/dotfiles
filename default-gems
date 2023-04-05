@@ -13,9 +13,8 @@ i18n-tasks
 interactive_editor
 mdl
 neovim
-parity
+pry
 rails_best_practices
-rb-readline
 readline-ext
 reek
 rubocop
