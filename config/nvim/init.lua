@@ -3,6 +3,8 @@
 -- ||__|||__|||__|||__|||__|||__|||__|||__||
 -- |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
 
+vim.loader.enable()
+
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.o.termguicolors = true
@@ -384,7 +386,6 @@ require("lazy").setup({
         require("backseat").setup({
           openai_model_id = 'gpt-3.5-turbo', --gpt-4 (If you do not have access to a model, it says "The model does not exist")
           split_threshold = 100,
-          -- additional_instruction = "Respond snarkily", -- (GPT-3 will probably deny this request, but GPT-4 complies)
           highlight = {
             icon = '',
             group = 'Comment',
@@ -596,9 +597,18 @@ require("lazy").setup({
     -- === other ===
     {
       "https://github.com/jackMort/ChatGPT.nvim",
-      config = function()
-        require("chatgpt").setup()
-      end,
+      event = "VeryLazy",
+      opts = {
+        openai_params = {
+          model = "gpt-3.5-turbo",
+          frequency_penalty = 0,
+          presence_penalty = 0,
+          max_tokens = 300,
+          temperature = 0,
+          top_p = 1,
+          n = 1,
+        },
+      },
       dependencies = {
         "https://github.com/MunifTanjim/nui.nvim",
         "https://github.com/nvim-lua/plenary.nvim",
