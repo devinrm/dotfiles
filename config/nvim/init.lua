@@ -69,6 +69,7 @@ vim.wo.signcolumn = 'yes'       -- Leave signcolumn enabled otherwise it's a lit
 vim.wo.wrap = false             -- Don't wrap lines longer than the width of the window
 vim.diagnostic.config({
   virtual_text = false,
+  underline = false,
 })
 
 --  ____ ____ ____ ____ ____ ____ ____
@@ -101,7 +102,7 @@ require("lazy").setup({
         styles = {
           italic = true,
           bold = true,
-          underline = true,
+          underline = false,
           undercurl = true,
         },
       }
