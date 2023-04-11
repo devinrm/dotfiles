@@ -671,7 +671,6 @@ require("lazy").setup({
         vim.keymap.set('n', 'K', '<Plug>(devdocs-under-cursor)', { silent = true })
       }
     },
-    'https://github.com/RRethy/vim-illuminate',
     {
       'https://github.com/janko-m/vim-test',
       lazy = false,
