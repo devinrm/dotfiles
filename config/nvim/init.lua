@@ -11,8 +11,8 @@ vim.o.termguicolors = true
 vim.bo.smartindent = true
 vim.opt.background = 'dark'
 vim.opt.spellfile = os.getenv("HOME") .. "/.vim-spell-en.utf-8.add"
-vim.g.is_posix = 1                                          -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
-vim.g.mapleader = ' '                                       -- Set Leader key to <Space> bar
+vim.g.is_posix = 1    -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
+vim.g.mapleader = ' ' -- Set Leader key to <Space> bar
 vim.g.python3_host_prog = (vim.env.HOME .. '/.asdf/shims/python')
 vim.o.autowriteall = true
 vim.o.backspace = '2'           -- Backspace deletes like most programs in insert mode
@@ -32,7 +32,6 @@ vim.o.grepprg = 'rg --vimgrep --no-heading'
 vim.o.ignorecase = true    -- case insensitive pattern matching
 vim.o.inccommand = 'split' -- this is necessary for using this %s with a quickfix window in nvim
 vim.o.joinspaces = false   -- Insert one space after a '.', '?' and '!' with a join command.
-vim.o.lazyredraw = true
 vim.o.matchtime = 0        -- Speed up escape after (){} chars
 vim.o.pumheight = 10       -- limit size of popup menu
 vim.o.pumblend = 20
@@ -61,15 +60,14 @@ vim.opt.diffopt:append({ 'vertical' }) -- Start diff mode with vertical splits
 vim.opt.laststatus = 3
 vim.opt.list = true
 vim.opt.path:append({ '.,,', 'node_modules' })
-vim.opt.shortmess = 'SfxtToOFc' -- vim default with 'c' appended (don't give |ins-completion-menu| messages)
-vim.wo.cursorline = true
+vim.opt.shortmess = 'fxtToOFc' -- vim default with 'c' appended (don't give |ins-completion-menu| messages)
+vim.wo.cursorline = false
 vim.wo.number = true            -- Turn on line numbers
 vim.wo.numberwidth = 1          -- Minimal number of columns to use for the line number.
 vim.wo.signcolumn = 'yes'       -- Leave signcolumn enabled otherwise it's a little jarring
 vim.wo.wrap = false             -- Don't wrap lines longer than the width of the window
 vim.diagnostic.config({
   virtual_text = false,
-  underline = false,
 })
 
 --  ____ ____ ____ ____ ____ ____ ____
@@ -92,18 +90,49 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     -- === colorscheme(s) ===
+    -- {
+    --   "https://github.com/jesseleite/nvim-noirbuddy",
+    --   lazy = false,
+    --   priority = 1000,
+    --   dependencies = {
+    --     "https://github.com/tjdevries/colorbuddy.nvim",
+    --     branch = "dev",
+    --   },
+    --   opts = {
+    --     preset = 'slate',
+    --     styles = {
+    --       italic = true,
+    --       bold = true,
+    --       underline = false,
+    --       undercurl = true,
+    --     },
+    --   }
+    -- },
     {
-      "https://github.com/jesseleite/nvim-noirbuddy",
+      'https://github.com/rmehri01/onenord.nvim',
       lazy = false,
       priority = 1000,
-      dependencies = { "https://github.com/tjdevries/colorbuddy.nvim", branch = "dev" },
       opts = {
-        preset = 'slate',
+        theme = "dark",
+        borders = true, -- Split window borders
+        fade_nc = false, -- Fade non-current windows, making them more distinguishable
+        -- Style that is applied to various groups: see `highlight-args` for options
         styles = {
-          italic = true,
-          bold = true,
-          underline = false,
-          undercurl = true,
+          comments = "italic",
+          strings = "NONE",
+          keywords = "NONE",
+          functions = "NONE",
+          variables = "NONE",
+          diagnostics = "undercurl",
+        },
+        disable = {
+          background = false, -- Disable setting the background color
+          cursorline = true,
+          eob_lines = true, -- Hide the end-of-buffer lines
+        },
+        -- Inverse highlight for different groups
+        inverse = {
+          match_paren = false,
         },
       }
     },
@@ -351,6 +380,7 @@ require("lazy").setup({
             null_ls.builtins.diagnostics.hadolint,
             null_ls.builtins.diagnostics.haml_lint,
             null_ls.builtins.diagnostics.jsonlint,
+            -- null_ls.builtins.formatting.lua_format,
             null_ls.builtins.formatting.prettier,
             null_ls.builtins.formatting.rustywind.with({
               extra_filetypes = { "erb" }
@@ -372,7 +402,7 @@ require("lazy").setup({
       'https://github.com/natecraddock/workspaces.nvim',
       opts = {
         cd_type = "local",
-        hooks = { open = { "FzfLua files" } }
+        hooks = { open = { "Telescope find_files" } }
       }
     },
     {
@@ -385,7 +415,7 @@ require("lazy").setup({
       "https://github.com/james1236/backseat.nvim",
       config = function()
         require("backseat").setup({
-          openai_model_id = 'gpt-3.5-turbo', --gpt-4 (If you do not have access to a model, it says "The model does not exist")
+          openai_model_id = 'gpt-3.5-turbo', --gpt-4
           split_threshold = 100,
           highlight = {
             icon = '',
@@ -393,6 +423,75 @@ require("lazy").setup({
           }
         })
       end
+    },
+    {
+      "https://github.com/nvim-telescope/telescope.nvim",
+      dependencies = {
+        "https://github.com/nvim-lua/plenary.nvim",
+        "https://github.com/debugloop/telescope-undo.nvim",
+        "https://github.com/nvim-treesitter/nvim-treesitter",
+        "https://github.com/nvim-tree/nvim-web-devicons",
+        {
+          "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
+          build = "make",
+        },
+      },
+      config = function()
+        require("telescope").setup({
+          extensions = {
+            fzf = {
+              fuzzy = true,
+              override_generic_sorter = true,
+              override_file_sorter = true,
+              case_mode = "smart_case",
+            },
+            undo = {
+              side_by_side = true,
+              layout_strategy = "vertical",
+              layout_config = {
+                preview_height = 0.8,
+              },
+            },
+          },
+        })
+        require("telescope").load_extension("undo")
+        require("telescope").load_extension("fzf")
+      end,
+      keys = {
+        vim.keymap.set("n", "<Leader>u", "<cmd>Telescope undo<cr>"),
+        vim.keymap.set('n', '<C-p>', "<cmd>Telescope find_files<cr>", { noremap = true, silent = true }),
+        vim.keymap.set('n', '<C-b>', "<cmd>Telescope buffers<cr>", { noremap = true, silent = true }),
+        vim.keymap.set('n', '<Leader>p', "<cmd>Telescope current_buffer_fuzzy_find<cr>", { noremap = true, silent = true }),
+        vim.keymap.set('n', '<Leader>gc', "<cmd>Telescope git_commits<cr>", { noremap = true, silent = true }),
+        vim.keymap.set('n', '<Leader>bgc', "<cmd>Telescope git_bcommits<cr>", { noremap = true, silent = true }),
+        vim.keymap.set('n', '<Leader>hi', "<cmd>Telescope oldfiles<cr>", { noremap = true, silent = true }),
+        vim.keymap.set('n', '<Leader>;', "<cmd>Telescope live_grep<cr>", { noremap = true, silent = true }),
+        vim.keymap.set('n', "<Leader>'", "<cmd>Telescope registers<cr>", { noremap = true, silent = true }),
+        vim.keymap.set('n', 'gr', "<cmd>Telescope grep_string<cr>", { noremap = true, silent = true }),
+      }
+    },
+    {
+      "https://github.com/folke/noice.nvim",
+      opts = {
+        lsp = {
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
+        },
+        presets = {
+          bottom_search = true,
+          command_palette = true,
+          long_message_to_split = true,
+          inc_rename = false,
+          lsp_doc_border = true,
+        },
+      },
+      dependencies = {
+        "https://github.com/MunifTanjim/nui.nvim",
+        "https://github.com/rcarriga/nvim-notify",
+      }
     },
 
     -- === find ===
@@ -429,54 +528,6 @@ require("lazy").setup({
     {
       'https://github.com/junegunn/fzf',
       build = './install --bin'
-    },
-    {
-      'https://github.com/ibhagwan/fzf-lua',
-      dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
-      config = function()
-        require('fzf-lua').setup({ 'fzf-native' })
-      end,
-      keys = {
-        vim.keymap.set('n', '<C-p>',
-          "<cmd>lua require('fzf-lua').files()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<C-b>',
-          "<cmd>lua require('fzf-lua').buffers()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>p',
-          "<cmd>lua require('fzf-lua').blines()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>gc',
-          "<cmd>lua require('fzf-lua').commits()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>bgc',
-          "<cmd>lua require('fzf-lua').bcommits()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>hi',
-          "<cmd>lua require('fzf-lua').oldfiles()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', 'gr',
-          "<cmd>lua require('fzf-lua').grep_cword()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>;',
-          "<cmd>lua require('fzf-lua').live_grep_glob()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', "'",
-          "<cmd>lua require('fzf-lua').registers()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('v', '<Leader>ca',
-          "<cmd>lua require('fzf-lua').lsp_code_actions()<CR>",
-          { noremap = true, silent = true })
-      }
     },
 
     -- === git ===
@@ -536,10 +587,29 @@ require("lazy").setup({
         },
 
         {
-        'https://github.com/echasnovski/mini.nvim',
+          'https://github.com/echasnovski/mini.nvim',
           version = false,
           dependencies = 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
           config = function()
+            require('mini.cursorword').setup()
+            require('mini.animate').setup()
+
+            require('mini.trailspace').setup()
+            local augroupVT = vim.api.nvim_create_augroup("VimTrim", {})
+            vim.api.nvim_clear_autocmds({ group = augroupVT })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroupVT,
+              callback = function()
+                MiniTrailspace.trim()
+                MiniTrailspace.trim_last_lines()
+              end,
+            })
+
+            require('mini.indentscope').setup({
+              options = {
+                try_as_border = true,
+              },
+            })
             require('mini.comment').setup({
               mappings = {
                 comment_line = "<C-\\>",
@@ -553,7 +623,13 @@ require("lazy").setup({
             })
           end
         },
-        { 'https://github.com/kevinhwang91/nvim-ufo', dependencies = 'https://github.com/kevinhwang91/promise-async' },
+        {
+          'https://github.com/kevinhwang91/nvim-ufo',
+          dependencies = 'https://github.com/kevinhwang91/promise-async',
+        },
+        {
+          'https://github.com/nvim-treesitter/nvim-treesitter-refactor'
+        },
       },
       config = function()
         require("nvim-treesitter.configs").setup({
@@ -574,7 +650,11 @@ require("lazy").setup({
           },
           endwise = {
             enable = true
-          }
+          },
+          refactor = {
+            enable = true,
+            clear_on_cursor_move = false,
+          },
         })
         require('ufo').setup({
           provider_selector = function()
@@ -640,12 +720,6 @@ require("lazy").setup({
           vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
         end
       }
-    },
-    {
-      'https://github.com/j-hui/fidget.nvim',
-      config = function()
-        require('fidget').setup()
-      end
     },
     'https://github.com/DanilaMihailov/beacon.nvim',
     {
@@ -774,18 +848,6 @@ require("lazy").setup({
           return sections
         end
 
-        local function search_result()
-          if vim.v.hlsearch == 0 then
-            return ''
-          end
-          local last_search = vim.fn.getreg('/')
-          if not last_search or last_search == '' then
-            return ''
-          end
-          local searchcount = vim.fn.searchcount { maxcount = 9999 }
-          return last_search .. ' (' .. searchcount.current .. '/' .. searchcount.total .. ')'
-        end
-
         require('lualine').setup({
           options = {
             -- theme = noirbuddy_lualine.theme,
@@ -805,12 +867,12 @@ require("lazy").setup({
             'trouble',
           },
           tabline = {
-            lualine_a = {'filename'},
+            lualine_a = { 'filename' },
             lualine_b = {},
             lualine_c = {},
             lualine_x = {},
             lualine_y = {},
-            lualine_z = {'tabs'}
+            lualine_z = { 'tabs' }
           },
           sections = process_sections {
             lualine_a = {
@@ -861,9 +923,7 @@ require("lazy").setup({
                 color_info = colors.cyan
               },
             },
-            lualine_x = {
-              { search_result, color = { fg = colors.white, bg = colors.red } },
-            },
+            lualine_x = {},
             lualine_y = {},
             lualine_z = {
               {
@@ -909,7 +969,6 @@ require("lazy").setup({
 
 vim.api.nvim_create_autocmd("CursorHold", {
   buffer = bufnr,
-
   callback = function()
     local opts = {
       focusable = false,
@@ -932,7 +991,7 @@ vim.api.nvim_clear_autocmds({ group = augroupHY })
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroupHY,
   callback = function()
-    vim.highlight.on_yank { higroup="IncSearch", timeout=1000, on_visual=false }
+    vim.highlight.on_yank { higroup = "IncSearch", timeout = 1000, on_visual = false }
   end,
 })
 
@@ -966,22 +1025,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     if vim.bo.filetype ~= 'gitcommit' and vim.fn.line('"') > 0 and vim.fn.line('"') <= vim.fn.line('$') then
       vim.api.nvim_feedkeys('g`\""', 'n', true)
     end
-  end,
-})
-
--- Trim trailing whitespace and extra lines
-function TrimTrailingWhitespace()
-  local pos = vim.fn.getpos('.')
-  vim.cmd('%s/\\s\\+$//e')
-  vim.fn.setpos('.', pos)
-end
-
-local augroupVT = vim.api.nvim_create_augroup("VimTrim", {})
-vim.api.nvim_clear_autocmds({ group = augroupVT })
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = augroupVT,
-  callback = function()
-    TrimTrailingWhitespace()
   end,
 })
 
