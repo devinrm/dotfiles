@@ -148,6 +148,9 @@ require("lazy").setup({
     },
     {
       'https://github.com/williamboman/mason.nvim',
+      build = function()
+        pcall(vim.cmd, 'MasonUpdate')
+      end,
       dependencies = {
         'https://github.com/williamboman/mason-lspconfig.nvim',
         config = function()
