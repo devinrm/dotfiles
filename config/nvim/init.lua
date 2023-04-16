@@ -8,7 +8,6 @@ vim.loader.enable()
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.o.termguicolors = true
-vim.bo.smartindent = true
 vim.opt.background = 'dark'
 vim.opt.spellfile = os.getenv("HOME") .. "/.vim-spell-en.utf-8.add"
 vim.g.is_posix = 1    -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
@@ -278,14 +277,22 @@ require("lazy").setup({
         'https://github.com/rafamadriz/friendly-snippets',
         {
           "https://github.com/zbirenbaum/copilot-cmp",
-          dependencies = "https://github.com/zbirenbaum/copilot.lua",
-          config = function()
-            require("copilot_cmp").setup()
-          end
+          dependencies = {
+            "https://github.com/zbirenbaum/copilot.lua",
+            opts = {
+              suggestion = { enabled = false },
+              panel = { enabled = false },
+              filetypes = {
+                yaml = true,
+                markdown = true,
+              },
+            }
+          },
         },
       },
       config = function()
         local cmp = require('cmp')
+        require("copilot_cmp").setup()
         local luasnip = require("luasnip")
 
         local has_words_before = function()
@@ -341,19 +348,8 @@ require("lazy").setup({
         })
       end
     },
-    'https://github.com/nvim-lua/plenary.nvim',
-    'https://github.com/nvim-lua/popup.nvim',
-    {
-      'https://github.com/zbirenbaum/copilot.lua',
-      opts = {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-        filetypes = {
-          yaml = true,
-          markdown = true,
-        },
-      }
-    },
+    {'https://github.com/nvim-lua/plenary.nvim'},
+    {'https://github.com/nvim-lua/popup.nvim'},
     {
       'https://github.com/jose-elias-alvarez/null-ls.nvim',
       dependencies = { 'https://github.com/nvim-lua/plenary.nvim' },
@@ -403,6 +399,8 @@ require("lazy").setup({
     -- === experiments ===
     {
       'https://github.com/natecraddock/workspaces.nvim',
+      lazy = true,
+      event = "VeryLazy",
       opts = {
         cd_type = "local",
         hooks = { open = { "Telescope find_files" } }
@@ -410,12 +408,16 @@ require("lazy").setup({
     },
     {
       'https://github.com/stevearc/overseer.nvim',
+      lazy = true,
+      event = "VeryLazy",
       config = function()
         require('overseer').setup()
       end
     },
     {
       "https://github.com/james1236/backseat.nvim",
+      lazy = true,
+      event = "VeryLazy",
       config = function()
         require("backseat").setup({
           openai_model_id = 'gpt-3.5-turbo', --gpt-4
@@ -496,6 +498,12 @@ require("lazy").setup({
         "https://github.com/rcarriga/nvim-notify",
       }
     },
+    {
+      'https://github.com/nmac427/guess-indent.nvim',
+      config = function()
+        require('guess-indent').setup()
+      end,
+    },
 
     -- === find ===
     {
@@ -506,7 +514,8 @@ require("lazy").setup({
         "https://github.com/nvim-tree/nvim-web-devicons",
         "https://github.com/MunifTanjim/nui.nvim",
       },
-      lazy = false,
+      lazy = true,
+      event = "VeryLazy",
       keys = {
         vim.keymap.set('n', '<Leader>vi', ':Neotree $HOME/dotfiles/<CR>', { noremap = true }),
         vim.keymap.set('n', '<Leader>ve', ':NeoTreeRevealToggle<CR>', { noremap = true })
@@ -528,22 +537,20 @@ require("lazy").setup({
         })
       end,
     },
-    {
-      'https://github.com/junegunn/fzf',
-      build = './install --bin'
-    },
 
     -- === git ===
     {
       'https://github.com/lewis6991/gitsigns.nvim',
+      lazy = true,
+      event = "VeryLazy",
       config = function()
         require('gitsigns').setup()
       end
     },
 
     -- === language plugins ===
-    'https://github.com/wuelnerdotexe/vim-astro',
-    'https://github.com/hashivim/vim-terraform',
+    { 'https://github.com/wuelnerdotexe/vim-astro', ft = 'astro' },
+    { 'https://github.com/hashivim/vim-terraform', ft = 'terraform' },
     {
       'https://github.com/nvim-treesitter/nvim-treesitter',
       build = ':TSUpdate',
@@ -586,7 +593,7 @@ require("lazy").setup({
         },
         {
           'https://github.com/windwp/nvim-ts-autotag',
-          ft = { 'html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
+          ft = { 'astro', 'html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
         },
 
         {
@@ -668,19 +675,19 @@ require("lazy").setup({
     },
     {
       'https://github.com/iamcco/markdown-preview.nvim',
-      build = 'cd app && yarn install',
+      event = 'VeryLazy',
+      lazy = true,
+      build = 'cd app && npm install',
       cmd = 'MarkdownPreview',
       ft = { 'markdown' }
     },
-    'https://github.com/Vimjas/vim-python-pep8-indent',
-    {
-      'https://github.com/rust-lang/rust.vim',
-      ft = { 'rust' }
-    },
+    {'https://github.com/Vimjas/vim-python-pep8-indent', ft = { 'python' } },
+    { 'https://github.com/rust-lang/rust.vim', ft = { 'rust' } },
 
     -- === other ===
     {
       "https://github.com/jackMort/ChatGPT.nvim",
+      lazy = true,
       event = "VeryLazy",
       opts = {
         openai_params = {
@@ -701,6 +708,8 @@ require("lazy").setup({
     },
     {
       "https://github.com/princejoogie/chafa.nvim",
+      event = 'VeryLazy',
+      lazy = true,
       dependencies = {
         "https://github.com/nvim-lua/plenary.nvim",
         "https://github.com/m00qek/baleia.nvim"
@@ -717,6 +726,8 @@ require("lazy").setup({
     },
     {
       'https://github.com/stevearc/aerial.nvim',
+      event = 'VeryLazy',
+      lazy = true,
       opts = {
         on_attach = function(bufnr)
           vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
@@ -724,33 +735,50 @@ require("lazy").setup({
         end
       }
     },
-    'https://github.com/DanilaMihailov/beacon.nvim',
+    {
+      'https://github.com/DanilaMihailov/beacon.nvim',
+      event = 'VeryLazy',
+      lazy = true,
+    },
     {
       "https://github.com/chrishrb/gx.nvim",
       event = { "BufEnter" },
       config = true,
+      lazy = true,
     },
     {
       'https://github.com/laytan/cloak.nvim',
+      lazy = true,
+      event = 'VeryLazy',
       config = function()
         require('cloak').setup()
       end
     },
-    'https://github.com/stefandtw/quickfix-reflector.vim',
+    {
+      'https://github.com/stefandtw/quickfix-reflector.vim',
+      lazy = true,
+      event = 'VeryLazy',
+    },
     {
       'https://github.com/norcalli/nvim-colorizer.lua',
-      config = function() require('colorizer').setup() end
+      lazy = true,
+      event = 'VeryLazy',
+      config = function()
+        require('colorizer').setup()
+      end
     },
     {
       'https://github.com/rhysd/devdocs.vim',
-      lazy = false,
+      lazy = true,
+      event = 'VeryLazy',
       keys = {
         vim.keymap.set('n', 'K', '<Plug>(devdocs-under-cursor)', { silent = true })
       }
     },
     {
       'https://github.com/janko-m/vim-test',
-      lazy = false,
+      lazy = true,
+      event = "VeryLazy",
       keys = {
         vim.keymap.set('n', '<Leader>t', ':wa<CR>:TestFile<CR>', { noremap = true, silent = true }),
         vim.keymap.set('n', '<Leader>s', ':wa<CR>:TestNearest<CR>', { noremap = true, silent = true }),
@@ -759,21 +787,34 @@ require("lazy").setup({
         vim.keymap.set('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', { noremap = true, silent = true }),
       }
     },
-    "https://github.com/folke/neodev.nvim",
-    'https://github.com/romainl/vim-cool',
+    {
+      "https://github.com/folke/neodev.nvim",
+      lazy = true,
+      event = "VeryLazy",
+    },
+    {'https://github.com/romainl/vim-cool'},
     {
       'https://github.com/tpope/vim-fugitive',
+      lazy = true,
+      event = "VeryLazy",
       config = function()
         vim.cmd("command! -nargs=1 Browse silent exec '!open \"<args>\"'")
       end
     },
     { 'https://github.com/tpope/vim-rails', ft = { 'ruby' } },
-    'https://github.com/tpope/vim-rhubarb',
-    'https://github.com/tpope/vim-rsi',
-    'https://github.com/nvim-tree/nvim-web-devicons',
+    {
+      'https://github.com/tpope/vim-rhubarb',
+      lazy = true,
+      event = "VeryLazy",
+    },
+    {
+      'https://github.com/tpope/vim-rsi',
+      lazy = true,
+      event = "VeryLazy",
+    },
     {
       'https://github.com/hoob3rt/lualine.nvim',
-      dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons', lazy = true },
+      dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
       config = function()
         -- local noirbuddy_lualine = require('noirbuddy.plugins.lualine')
 
@@ -949,6 +990,8 @@ require("lazy").setup({
     },
     {
       "https://github.com/folke/trouble.nvim",
+      lazy = true,
+      event = "VeryLazy",
       dependencies = "https://github.com/nvim-tree/nvim-web-devicons",
       config = function()
         require("trouble").setup()
@@ -970,8 +1013,13 @@ require("lazy").setup({
 -- ||__|||__|||__|||__|||__|||__|||__|||__|||__||
 -- |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
 
+local function augroup(name)
+  return vim.api.nvim_create_augroup("devinnvim_" .. name, { clear = true })
+end
+
 vim.api.nvim_create_autocmd("CursorHold", {
   buffer = bufnr,
+  group = augroup("show_diagnostics"),
   callback = function()
     local opts = {
       focusable = false,
@@ -989,29 +1037,23 @@ vim.api.nvim_create_autocmd("CursorHold", {
   end
 })
 
-local augroupHY = vim.api.nvim_create_augroup("HighlightYank", {})
-vim.api.nvim_clear_autocmds({ group = augroupHY })
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group = augroupHY,
+  group = augroup("highlight_yank"),
   callback = function()
-    vim.highlight.on_yank { higroup = "IncSearch", timeout = 1000, on_visual = false }
+    vim.highlight.on_yank({ timeout = 250 })
   end,
 })
 
-local augroupNT = vim.api.nvim_create_augroup("NoTerminalNumbers", {})
-vim.api.nvim_clear_autocmds({ group = augroupNT })
 vim.api.nvim_create_autocmd("TermOpen", {
-  group = augroupNT,
+  group = augroup("no_terminal_numbers"),
   callback = function()
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
   end,
 })
 
-local augroupTE = vim.api.nvim_create_augroup("TerminalExitStatus", {})
-vim.api.nvim_clear_autocmds({ group = augroupTE })
 vim.api.nvim_create_autocmd("TermClose", {
-  group = augroupTE,
+  group = augroup("terminal_exit_status"),
   callback = function()
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n", true)
   end,
@@ -1020,10 +1062,8 @@ vim.api.nvim_create_autocmd("TermClose", {
 -- When editing a file, always jump to the last known cursor position.
 -- Don't do it for commit messages, when the position is invalid, or when
 -- inside an event handler.
-local augroupLK = vim.api.nvim_create_augroup("LastKnownCursorPosition", {})
-vim.api.nvim_clear_autocmds({ group = augroupLK })
 vim.api.nvim_create_autocmd("BufReadPost", {
-  group = augroupLK,
+  group = augroup("last_known_cursor_position"),
   callback = function()
     if vim.bo.filetype ~= 'gitcommit' and vim.fn.line('"') > 0 and vim.fn.line('"') <= vim.fn.line('$') then
       vim.api.nvim_feedkeys('g`\""', 'n', true)
