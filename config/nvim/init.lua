@@ -322,14 +322,12 @@ require("lazy").setup({
       dependencies = { 'https://github.com/nvim-lua/plenary.nvim' },
       config = function()
         local null_ls = require('null-ls')
-        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
         null_ls.setup({
           on_attach = function(client, bufnr)
             if client.supports_method("textDocument/formatting") then
-              vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
               vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
+                group = vim.api.nvim_create_augroup("lsp_formatting", { clear = true }),
                 buffer = bufnr,
                 callback = function()
                   vim.lsp.buf.format({
@@ -398,6 +396,7 @@ require("lazy").setup({
     },
     {
       "https://github.com/nvim-telescope/telescope.nvim",
+      branch = '0.1.x',
       dependencies = {
         "https://github.com/nvim-lua/plenary.nvim",
         "https://github.com/debugloop/telescope-undo.nvim",
@@ -572,10 +571,8 @@ require("lazy").setup({
             require('mini.animate').setup()
 
             require('mini.trailspace').setup()
-            local augroupVT = vim.api.nvim_create_augroup("VimTrim", {})
-            vim.api.nvim_clear_autocmds({ group = augroupVT })
             vim.api.nvim_create_autocmd("BufWritePre", {
-              group = augroupVT,
+              group = vim.api.nvim_create_augroup("vim_trim", { clear = true }),
               callback = function()
                 MiniTrailspace.trim()
                 MiniTrailspace.trim_last_lines()
@@ -610,6 +607,14 @@ require("lazy").setup({
       },
       config = function()
         require("nvim-treesitter.configs").setup({
+          auto_install = false,
+          disable = function(lang, buf)
+            local max_filesize = 100 * 1024 -- 100 KB
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+              return true
+            end
+          end,
           ensure_installed = {
             "bash",
             "comment",
@@ -673,6 +678,7 @@ require("lazy").setup({
             clear_on_cursor_move = false,
           },
         })
+
         require('ufo').setup({
           provider_selector = function()
             return { 'treesitter', 'indent' }
