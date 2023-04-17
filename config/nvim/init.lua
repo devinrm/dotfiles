@@ -242,25 +242,23 @@ require("lazy").setup({
         'https://github.com/hrsh7th/cmp-nvim-lsp-signature-help',
         'https://github.com/L3MON4D3/LuaSnip',
         'https://github.com/rafamadriz/friendly-snippets',
+        "https://github.com/zbirenbaum/copilot-cmp",
         {
-          "https://github.com/zbirenbaum/copilot-cmp",
-          dependencies = {
-            "https://github.com/zbirenbaum/copilot.lua",
-            opts = {
-              suggestion = { enabled = false },
-              panel = { enabled = false },
-              filetypes = {
-                yaml = true,
-                markdown = true,
-              },
-            }
-          },
+          "https://github.com/zbirenbaum/copilot.lua",
+          opts = {
+            suggestion = { enabled = false },
+            panel = { enabled = false },
+            filetypes = {
+              yaml = true,
+              markdown = true,
+            },
+          }
         },
       },
       config = function()
         local cmp = require('cmp')
-        require("copilot_cmp").setup()
         local luasnip = require("luasnip")
+        require("copilot_cmp").setup()
 
         local has_words_before = function()
           unpack = unpack
@@ -383,16 +381,14 @@ require("lazy").setup({
       "https://github.com/james1236/backseat.nvim",
       lazy = true,
       event = "VeryLazy",
-      config = function()
-        require("backseat").setup({
-          openai_model_id = 'gpt-3.5-turbo', --gpt-4
-          split_threshold = 100,
-          highlight = {
-            icon = '',
-            group = 'Comment',
-          }
-        })
-      end
+      opts = {
+        openai_model_id = 'gpt-3.5-turbo', --gpt-4
+        split_threshold = 100,
+        highlight = {
+          icon = '',
+          group = 'Comment',
+        }
+      }
     },
     {
       "https://github.com/nvim-telescope/telescope.nvim",
@@ -407,29 +403,31 @@ require("lazy").setup({
           build = "make",
         },
       },
-      config = function()
-        require("telescope").setup({
-          extensions = {
-            fzf = {
-              fuzzy = true,
-              override_generic_sorter = true,
-              override_file_sorter = true,
-              case_mode = "smart_case",
-            },
-            undo = {
-              side_by_side = true,
-              layout_strategy = "vertical",
-              layout_config = {
-                preview_height = 0.8,
-              },
+      opts = {
+        extensions = {
+          fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+          },
+          undo = {
+            side_by_side = true,
+            layout_strategy = "vertical",
+            layout_config = {
+              preview_height = 0.8,
             },
           },
-        })
-        require("telescope").load_extension("undo")
-        require("telescope").load_extension("fzf")
+        }
+      },
+      config = function()
+        local telescope = require("telescope")
+
+        telescope.load_extension("fzf")
+        telescope.load_extension("undo")
       end,
       keys = {
-        vim.keymap.set("n", "<Leader>u", "<cmd>Telescope undo<cr>"),
+        vim.keymap.set("n", "<Leader>u", "<cmd>Telescope undo<cr>", { noremap = true, silent = true }),
         vim.keymap.set('n', '<C-p>', "<cmd>Telescope find_files<cr>", { noremap = true, silent = true }),
         vim.keymap.set('n', '<C-b>', "<cmd>Telescope buffers<cr>", { noremap = true, silent = true }),
         vim.keymap.set('n', '<Leader>p', "<cmd>Telescope current_buffer_fuzzy_find<cr>", { noremap = true, silent = true }),
@@ -473,6 +471,12 @@ require("lazy").setup({
 
     -- === find ===
     {
+      'junegunn/fzf',
+      build = function()
+        vim.fn['fzf#install']()
+      end
+    },
+    {
       "https://github.com/nvim-neo-tree/neo-tree.nvim",
       branch = "v2.x",
       dependencies = {
@@ -486,21 +490,21 @@ require("lazy").setup({
         vim.keymap.set('n', '<Leader>vi', ':Neotree $HOME/dotfiles/<CR>', { noremap = true }),
         vim.keymap.set('n', '<Leader>ve', ':NeoTreeRevealToggle<CR>', { noremap = true })
       },
+      opts = {
+        filesystem = {
+          filtered_items = {
+            hide_dotfiles = false,
+            hide_gitignored = false,
+          }
+        },
+        window = {
+          mappings = {
+            ["-"] = "navigate_up",
+          }
+        },
+      },
       config = function()
         vim.g.neo_tree_remove_legacy_commands = 1
-        require('neo-tree').setup({
-          filesystem = {
-            filtered_items = {
-              hide_dotfiles = false,
-              hide_gitignored = false,
-            }
-          },
-          window = {
-            mappings = {
-              ["-"] = "navigate_up",
-            }
-          },
-        })
       end,
     },
 
@@ -523,7 +527,7 @@ require("lazy").setup({
       version = false,
       lazy = false,
       dependencies = {
-        'https://github.com/RRethy/nvim-treesitter-endwise',
+        {'https://github.com/RRethy/nvim-treesitter-endwise'},
         {
           'https://github.com/windwp/nvim-autopairs',
           config = function()
@@ -565,12 +569,12 @@ require("lazy").setup({
         {
           'https://github.com/echasnovski/mini.nvim',
           version = false,
-          dependencies = 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
+          dependencies = {'https://github.com/JoosepAlviste/nvim-ts-context-commentstring'},
           config = function()
             require('mini.cursorword').setup()
             require('mini.animate').setup()
-
             require('mini.trailspace').setup()
+
             vim.api.nvim_create_autocmd("BufWritePre", {
               group = vim.api.nvim_create_augroup("vim_trim", { clear = true }),
               callback = function()
@@ -601,9 +605,7 @@ require("lazy").setup({
           'https://github.com/kevinhwang91/nvim-ufo',
           dependencies = 'https://github.com/kevinhwang91/promise-async',
         },
-        {
-          'https://github.com/nvim-treesitter/nvim-treesitter-refactor'
-        },
+        {'https://github.com/nvim-treesitter/nvim-treesitter-refactor'},
       },
       config = function()
         require("nvim-treesitter.configs").setup({
@@ -615,6 +617,7 @@ require("lazy").setup({
               return true
             end
           end,
+
           ensure_installed = {
             "bash",
             "comment",
@@ -640,6 +643,7 @@ require("lazy").setup({
             "luap",
             "make",
             "markdown",
+            "markdown_inline",
             "prisma",
             "python",
             "regex",
@@ -694,7 +698,7 @@ require("lazy").setup({
       cmd = 'MarkdownPreview',
       ft = { 'markdown' }
     },
-    {'https://github.com/Vimjas/vim-python-pep8-indent', ft = { 'python' } },
+    { 'https://github.com/Vimjas/vim-python-pep8-indent', ft = { 'python' } },
     { 'https://github.com/rust-lang/rust.vim', ft = { 'rust' } },
 
     -- === other ===
