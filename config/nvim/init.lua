@@ -91,51 +91,16 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     -- === colorscheme(s) ===
-    -- {
-    --   "https://github.com/jesseleite/nvim-noirbuddy",
-    --   lazy = false,
-    --   priority = 1000,
-    --   dependencies = {
-    --     "https://github.com/tjdevries/colorbuddy.nvim",
-    --     branch = "dev",
-    --   },
-    --   opts = {
-    --     preset = 'slate',
-    --     styles = {
-    --       italic = true,
-    --       bold = true,
-    --       underline = false,
-    --       undercurl = true,
-    --     },
-    --   }
-    -- },
     {
-      'https://github.com/rmehri01/onenord.nvim',
+      'https://github.com/projekt0n/github-nvim-theme',
+      branch = '0.0.x',
       lazy = false,
       priority = 1000,
-      opts = {
-        theme = "dark",
-        borders = true, -- Split window borders
-        fade_nc = false, -- Fade non-current windows, making them more distinguishable
-        -- Style that is applied to various groups: see `highlight-args` for options
-        styles = {
-          comments = "italic",
-          strings = "NONE",
-          keywords = "NONE",
-          functions = "NONE",
-          variables = "NONE",
-          diagnostics = "undercurl",
-        },
-        disable = {
-          background = false, -- Disable setting the background color
-          cursorline = true,
-          eob_lines = true, -- Hide the end-of-buffer lines
-        },
-        -- Inverse highlight for different groups
-        inverse = {
-          match_paren = false,
-        },
-      }
+      config = function()
+        require('github-theme').setup()
+
+        vim.cmd('colorscheme github_dark')
+      end
     },
 
     -- === completion ===
