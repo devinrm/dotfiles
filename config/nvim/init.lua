@@ -439,7 +439,7 @@ require("lazy").setup({
         vim.keymap.set('n', '<Leader>hi', "<cmd>Telescope oldfiles<cr>", { noremap = true, silent = true }),
         vim.keymap.set('n', '<Leader>;', "<cmd>Telescope live_grep<cr>", { noremap = true, silent = true }),
         vim.keymap.set('n', "<Leader>'", "<cmd>Telescope registers<cr>", { noremap = true, silent = true }),
-        vim.keymap.set('n', 'gr', "<cmd>Telescope grep_string<cr>", { noremap = true, silent = true }),
+        vim.keymap.set('n', 'gw', "<cmd>Telescope grep_string<cr>", { noremap = true, silent = true }),
       }
     },
     {
