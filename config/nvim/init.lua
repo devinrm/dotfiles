@@ -428,15 +428,6 @@ require("lazy").setup({
       end,
       keys = {
         vim.keymap.set("n", "<Leader>u", "<cmd>Telescope undo<cr>", { noremap = true, silent = true }),
-        vim.keymap.set('n', '<C-p>', "<cmd>Telescope find_files<cr>", { noremap = true, silent = true }),
-        vim.keymap.set('n', '<C-b>', "<cmd>Telescope buffers<cr>", { noremap = true, silent = true }),
-        vim.keymap.set('n', '<Leader>p', "<cmd>Telescope current_buffer_fuzzy_find<cr>", { noremap = true, silent = true }),
-        vim.keymap.set('n', '<Leader>gc', "<cmd>Telescope git_commits<cr>", { noremap = true, silent = true }),
-        vim.keymap.set('n', '<Leader>bgc', "<cmd>Telescope git_bcommits<cr>", { noremap = true, silent = true }),
-        vim.keymap.set('n', '<Leader>hi', "<cmd>Telescope oldfiles<cr>", { noremap = true, silent = true }),
-        vim.keymap.set('n', '<Leader>;', "<cmd>Telescope live_grep<cr>", { noremap = true, silent = true }),
-        vim.keymap.set('n', "<Leader>'", "<cmd>Telescope registers<cr>", { noremap = true, silent = true }),
-        vim.keymap.set('n', 'gw', "<cmd>Telescope grep_string<cr>", { noremap = true, silent = true }),
       }
     },
     {
@@ -471,10 +462,52 @@ require("lazy").setup({
 
     -- === find ===
     {
-      'junegunn/fzf',
-      build = function()
-        vim.fn['fzf#install']()
-      end
+      'https://github.com/ibhagwan/fzf-lua',
+      dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
+      config = function()
+        require('fzf-lua').setup({ 'fzf-native' })
+      end,
+      keys = {
+        vim.keymap.set('n', '<C-p>',
+          "<cmd>lua require('fzf-lua').files()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<C-b>',
+          "<cmd>lua require('fzf-lua').buffers()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>p',
+          "<cmd>lua require('fzf-lua').blines()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>gc',
+          "<cmd>lua require('fzf-lua').commits()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>bgc',
+          "<cmd>lua require('fzf-lua').bcommits()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>hi',
+          "<cmd>lua require('fzf-lua').oldfiles()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', 'gr',
+          "<cmd>lua require('fzf-lua').grep_cword()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>;',
+          "<cmd>lua require('fzf-lua').live_grep_glob()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', "'",
+          "<cmd>lua require('fzf-lua').registers()<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('v', '<Leader>ca',
+          "<cmd>lua require('fzf-lua').lsp_code_actions()<CR>",
+          { noremap = true, silent = true })
+      }
     },
     {
       "https://github.com/nvim-neo-tree/neo-tree.nvim",
