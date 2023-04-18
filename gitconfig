@@ -9,7 +9,6 @@
   co = checkout
   cv = commit -v
   delete = branch -D
-  dt = difftool --no-symlinks --dir-diff
   dup = !git checkout develop && git pull && git checkout -
   empty = commit --allow-empty -m "[rebuild]"
   fall = fetch --all
@@ -50,11 +49,14 @@
   pager = delta
 [interactive]
   diffFilter = delta --color-only
+[delta "delta-theme"]
+  syntax-theme = TwoDark
 [delta]
   navigate = true
   light = false
   side-by-side = true
   line-numbers = true
+  features = delta-theme
 [diff]
   colorMoved = zebra
   compactionHeuristic = true
