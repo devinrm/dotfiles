@@ -470,7 +470,7 @@ require("lazy").setup({
       dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
       lazy = false,
       config = function()
-        require('fzf-lua').setup({ 'fzf-native' })
+        require('fzf-lua').setup({ 'default' })
       end,
       keys = {
         vim.keymap.set('n', '<C-p>',
