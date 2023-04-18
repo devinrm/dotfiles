@@ -117,6 +117,7 @@ require("lazy").setup({
       build = function()
         pcall(vim.cmd, 'MasonUpdate')
       end,
+      lazy = false,
       dependencies = {
         'https://github.com/williamboman/mason-lspconfig.nvim',
         config = function()
@@ -318,14 +319,17 @@ require("lazy").setup({
     {
       'https://github.com/jose-elias-alvarez/null-ls.nvim',
       dependencies = { 'https://github.com/nvim-lua/plenary.nvim' },
+      lazy = false,
       config = function()
         local null_ls = require('null-ls')
+        local augroup = vim.api.nvim_create_augroup("lsp_formatting", {})
 
         null_ls.setup({
           on_attach = function(client, bufnr)
             if client.supports_method("textDocument/formatting") then
+              vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
               vim.api.nvim_create_autocmd("BufWritePre", {
-                group = vim.api.nvim_create_augroup("lsp_formatting", { clear = true }),
+                group = augroup,
                 buffer = bufnr,
                 callback = function()
                   vim.lsp.buf.format({
@@ -363,7 +367,6 @@ require("lazy").setup({
     {
       'https://github.com/natecraddock/workspaces.nvim',
       lazy = true,
-      event = "VeryLazy",
       opts = {
         cd_type = "local",
         hooks = { open = { "Telescope find_files" } }
@@ -372,7 +375,6 @@ require("lazy").setup({
     {
       'https://github.com/stevearc/overseer.nvim',
       lazy = true,
-      event = "VeryLazy",
       config = function()
         require('overseer').setup()
       end
@@ -380,7 +382,6 @@ require("lazy").setup({
     {
       "https://github.com/james1236/backseat.nvim",
       lazy = true,
-      event = "VeryLazy",
       opts = {
         openai_model_id = 'gpt-3.5-turbo', --gpt-4
         split_threshold = 100,
@@ -393,6 +394,7 @@ require("lazy").setup({
     {
       "https://github.com/nvim-telescope/telescope.nvim",
       branch = '0.1.x',
+      lazy = false,
       dependencies = {
         "https://github.com/nvim-lua/plenary.nvim",
         "https://github.com/debugloop/telescope-undo.nvim",
@@ -432,6 +434,7 @@ require("lazy").setup({
     },
     {
       "https://github.com/folke/noice.nvim",
+      lazy = false,
       opts = {
         lsp = {
           override = {
@@ -455,6 +458,7 @@ require("lazy").setup({
     },
     {
       'https://github.com/nmac427/guess-indent.nvim',
+      lazy = false,
       config = function()
         require('guess-indent').setup()
       end,
@@ -464,6 +468,7 @@ require("lazy").setup({
     {
       'https://github.com/ibhagwan/fzf-lua',
       dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
+      lazy = false,
       config = function()
         require('fzf-lua').setup({ 'fzf-native' })
       end,
@@ -517,8 +522,7 @@ require("lazy").setup({
         "https://github.com/nvim-tree/nvim-web-devicons",
         "https://github.com/MunifTanjim/nui.nvim",
       },
-      lazy = true,
-      event = "VeryLazy",
+      lazy = false,
       keys = {
         vim.keymap.set('n', '<Leader>vi', ':Neotree $HOME/dotfiles/<CR>', { noremap = true }),
         vim.keymap.set('n', '<Leader>ve', ':NeoTreeRevealToggle<CR>', { noremap = true })
@@ -544,8 +548,7 @@ require("lazy").setup({
     -- === git ===
     {
       'https://github.com/lewis6991/gitsigns.nvim',
-      lazy = true,
-      event = "VeryLazy",
+      lazy = false,
       config = function()
         require('gitsigns').setup()
       end
@@ -601,6 +604,7 @@ require("lazy").setup({
 
         {
           'https://github.com/echasnovski/mini.nvim',
+          lazy = false,
           version = false,
           dependencies = {'https://github.com/JoosepAlviste/nvim-ts-context-commentstring'},
           config = function()
@@ -726,8 +730,7 @@ require("lazy").setup({
 
     {
       'https://github.com/iamcco/markdown-preview.nvim',
-      event = 'VeryLazy',
-      lazy = true,
+      lazy = false,
       build = "cd app && npm install",
       config = function()
         vim.g.mkdp_filetypes = { "markdown" }
@@ -740,8 +743,7 @@ require("lazy").setup({
     -- === other ===
     {
       "https://github.com/jackMort/ChatGPT.nvim",
-      lazy = true,
-      event = "VeryLazy",
+      lazy = false,
       opts = {
         openai_params = {
           model = "gpt-3.5-turbo",
@@ -761,8 +763,7 @@ require("lazy").setup({
     },
     {
       "https://github.com/princejoogie/chafa.nvim",
-      event = 'VeryLazy',
-      lazy = true,
+      lazy = false,
       dependencies = {
         "https://github.com/nvim-lua/plenary.nvim",
         "https://github.com/m00qek/baleia.nvim"
@@ -779,8 +780,7 @@ require("lazy").setup({
     },
     {
       'https://github.com/stevearc/aerial.nvim',
-      event = 'VeryLazy',
-      lazy = true,
+      lazy = false,
       opts = {
         on_attach = function(bufnr)
           vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
@@ -790,48 +790,35 @@ require("lazy").setup({
     },
     {
       'https://github.com/DanilaMihailov/beacon.nvim',
-      event = 'VeryLazy',
-      lazy = true,
+      lazy = false,
     },
     {
       "https://github.com/chrishrb/gx.nvim",
       event = { "BufEnter" },
       config = true,
-      lazy = true,
     },
     {
       'https://github.com/laytan/cloak.nvim',
-      lazy = true,
-      event = 'VeryLazy',
+      lazy = false,
       config = function()
         require('cloak').setup()
       end
     },
-    {
-      'https://github.com/stefandtw/quickfix-reflector.vim',
-      lazy = true,
-      event = 'VeryLazy',
-    },
+    {'https://github.com/stefandtw/quickfix-reflector.vim'},
     {
       'https://github.com/norcalli/nvim-colorizer.lua',
-      lazy = true,
-      event = 'VeryLazy',
       config = function()
         require('colorizer').setup()
       end
     },
     {
       'https://github.com/rhysd/devdocs.vim',
-      lazy = true,
-      event = 'VeryLazy',
       keys = {
         vim.keymap.set('n', 'K', '<Plug>(devdocs-under-cursor)', { silent = true })
       }
     },
     {
       'https://github.com/janko-m/vim-test',
-      lazy = true,
-      event = "VeryLazy",
       keys = {
         vim.keymap.set('n', '<Leader>t', ':wa<CR>:TestFile<CR>', { noremap = true, silent = true }),
         vim.keymap.set('n', '<Leader>s', ':wa<CR>:TestNearest<CR>', { noremap = true, silent = true }),
@@ -840,33 +827,20 @@ require("lazy").setup({
         vim.keymap.set('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', { noremap = true, silent = true }),
       }
     },
-    {
-      "https://github.com/folke/neodev.nvim",
-      lazy = true,
-      event = "VeryLazy",
-    },
+    {"https://github.com/folke/neodev.nvim"},
     {'https://github.com/romainl/vim-cool'},
     {
       'https://github.com/tpope/vim-fugitive',
-      lazy = true,
-      event = "VeryLazy",
       config = function()
         vim.cmd("command! -nargs=1 Browse silent exec '!open \"<args>\"'")
       end
     },
     { 'https://github.com/tpope/vim-rails', ft = { 'ruby' } },
-    {
-      'https://github.com/tpope/vim-rhubarb',
-      lazy = true,
-      event = "VeryLazy",
-    },
-    {
-      'https://github.com/tpope/vim-rsi',
-      lazy = true,
-      event = "VeryLazy",
-    },
+    {'https://github.com/tpope/vim-rhubarb'},
+    {'https://github.com/tpope/vim-rsi'},
     {
       'https://github.com/hoob3rt/lualine.nvim',
+      lazy = false,
       dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
       config = function()
         -- local noirbuddy_lualine = require('noirbuddy.plugins.lualine')
@@ -1043,8 +1017,7 @@ require("lazy").setup({
     },
     {
       "https://github.com/folke/trouble.nvim",
-      lazy = true,
-      event = "VeryLazy",
+      lazy = false,
       dependencies = "https://github.com/nvim-tree/nvim-web-devicons",
       config = function()
         require("trouble").setup()
