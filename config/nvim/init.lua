@@ -723,13 +723,16 @@ require("lazy").setup({
         })
       end
     },
+
     {
       'https://github.com/iamcco/markdown-preview.nvim',
       event = 'VeryLazy',
       lazy = true,
-      build = 'cd app && npm install',
-      cmd = 'MarkdownPreview',
-      ft = { 'markdown' }
+      build = "cd app && npm install",
+      config = function()
+        vim.g.mkdp_filetypes = { "markdown" }
+      end,
+      ft = { "markdown" },
     },
     { 'https://github.com/Vimjas/vim-python-pep8-indent', ft = { 'python' } },
     { 'https://github.com/rust-lang/rust.vim', ft = { 'rust' } },
