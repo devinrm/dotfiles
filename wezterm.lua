@@ -7,15 +7,15 @@ config = {
   colors = {
     tab_bar = {
       active_tab = {
-        bg_color = '#6aa0a0',
+        bg_color = '#dc69aa',
         fg_color = '#1e1e1e',
       }
     }
   },
-  color_scheme = "Slate",
+  color_scheme = 'GitHub Dark',
   enable_scroll_bar = false,
   enable_tab_bar = true,
-  font = wezterm.font("BlexMono Nerd Font", { weight = "Medium" }),
+  font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
   font_size = 14.0,
   hide_tab_bar_if_only_one_tab = true,
   scrollback_lines = 100000,

@@ -64,8 +64,6 @@ alias yi="yarn install --ignore-engines"
 alias yb="yarn build-local"
 alias yw="yarn watch"
 alias yu="curl --compressed -o- -L https://yarnpkg.com/install.sh | bash"
-alias npm="socket npm"
-alias npx="socket npx"
 
 # Use modern regexps for sed, i.e. "(one|two)", not "\(one\|two\)"
 alias sed="sed -E"

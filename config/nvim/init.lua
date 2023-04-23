@@ -28,8 +28,8 @@ vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.formatprg = 'fmt'
 vim.o.gdefault = true -- Replace all matches on a line instead of just the first
-vim.o.grepformat = '%f:%l:%c:%m,%f:%l:%m'
-vim.o.grepprg = 'rg --vimgrep --no-heading'
+vim.o.grepformat = '%f:%l:%c:%m'
+vim.o.grepprg = 'rg --vimgrep --no-heading --smart-case --column --with-filename --line-number'
 vim.o.ignorecase = true    -- case insensitive pattern matching
 vim.o.inccommand = 'split' -- this is necessary for using this %s with a quickfix window in nvim
 vim.o.joinspaces = false   -- Insert one space after a '.', '?' and '!' with a join command.
@@ -365,23 +365,29 @@ require("lazy").setup({
 
     -- === experiments ===
     {
+      'https://github.com/kevinhwang91/nvim-bqf',
+      ft = 'qf',
+      dependencies = {'https://github.com/junegunn/fzf', build = './install --bin'},
+
+    },
+    {
       'https://github.com/natecraddock/workspaces.nvim',
-      lazy = true,
+      lazy = false,
       opts = {
         cd_type = "local",
-        hooks = { open = { "Telescope find_files" } }
+        hooks = { open = { "FzfLua files" } }
       }
     },
     {
       'https://github.com/stevearc/overseer.nvim',
-      lazy = true,
+      lazy = false,
       config = function()
         require('overseer').setup()
       end
     },
     {
       "https://github.com/james1236/backseat.nvim",
-      lazy = true,
+      lazy = false,
       opts = {
         openai_model_id = 'gpt-3.5-turbo', --gpt-4
         split_threshold = 100,
@@ -465,6 +471,7 @@ require("lazy").setup({
     },
 
     -- === find ===
+    {'https://github.com/junegunn/fzf', build = './install --bin'},
     {
       'https://github.com/ibhagwan/fzf-lua',
       dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
@@ -497,10 +504,11 @@ require("lazy").setup({
           "<cmd>lua require('fzf-lua').oldfiles()<CR>",
           { noremap = true, silent = true }),
 
-        vim.keymap.set('n', 'gr',
+        vim.keymap.set('n', 'gw',
           "<cmd>lua require('fzf-lua').grep_cword()<CR>",
           { noremap = true, silent = true }),
 
+        -- query | *fileextension*
         vim.keymap.set('n', '<Leader>;',
           "<cmd>lua require('fzf-lua').live_grep_glob()<CR>",
           { noremap = true, silent = true }),
@@ -511,7 +519,11 @@ require("lazy").setup({
 
         vim.keymap.set('v', '<Leader>ca',
           "<cmd>lua require('fzf-lua').lsp_code_actions()<CR>",
-          { noremap = true, silent = true })
+          { noremap = true, silent = true }),
+
+        vim.keymap.set({ "n", "v", "i" }, "<C-x><C-f>",
+          '<cmd>lua require("fzf-lua").complete_path()<CR>',
+          { noremap = true, silent = true, desc = "Fuzzy complete path" })
       }
     },
     {
@@ -620,11 +632,11 @@ require("lazy").setup({
               end,
             })
 
-            require('mini.indentscope').setup({
-              options = {
-                try_as_border = true,
-              },
-            })
+            -- require('mini.indentscope').setup({
+            --   options = {
+            --     try_as_border = true,
+            --   },
+            -- })
             require('mini.comment').setup({
               mappings = {
                 comment_line = "<C-\\>",
@@ -647,7 +659,7 @@ require("lazy").setup({
       config = function()
         require("nvim-treesitter.configs").setup({
           auto_install = false,
-          disable = function(lang, buf)
+          disable = function(buf)
             local max_filesize = 100 * 1024 -- 100 KB
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
@@ -813,12 +825,14 @@ require("lazy").setup({
     },
     {
       'https://github.com/rhysd/devdocs.vim',
+      lazy = false,
       keys = {
         vim.keymap.set('n', 'K', '<Plug>(devdocs-under-cursor)', { silent = true })
       }
     },
     {
       'https://github.com/janko-m/vim-test',
+      lazy = false,
       keys = {
         vim.keymap.set('n', '<Leader>t', ':wa<CR>:TestFile<CR>', { noremap = true, silent = true }),
         vim.keymap.set('n', '<Leader>s', ':wa<CR>:TestNearest<CR>', { noremap = true, silent = true }),
@@ -864,7 +878,7 @@ require("lazy").setup({
           orange = '#f39e8c',
           yellow = '#ecbe7b',
           cyan = '#334040',
-          violet = '#5f5f8a',
+          violet = '#dc69aa',
         }
 
         local theme = {
@@ -917,6 +931,18 @@ require("lazy").setup({
             end
           end
           return sections
+        end
+
+        local function search_result()
+          if vim.v.hlsearch == 0 then
+            return ''
+          end
+          local last_search = vim.fn.getreg('/')
+          if not last_search or last_search == '' then
+            return ''
+          end
+          local searchcount = vim.fn.searchcount { maxcount = 9999 }
+          return last_search .. ' (' .. searchcount.current .. '/' .. searchcount.total .. ')'
         end
 
         require('lualine').setup({
@@ -994,7 +1020,9 @@ require("lazy").setup({
                 color_info = colors.cyan
               },
             },
-            lualine_x = {},
+            lualine_x = {
+              { search_result, color = { fg = colors.white, bg = colors.red } },
+            },
             lualine_y = {},
             lualine_z = {
               {
@@ -1019,9 +1047,9 @@ require("lazy").setup({
       "https://github.com/folke/trouble.nvim",
       lazy = false,
       dependencies = "https://github.com/nvim-tree/nvim-web-devicons",
-      config = function()
-        require("trouble").setup()
-      end,
+      opts = {
+        auto_close = true,
+      },
       keys = {
         vim.keymap.set('n', '<Leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>',
           { silent = true, noremap = true }
@@ -1044,7 +1072,6 @@ local function augroup(name)
 end
 
 vim.api.nvim_create_autocmd("CursorHold", {
-  buffer = bufnr,
   group = augroup("show_diagnostics"),
   callback = function()
     local opts = {
@@ -1179,9 +1206,3 @@ vim.keymap.set('n', '<Leader>cp', ':!cp % <C-r>=expand("%:p:h") . "/" <CR><C-d>'
 
 -- === debugging ===
 vim.keymap.set('n', '<Leader>d', ':call InsertDebug()<CR>', { noremap = true })
-
--- === ripgrep ===
-vim.keymap.set('n', '\\', ":Rg<SPACE>-F '' -g '*.'", { noremap = true })
-
--- === reload init ===
-vim.keymap.set('n', '<Leader>so', ':source $MYVIMRC<CR>', { noremap = true })
