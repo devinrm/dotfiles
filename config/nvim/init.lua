@@ -176,17 +176,7 @@ require("lazy").setup({
             lsp.eslint.setup({ capabilities = capabilities }),
             lsp.graphql.setup({ capabilities = capabilities }),
             lsp.html.setup({ capabilities = capabilities }),
-
-            lsp.jsonls.setup({
-              capabilities = capabilities,
-              commands = {
-                Format = {
-                  function()
-                    vim.lsp.formatexpr({}, { 0, 0 }, { vim.fn.line("$"), 0 })
-                  end
-                }
-              }
-            }),
+            lsp.jsonls.setup({ capabilities = capabilities }),
 
             lsp.lua_ls.setup({
               capabilities = capabilities,
