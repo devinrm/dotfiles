@@ -369,6 +369,22 @@ require("lazy").setup({
 
     -- === experiments ===
     {
+      "https://github.com/stevearc/dressing.nvim",
+      lazy = true,
+      init = function()
+        ---@diagnostic disable-next-line: duplicate-set-field
+        vim.ui.select = function(...)
+          require("lazy").load({ plugins = { "dressing.nvim" } })
+          return vim.ui.select(...)
+        end
+        ---@diagnostic disable-next-line: duplicate-set-field
+        vim.ui.input = function(...)
+          require("lazy").load({ plugins = { "dressing.nvim" } })
+          return vim.ui.input(...)
+        end
+      end,
+    },
+    {
       'https://github.com/kevinhwang91/nvim-bqf',
       ft = 'qf',
       dependencies = { 'https://github.com/junegunn/fzf', build = './install --bin' },
@@ -624,8 +640,38 @@ require("lazy").setup({
     {
       'https://github.com/echasnovski/mini.animate',
       event = "VeryLazy",
-      config = function()
-        require("mini.animate").setup()
+      opts = function()
+        -- don't use animate when scrolling with the mouse
+        local mouse_scrolled = false
+        for _, scroll in ipairs({ "Up", "Down" }) do
+          local key = "<ScrollWheel" .. scroll .. ">"
+          vim.keymap.set({ "", "i" }, key, function()
+            mouse_scrolled = true
+            return key
+          end, { expr = true })
+        end
+
+        local animate = require("mini.animate")
+        return {
+          resize = {
+            timing = animate.gen_timing.linear({ duration = 100, unit = "total" }),
+          },
+          scroll = {
+            timing = animate.gen_timing.linear({ duration = 150, unit = "total" }),
+            subscroll = animate.gen_subscroll.equal({
+              predicate = function(total_scroll)
+                if mouse_scrolled then
+                  mouse_scrolled = false
+                  return false
+                end
+                return total_scroll > 1
+              end,
+            }),
+          },
+        }
+      end,
+      config = function(_, opts)
+        require("mini.animate").setup(opts)
       end
     },
     {
