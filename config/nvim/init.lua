@@ -1031,7 +1031,6 @@ require("lazy").setup({
 
         require('lualine').setup({
           options = {
-            -- theme = noirbuddy_lualine.theme,
             theme = theme,
             component_separators = '',
             section_separators = { left = '', right = '' },
@@ -1117,7 +1116,7 @@ require("lazy").setup({
                 path = 1,
               },
               { 'filetype', color = { bg = colors.black, gui = 'bold' } },
-              '%l:%c / %p%% / LL:%L'
+              '%l:%c ┉ %p%% ┉ LL:%L'
             },
           },
           inactive_sections = {
