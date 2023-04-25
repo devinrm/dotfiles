@@ -1,7 +1,7 @@
 # Dotfiles
 
-Dependencies
-------------
+## Dependencies
+
 [ag](https://github.com/ggreer/the_silver_searcher)
 
 [asdf-vm](https://github.com/asdf-vm/asdf)
@@ -38,10 +38,12 @@ Dependencies
 
 [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
+...and more
+
 (See Brewfile if on MacOS or bin/laptop if on Fedora)
 
-Install
--------
+## Install
+
 Clone: `git clone git://github.com/devinrm/dotfiles.git ~/dotfiles`
 
 Make sure you have [rcm](https://github.com/thoughtbot/rcm) installed
@@ -54,11 +56,11 @@ You can safely run `rcup` multiple times to update.
 
 If your plugins aren't installed run `PackerInstall`, `PackerCompile`, and `PackerSync`
 
-Contributing
-------------
+## Contributing
+
 Pull-requests are welcome, but it would probably make more sense just to fork them and make them your
 own unless your PR is for a bug fix.
 
-License
--------
+## License
+
 This software is free and distributable under the MIT license.
