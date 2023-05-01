@@ -20,7 +20,7 @@
   pf = push --force-with-lease
   ph = push -u origin HEAD
   pr = hub pull-request
-  reb = rebase -i -
+  reb = rebase -i --signoff -
   rename = branch -m
   rl = log --walk-reflogs --date=iso
   sha = rev-parse --short HEAD
