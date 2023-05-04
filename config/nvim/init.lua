@@ -408,7 +408,7 @@ require("lazy").setup({
       "https://github.com/james1236/backseat.nvim",
       event = "VeryLazy",
       opts = {
-        openai_model_id = 'gpt-3.5-turbo', --gpt-4
+        openai_model_id = 'gpt-4',
         split_threshold = 100,
         highlight = {
           icon = '',
@@ -840,7 +840,7 @@ require("lazy").setup({
       event = "VeryLazy",
       opts = {
         openai_params = {
-          model = "gpt-3.5-turbo",
+          model = "gpt-4",
           frequency_penalty = 0,
           presence_penalty = 0,
           max_tokens = 300,
