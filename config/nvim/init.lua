@@ -151,8 +151,8 @@ require("lazy").setup({
               "marksman",
               "prismals",
               "pyright",
+              "ruby_ls",
               "rust_analyzer",
-              "solargraph",
               "sqlls",
               "stylelint_lsp",
               "lua_ls",
@@ -202,8 +202,8 @@ require("lazy").setup({
             lsp.marksman.setup({ capabilities = capabilities }),
             lsp.prismals.setup({ capabilities = capabilities }),
             lsp.pyright.setup({ capabilities = capabilities }),
+            lsp.ruby_ls.setup({ capabilities = capabilities }),
             lsp.rust_analyzer.setup({ capabilities = capabilities }),
-            lsp.solargraph.setup({ capabilities = capabilities }),
             lsp.sqlls.setup({ capabilities = capabilities }),
             lsp.stylelint_lsp.setup({ capabilities = capabilities }),
             lsp.tailwindcss.setup({ capabilities = capabilities }),
@@ -347,7 +347,6 @@ require("lazy").setup({
             null_ls.builtins.formatting.rustywind.with({
               extra_filetypes = { "erb" }
             }),
-            null_ls.builtins.diagnostics.rubocop,
             null_ls.builtins.formatting.rubocop,
             null_ls.builtins.code_actions.shellcheck,
             null_ls.builtins.diagnostics.shellcheck,
