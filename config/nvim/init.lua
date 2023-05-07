@@ -272,7 +272,7 @@ require("lazy").setup({
             ['<C-e>'] = cmp.mapping.abort(),
             ['<CR>'] = cmp.mapping.confirm({
               behavior = cmp.ConfirmBehavior.Replace,
-              select = false,
+              select = true,
             }),
             ['<Tab>'] = vim.schedule_wrap(function(fallback)
               if cmp.visible() and has_words_before() then
