@@ -567,7 +567,7 @@ require("lazy").setup({
       event = "VeryLazy",
       keys = {
         vim.keymap.set('n', '<Leader>vi', ':Neotree $HOME/dotfiles/<CR>', { noremap = true }),
-        vim.keymap.set('n', '<Leader>ve', ':NeoTreeRevealToggle<CR>', { noremap = true })
+        vim.keymap.set('n', '-', ':Neotree<CR>', { noremap = true })
       },
       opts = {
         filesystem = {
@@ -582,11 +582,6 @@ require("lazy").setup({
         default_component_configs = {
           indent = {
             with_expanders = true,
-          }
-        },
-        window = {
-          mappings = {
-            ["-"] = "navigate_up",
           }
         },
       },

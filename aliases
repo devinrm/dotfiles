@@ -115,8 +115,8 @@ alias dce="docker-compose exec"
 alias ddup="art -on legacy-stage docker-compose up"
 alias dpry="art -on legacy-stage docker-compose run --rm --service-ports app"
 alias dprune="docker system prune --volumes -a"
-alias es_index_create="art -on legacy-stage docker-compose run app bundle exec rails index:create"
-alias es_index_refresh="art -on legacy-stage docker-compose run app bundle exec rails index:refresh"
+alias es_index_create="art -on legacy-stage docker-compose run --rm app bundle exec rails index:create"
+alias es_index_refresh="art -on legacy-stage docker-compose run --rm app bundle exec rails index:refresh"
 
 # art
 alias sshstage="art -on stage ssh"
