@@ -7,3 +7,4 @@ node_modules
 prod.sql
 tags
 yarn-error.log
+public/

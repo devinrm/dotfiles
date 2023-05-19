@@ -34,7 +34,7 @@ config = {
     right = 0,
     top = 0,
   },
-  leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 1000 },
+  leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 2000 },
   keys = {
     {
       key = '[',
