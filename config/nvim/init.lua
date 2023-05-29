@@ -72,6 +72,7 @@ vim.diagnostic.config({
   underline = true,
   update_in_insert = false,
   severity_sort = true,
+  virtual_lines = { only_current_line = true }
 })
 
 --  ____ ____ ____ ____ ____ ____ ____
@@ -496,6 +497,12 @@ require("lazy").setup({
       event = "VeryLazy",
       config = function()
         require('guess-indent').setup()
+      end,
+    },
+    {
+      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      config = function()
+        require("lsp_lines").setup()
       end,
     },
 
@@ -1149,24 +1156,24 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("devinnvim_" .. name, { clear = true })
 end
 
-vim.api.nvim_create_autocmd("CursorHold", {
-  group = augroup("show_diagnostics"),
-  callback = function()
-    local opts = {
-      focusable = false,
-      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-      border = 'rounded',
-      source = 'always',
-      prefix = ' ',
-      scope = 'cursor',
-    }
-
-    local _, winnr = vim.diagnostic.open_float(nil, opts)
-    if winnr then
-      vim.api.nvim_win_set_option(winnr, "winblend", 10)
-    end
-  end
-})
+-- vim.api.nvim_create_autocmd("CursorHold", {
+--   group = augroup("show_diagnostics"),
+--   callback = function()
+--     local opts = {
+--       focusable = false,
+--       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+--       border = 'rounded',
+--       source = 'always',
+--       prefix = ' ',
+--       scope = 'cursor',
+--     }
+--
+--     local _, winnr = vim.diagnostic.open_float(nil, opts)
+--     if winnr then
+--       vim.api.nvim_win_set_option(winnr, "winblend", 10)
+--     end
+--   end
+-- })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup("highlight_yank"),
