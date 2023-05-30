@@ -1,5 +1,5 @@
 --api
 --database=postgresql
---skip-asset-pipeline
---skip-test
 --javascript=esbuild
+--asset-pipeline=propshaft
+--css=postcss
