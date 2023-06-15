@@ -404,18 +404,6 @@ require("lazy").setup({
       end
     },
     {
-      "https://github.com/james1236/backseat.nvim",
-      event = "VeryLazy",
-      opts = {
-        openai_model_id = 'gpt-4',
-        split_threshold = 100,
-        highlight = {
-          icon = '',
-          group = 'Comment',
-        }
-      }
-    },
-    {
       "https://github.com/nvim-telescope/telescope.nvim",
       branch = '0.1.x',
       dependencies = {
@@ -452,7 +440,45 @@ require("lazy").setup({
         telescope.load_extension("undo")
       end,
       keys = {
-        vim.keymap.set("n", "<Leader>u", "<cmd>Telescope undo<cr>", { noremap = true, silent = true }),
+        vim.keymap.set("n", "<Leader>u",
+        "<cmd>Telescope undo<CR>",
+        { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<C-p>',
+          "<cmd>Telescope find_files<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<C-b>',
+          "<cmd>Telescope buffers<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>p',
+          "<cmd>Telescope current_buffer_fuzzy_find<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>gc',
+          "<cmd>Telescope git_commits<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>bgc',
+          "<cmd>Telescope git_bcommits<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>hi',
+          "<cmd>Telescope oldfiles<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', 'gw',
+          "<cmd>Telescope grep_string<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>;',
+          "<cmd>Telescope live_grep<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', "'",
+          "<cmd>Telescope registers<CR>",
+          { noremap = true, silent = true }),
       }
     },
     {
@@ -482,7 +508,7 @@ require("lazy").setup({
     {
       "https://github.com/rcarriga/nvim-notify",
       opts = {
-        timeout = 3000,
+        timeout = 1000,
         max_height = function()
           return math.floor(vim.o.lines * 0.75)
         end,
@@ -498,64 +524,17 @@ require("lazy").setup({
         require('guess-indent').setup()
       end,
     },
+    {
+      'https://github.com/tzachar/highlight-undo.nvim',
+      config = function()
+        require('highlight-undo').setup({duration = 1000 })
+      end
+    },
 
     -- === find ===
     { 'https://github.com/junegunn/fzf', build = './install --bin' },
     { "https://github.com/nvim-tree/nvim-web-devicons", lazy = true },
     { "https://github.com/MunifTanjim/nui.nvim", lazy = true },
-    {
-      'https://github.com/ibhagwan/fzf-lua',
-      dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
-      config = function()
-        require('fzf-lua').setup({ 'default' })
-      end,
-      keys = {
-        vim.keymap.set('n', '<C-p>',
-          "<cmd>lua require('fzf-lua').files()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<C-b>',
-          "<cmd>lua require('fzf-lua').buffers()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>p',
-          "<cmd>lua require('fzf-lua').blines()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>gc',
-          "<cmd>lua require('fzf-lua').commits()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>bgc',
-          "<cmd>lua require('fzf-lua').bcommits()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>hi',
-          "<cmd>lua require('fzf-lua').oldfiles()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', 'gw',
-          "<cmd>lua require('fzf-lua').grep_cword()<CR>",
-          { noremap = true, silent = true }),
-
-        -- query | *fileextension*
-        vim.keymap.set('n', '<Leader>;',
-          "<cmd>lua require('fzf-lua').live_grep_glob()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', "'",
-          "<cmd>lua require('fzf-lua').registers()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('v', '<Leader>ca',
-          "<cmd>lua require('fzf-lua').lsp_code_actions()<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set({ "n", "v", "i" }, "<C-x><C-f>",
-          '<cmd>lua require("fzf-lua").complete_path()<CR>',
-          { noremap = true, silent = true, desc = "Fuzzy complete path" })
-      }
-    },
     {
       "https://github.com/nvim-neo-tree/neo-tree.nvim",
       branch = "v2.x",
@@ -1190,15 +1169,27 @@ vim.api.nvim_create_autocmd("TermClose", {
   end,
 })
 
--- When editing a file, always jump to the last known cursor position.
--- Don't do it for commit messages, when the position is invalid, or when
--- inside an event handler.
+-- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
-  group = augroup("last_known_cursor_position"),
+  group = augroup("last_loc"),
   callback = function()
-    if vim.bo.filetype ~= 'gitcommit' and vim.fn.line('"') > 0 and vim.fn.line('"') <= vim.fn.line('$') then
-      vim.api.nvim_feedkeys('g`\""', 'n', true)
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local lcount = vim.api.nvim_buf_line_count(0)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
     end
+  end,
+})
+
+-- Auto create dir when saving a file, in case some intermediate directory does not exist
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  group = augroup("auto_create_dir"),
+  callback = function(event)
+    if event.match:match("^%w%w+://") then
+      return
+    end
+    local file = vim.loop.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
 
@@ -1271,8 +1262,8 @@ vim.keymap.set('n', '<C-w>\\', ':vsp<CR>:terminal<CR>i', { noremap = true })
 vim.keymap.set('n', '<C-w>c', ':tabnew<CR>:terminal<CR>i', { noremap = true })
 
 -- === Move up and down by visible lines if current line is wrapped ===
-vim.keymap.set('n', 'j', 'gj', { noremap = true })
-vim.keymap.set('n', 'k', 'gk', { noremap = true })
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- === add current word under cursor to :%s ===
 vim.keymap.set('n', '<Leader>n', ':%s/\\(<c-r>=expand("<cword>")<CR>\\)/', { noremap = true })
@@ -1284,3 +1275,7 @@ vim.keymap.set('n', '<Leader>cp', ':!cp % <C-r>=expand("%:p:h") . "/" <CR><C-d>'
 
 -- === debugging ===
 vim.keymap.set('n', '<Leader>d', ':call InsertDebug()<CR>', { noremap = true })
+
+-- === better indenting ===
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
