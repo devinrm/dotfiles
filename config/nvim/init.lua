@@ -385,16 +385,11 @@ require("lazy").setup({
       end,
     },
     {
-      'https://github.com/kevinhwang91/nvim-bqf',
-      ft = 'qf',
-      dependencies = { 'https://github.com/junegunn/fzf', build = './install --bin' },
-    },
-    {
       'https://github.com/natecraddock/workspaces.nvim',
       event = "VeryLazy",
       opts = {
         cd_type = "local",
-        hooks = { open = { "FzfLua files" } }
+        hooks = { open = { "Telescope find_files" } }
       }
     },
     {
