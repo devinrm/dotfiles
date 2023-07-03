@@ -106,559 +106,12 @@ require("lazy").setup({
       end
     },
 
-    -- === completion ===
-    {
-      'https://github.com/neovim/nvim-lspconfig',
-      event = { "BufReadPre", "BufNewFile" },
-      keys = {
-        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true }),
-        vim.keymap.set('n', 'ge', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true }),
-        vim.keymap.set('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }),
-      },
-      dependencies = {
-        "https://github.com/folke/neodev.nvim",
-        "https://github.com/williamboman/mason.nvim",
-        "https://github.com/williamboman/mason-lspconfig.nvim",
-        "https://github.com/hrsh7th/cmp-nvim-lsp",
-      }
-    },
-    {
-      'https://github.com/williamboman/mason.nvim',
-      build = ":MasonUpdate",
-      dependencies = {
-        'https://github.com/williamboman/mason-lspconfig.nvim',
-        config = function()
-          require("neodev").setup()
-          require('mason').setup()
-
-          local mason_lspconfig = require("mason-lspconfig")
-          local lsp = require('lspconfig')
-          local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-          mason_lspconfig.setup({
-            ensure_installed = {
-              "astro",
-              "bashls",
-              "codeqlls",
-              "cssls",
-              "cssmodules_ls",
-              "dockerls",
-              "docker_compose_language_service",
-              "eslint",
-              "graphql",
-              "html",
-              "jsonls",
-              "marksman",
-              "prismals",
-              "pyright",
-              "ruby_ls",
-              "rust_analyzer",
-              "sqlls",
-              "stylelint_lsp",
-              "lua_ls",
-              "tailwindcss",
-              "terraformls",
-              "tflint",
-              "tsserver",
-              "yamlls",
-            },
-            automatic_installation = true,
-          })
-
-          mason_lspconfig.setup_handlers({
-            lsp.astro.setup({ capabilities = capabilities }),
-            lsp.bashls.setup({ capabilities = capabilities }),
-            lsp.codeqlls.setup({ capabilities = capabilities }),
-            lsp.cssls.setup({ capabilities = capabilities }),
-            lsp.cssmodules_ls.setup({ capabilities = capabilities }),
-            lsp.dockerls.setup({ capabilities = capabilities }),
-            lsp.docker_compose_language_service.setup({ capabilities = capabilities }),
-            lsp.eslint.setup({ capabilities = capabilities }),
-            lsp.graphql.setup({ capabilities = capabilities }),
-            lsp.html.setup({ capabilities = capabilities }),
-            lsp.jsonls.setup({ capabilities = capabilities }),
-
-            lsp.lua_ls.setup({
-              capabilities = capabilities,
-              settings = {
-                Lua = {
-                  runtime = {
-                    version = 'LuaJIT',
-                  },
-                  diagnostics = {
-                    globals = { 'vim' },
-                  },
-                  workspace = {
-                    library = vim.api.nvim_get_runtime_file("", true),
-                    checkThirdParty = false,
-                  },
-                  telemetry = {
-                    enable = false,
-                  },
-                },
-              },
-            }),
-
-            lsp.marksman.setup({ capabilities = capabilities }),
-            lsp.prismals.setup({ capabilities = capabilities }),
-            lsp.pyright.setup({ capabilities = capabilities }),
-            lsp.ruby_ls.setup({ capabilities = capabilities }),
-            lsp.rust_analyzer.setup({ capabilities = capabilities }),
-            lsp.sqlls.setup({ capabilities = capabilities }),
-            lsp.stylelint_lsp.setup({ capabilities = capabilities }),
-            lsp.tailwindcss.setup({ capabilities = capabilities }),
-            lsp.terraformls.setup({ capabilities = capabilities }),
-            lsp.tflint.setup({ capabilities = capabilities }),
-            lsp.tsserver.setup({ capabilities = capabilities }),
-            lsp.yamlls.setup({ capabilities = capabilities }),
-          })
-        end
-      },
-    },
-    {
-      'https://github.com/hrsh7th/nvim-cmp',
-      version = false,
-      dependencies = {
-        'https://github.com/hrsh7th/cmp-buffer',
-        'https://github.com/hrsh7th/cmp-path',
-        'https://github.com/saadparwaiz1/cmp_luasnip',
-        'https://github.com/hrsh7th/cmp-nvim-lsp',
-        'https://github.com/hrsh7th/cmp-nvim-lua',
-        'https://github.com/hrsh7th/cmp-cmdline',
-        'https://github.com/hrsh7th/cmp-nvim-lsp-signature-help',
-        {
-          'https://github.com/L3MON4D3/LuaSnip',
-          dependencies = 'https://github.com/rafamadriz/friendly-snippets',
-          opts = {
-            history = true,
-            delete_check_events = "TextChanged",
-          },
-        },
-        {
-          "https://github.com/zbirenbaum/copilot-cmp",
-          dependencies = "https://github.com/zbirenbaum/copilot.lua",
-          config = function()
-            require("copilot_cmp").setup()
-          end,
-        },
-      },
-      opts = function()
-        local cmp = require('cmp')
-
-        local has_words_before = function()
-          unpack = unpack
-          if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-          local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-          return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
-        end
-
-        return {
-          completion = {
-            completeopt = "menu,menuone,noinsert",
-          },
-          snippet = {
-            expand = function(args)
-              require("luasnip").lsp_expand(args.body)
-            end,
-          },
-          window = {
-            completion = cmp.config.window.bordered(),
-            documentation = cmp.config.window.bordered(),
-          },
-          mapping = cmp.mapping.preset.insert({
-            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-            ['<C-f>'] = cmp.mapping.scroll_docs(4),
-            ['<C-Space>'] = cmp.mapping.complete(),
-            ['<C-e>'] = cmp.mapping.abort(),
-            ['<CR>'] = cmp.mapping.confirm({
-              behavior = cmp.ConfirmBehavior.Replace,
-              select = true,
-            }),
-            ['<Tab>'] = vim.schedule_wrap(function(fallback)
-              if cmp.visible() and has_words_before() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-              else
-                fallback()
-              end
-            end),
-            ['<S-Tab>'] = vim.schedule_wrap(function(fallback)
-              if cmp.visible() and has_words_before() then
-                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-              else
-                fallback()
-              end
-            end),
-          }),
-          sources = cmp.config.sources({
-            { name = 'copilot',                 group_index = 2 },
-            { name = 'nvim_lsp',                group_index = 2 },
-            { name = 'nvim_lsp_signature_help', group_index = 2 },
-            { name = 'luasnip',                 group_index = 2 },
-            { name = 'nvim_lua',                group_index = 2 },
-            { name = 'buffer',                  group_index = 2 },
-            { name = 'path',                    group_index = 2 }
-          }),
-          experimental = {
-            ghost_text = {
-              hl_group = "Comment",
-            },
-          },
-        }
-      end
-    },
-    { 'https://github.com/nvim-lua/plenary.nvim', lazy = true },
-    { 'https://github.com/nvim-lua/popup.nvim' },
-    {
-      'https://github.com/jose-elias-alvarez/null-ls.nvim',
-      dependencies = {
-        'https://github.com/nvim-lua/plenary.nvim',
-        'https://github.com/williamboman/mason.nvim'
-      },
-      event = { "BufReadPre", "BufNewFile" },
-      opts = function()
-        local null_ls = require('null-ls')
-        local augroup = vim.api.nvim_create_augroup("lsp_formatting", {})
-
-        return {
-          on_attach = function(client, bufnr)
-            if client.supports_method("textDocument/formatting") then
-              vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-              vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = bufnr,
-                callback = function()
-                  vim.lsp.buf.format({
-                    bufnr = bufnr,
-                    timeout_ms = 2000,
-                  })
-                end,
-              })
-            end
-          end,
-          root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-          sources = {
-            null_ls.builtins.code_actions.proselint,
-            null_ls.builtins.diagnostics.proselint,
-            null_ls.builtins.diagnostics.hadolint,
-            null_ls.builtins.diagnostics.haml_lint,
-            null_ls.builtins.diagnostics.jsonlint,
-            -- null_ls.builtins.formatting.lua_format,
-            null_ls.builtins.formatting.prettier,
-            null_ls.builtins.formatting.rustywind.with({
-              extra_filetypes = { "erb" }
-            }),
-            null_ls.builtins.formatting.rubocop,
-            null_ls.builtins.diagnostics.rubocop,
-            null_ls.builtins.code_actions.shellcheck,
-            null_ls.builtins.diagnostics.shellcheck,
-            null_ls.builtins.formatting.shellharden,
-            null_ls.builtins.diagnostics.yamllint
-          }
-        }
-      end
-    },
-    {
-      "https://github.com/zbirenbaum/copilot.lua",
-      cmd = "Copilot",
-      build = ":Copilot auth",
-      opts = {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      }
-    },
-
-    -- === experiments ===
-    {
-      "https://github.com/stevearc/dressing.nvim",
-      lazy = true,
-      init = function()
-        ---@diagnostic disable-next-line: duplicate-set-field
-        vim.ui.select = function(...)
-          require("lazy").load({ plugins = { "dressing.nvim" } })
-          return vim.ui.select(...)
-        end
-        ---@diagnostic disable-next-line: duplicate-set-field
-        vim.ui.input = function(...)
-          require("lazy").load({ plugins = { "dressing.nvim" } })
-          return vim.ui.input(...)
-        end
-      end,
-    },
-    {
-      'https://github.com/natecraddock/workspaces.nvim',
-      event = "VeryLazy",
-      opts = {
-        cd_type = "local",
-        hooks = { open = { "Telescope find_files" } }
-      }
-    },
-    {
-      'https://github.com/stevearc/overseer.nvim',
-      event = "VeryLazy",
-      config = function()
-        require('overseer').setup()
-      end
-    },
-    {
-      "https://github.com/nvim-telescope/telescope.nvim",
-      branch = '0.1.x',
-      dependencies = {
-        "https://github.com/nvim-lua/plenary.nvim",
-        "https://github.com/debugloop/telescope-undo.nvim",
-        "https://github.com/nvim-treesitter/nvim-treesitter",
-        "https://github.com/nvim-tree/nvim-web-devicons",
-        {
-          "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
-          build = "make",
-        },
-      },
-      opts = {
-        extensions = {
-          fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-          },
-          undo = {
-            side_by_side = true,
-            layout_strategy = "vertical",
-            layout_config = {
-              preview_height = 0.8,
-            },
-          },
-        }
-      },
-      config = function()
-        local telescope = require("telescope")
-
-        telescope.load_extension("fzf")
-        telescope.load_extension("undo")
-      end,
-      keys = {
-        vim.keymap.set("n", "<Leader>u",
-        "<cmd>Telescope undo<CR>",
-        { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<C-p>',
-          "<cmd>Telescope find_files<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<C-b>',
-          "<cmd>Telescope buffers<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>p',
-          "<cmd>Telescope current_buffer_fuzzy_find<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>gc',
-          "<cmd>Telescope git_commits<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>bgc',
-          "<cmd>Telescope git_bcommits<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>hi',
-          "<cmd>Telescope oldfiles<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', 'gw',
-          "<cmd>Telescope grep_string<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', '<Leader>;',
-          "<cmd>Telescope live_grep<CR>",
-          { noremap = true, silent = true }),
-
-        vim.keymap.set('n', "'",
-          "<cmd>Telescope registers<CR>",
-          { noremap = true, silent = true }),
-      }
-    },
-    {
-      "https://github.com/folke/noice.nvim",
-      event = "VeryLazy",
-      opts = {
-        lsp = {
-          override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
-          },
-        },
-        presets = {
-          bottom_search = true,
-          command_palette = true,
-          long_message_to_split = true,
-          inc_rename = false,
-          lsp_doc_border = true,
-        },
-      },
-      dependencies = {
-        "https://github.com/MunifTanjim/nui.nvim",
-        "https://github.com/rcarriga/nvim-notify"
-      }
-    },
-    {
-      "https://github.com/rcarriga/nvim-notify",
-      opts = {
-        timeout = 1000,
-        max_height = function()
-          return math.floor(vim.o.lines * 0.75)
-        end,
-        max_width = function()
-          return math.floor(vim.o.columns * 0.75)
-        end,
-      },
-    },
-    {
-      'https://github.com/nmac427/guess-indent.nvim',
-      event = "VeryLazy",
-      config = function()
-        require('guess-indent').setup()
-      end,
-    },
-    {
-      'https://github.com/tzachar/highlight-undo.nvim',
-      config = function()
-        require('highlight-undo').setup({duration = 1000 })
-      end
-    },
-
-    -- === find ===
-    { 'https://github.com/junegunn/fzf', build = './install --bin' },
-    { "https://github.com/nvim-tree/nvim-web-devicons", lazy = true },
-    { "https://github.com/MunifTanjim/nui.nvim", lazy = true },
-    {
-      "https://github.com/nvim-neo-tree/neo-tree.nvim",
-      branch = "v2.x",
-      dependencies = {
-        "https://github.com/nvim-lua/plenary.nvim",
-        "https://github.com/nvim-tree/nvim-web-devicons",
-        "https://github.com/MunifTanjim/nui.nvim",
-      },
-      event = "VeryLazy",
-      keys = {
-        vim.keymap.set('n', '<Leader>vi', ':Neotree $HOME/dotfiles/<CR>', { noremap = true }),
-        vim.keymap.set('n', '-', ':Neotree<CR>', { noremap = true })
-      },
-      opts = {
-        filesystem = {
-          bind_to_cwd = false,
-          follow_current_file = true,
-          use_libuv_file_watcher = true,
-          filtered_items = {
-            hide_dotfiles = false,
-            hide_gitignored = false,
-          }
-        },
-        default_component_configs = {
-          indent = {
-            with_expanders = true,
-          }
-        },
-      },
-      init = function()
-        vim.g.neo_tree_remove_legacy_commands = 1
-      end,
-    },
-
-    -- === git ===
-    {
-      'https://github.com/lewis6991/gitsigns.nvim',
-      event = { "BufReadPre", "BufNewFile" },
-      config = function()
-        require('gitsigns').setup()
-      end
-    },
-
-    -- === language plugins ===
-    { 'https://github.com/wuelnerdotexe/vim-astro', ft = 'astro' },
-    { 'https://github.com/hashivim/vim-terraform',  ft = 'terraform' },
+    -- === core ===
     {
       'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
       lazy = true,
     },
-    {
-      'https://github.com/echasnovski/mini.comment',
-      event = "VeryLazy",
-      opts = {
-        mappings = {
-          comment_line = "<C-\\>",
-          comment = '<C-\\>',
-        },
-        hooks = {
-          pre = function()
-            require("ts_context_commentstring.internal").update_commentstring({})
-          end,
-        },
-      },
-      config = function(_, opts)
-        require("mini.comment").setup(opts)
-      end,
-    },
-    {
-      'https://github.com/echasnovski/mini.cursorword',
-      event = "VeryLazy",
-      config = function()
-        require("mini.cursorword").setup()
-      end
-    },
-    {
-      'https://github.com/echasnovski/mini.animate',
-      event = "VeryLazy",
-      opts = function()
-        -- don't use animate when scrolling with the mouse
-        local mouse_scrolled = false
-        for _, scroll in ipairs({ "Up", "Down" }) do
-          local key = "<ScrollWheel" .. scroll .. ">"
-          vim.keymap.set({ "", "i" }, key, function()
-            mouse_scrolled = true
-            return key
-          end, { expr = true })
-        end
 
-        local animate = require("mini.animate")
-        return {
-          resize = {
-            timing = animate.gen_timing.linear({ duration = 100, unit = "total" }),
-          },
-          scroll = {
-            timing = animate.gen_timing.linear({ duration = 150, unit = "total" }),
-            subscroll = animate.gen_subscroll.equal({
-              predicate = function(total_scroll)
-                if mouse_scrolled then
-                  mouse_scrolled = false
-                  return false
-                end
-                return total_scroll > 1
-              end,
-            }),
-          },
-        }
-      end,
-      config = function(_, opts)
-        require("mini.animate").setup(opts)
-      end
-    },
-    {
-      'https://github.com/echasnovski/mini.trailspace',
-      event = "VeryLazy",
-      config = function()
-        local mini_trailspace = require("mini.trailspace")
-        mini_trailspace.setup()
-
-        vim.api.nvim_create_autocmd("BufWritePre", {
-          group = vim.api.nvim_create_augroup("vim_trim", { clear = true }),
-          callback = function()
-            mini_trailspace.trim()
-            mini_trailspace.trim_last_lines()
-          end,
-        })
-      end
-    },
     {
       'https://github.com/nvim-treesitter/nvim-treesitter',
       build = ':TSUpdate',
@@ -793,6 +246,523 @@ require("lazy").setup({
     },
 
     {
+      'https://github.com/neovim/nvim-lspconfig',
+      event = { "BufReadPre", "BufNewFile" },
+      keys = {
+        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true }),
+        vim.keymap.set('n', 'ge', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true }),
+        vim.keymap.set('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }),
+      },
+      dependencies = {
+        "https://github.com/folke/neodev.nvim",
+        "https://github.com/williamboman/mason.nvim",
+        "https://github.com/williamboman/mason-lspconfig.nvim",
+        "https://github.com/hrsh7th/cmp-nvim-lsp",
+      }
+    },
+
+    { 'https://github.com/nvim-lua/plenary.nvim', lazy = true },
+
+    { 'https://github.com/nvim-lua/popup.nvim' },
+
+    -- === completion ===
+    {
+      'https://github.com/williamboman/mason.nvim',
+      build = ":MasonUpdate",
+      dependencies = {
+        'https://github.com/williamboman/mason-lspconfig.nvim',
+        config = function()
+          require("neodev").setup()
+          require('mason').setup()
+
+          local mason_lspconfig = require("mason-lspconfig")
+          local lsp = require('lspconfig')
+          local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+          mason_lspconfig.setup({
+            ensure_installed = {
+              "astro",
+              "bashls",
+              "codeqlls",
+              "cssls",
+              "cssmodules_ls",
+              "dockerls",
+              "docker_compose_language_service",
+              "eslint",
+              "graphql",
+              "html",
+              "jsonls",
+              "marksman",
+              "prismals",
+              "pyright",
+              "ruby_ls",
+              "rust_analyzer",
+              "sqlls",
+              "stylelint_lsp",
+              "lua_ls",
+              "tailwindcss",
+              "terraformls",
+              "tflint",
+              "tsserver",
+              "yamlls",
+            },
+            automatic_installation = true,
+          })
+
+          mason_lspconfig.setup_handlers({
+            lsp.astro.setup({ capabilities = capabilities }),
+            lsp.bashls.setup({ capabilities = capabilities }),
+            lsp.codeqlls.setup({ capabilities = capabilities }),
+            lsp.cssls.setup({ capabilities = capabilities }),
+            lsp.cssmodules_ls.setup({ capabilities = capabilities }),
+            lsp.dockerls.setup({ capabilities = capabilities }),
+            lsp.docker_compose_language_service.setup({ capabilities = capabilities }),
+            lsp.eslint.setup({ capabilities = capabilities }),
+            lsp.graphql.setup({ capabilities = capabilities }),
+            lsp.html.setup({ capabilities = capabilities }),
+            lsp.jsonls.setup({ capabilities = capabilities }),
+
+            lsp.lua_ls.setup({
+              capabilities = capabilities,
+              settings = {
+                Lua = {
+                  runtime = {
+                    version = 'LuaJIT',
+                  },
+                  diagnostics = {
+                    globals = { 'vim' },
+                  },
+                  workspace = {
+                    library = vim.api.nvim_get_runtime_file("", true),
+                    checkThirdParty = false,
+                  },
+                  telemetry = {
+                    enable = false,
+                  },
+                },
+              },
+            }),
+
+            lsp.marksman.setup({ capabilities = capabilities }),
+            lsp.prismals.setup({ capabilities = capabilities }),
+            lsp.pyright.setup({ capabilities = capabilities }),
+            lsp.ruby_ls.setup({ capabilities = capabilities }),
+            lsp.rust_analyzer.setup({ capabilities = capabilities }),
+            lsp.sqlls.setup({ capabilities = capabilities }),
+            lsp.stylelint_lsp.setup({ capabilities = capabilities }),
+            lsp.tailwindcss.setup({ capabilities = capabilities }),
+            lsp.terraformls.setup({ capabilities = capabilities }),
+            lsp.tflint.setup({ capabilities = capabilities }),
+            lsp.yamlls.setup({ capabilities = capabilities }),
+          })
+        end
+      },
+    },
+
+    {
+      'https://github.com/hrsh7th/nvim-cmp',
+      version = false,
+      dependencies = {
+        'https://github.com/hrsh7th/cmp-buffer',
+        'https://github.com/hrsh7th/cmp-path',
+        'https://github.com/saadparwaiz1/cmp_luasnip',
+        'https://github.com/hrsh7th/cmp-nvim-lsp',
+        'https://github.com/hrsh7th/cmp-nvim-lua',
+        'https://github.com/hrsh7th/cmp-cmdline',
+        'https://github.com/hrsh7th/cmp-nvim-lsp-signature-help',
+        {
+          'https://github.com/L3MON4D3/LuaSnip',
+          dependencies = 'https://github.com/rafamadriz/friendly-snippets',
+          opts = {
+            history = true,
+            delete_check_events = "TextChanged",
+          },
+        },
+        {
+          "https://github.com/zbirenbaum/copilot-cmp",
+          dependencies = "https://github.com/zbirenbaum/copilot.lua",
+          config = function()
+            require("copilot_cmp").setup()
+          end,
+        },
+      },
+      opts = function()
+        local cmp = require('cmp')
+
+        local has_words_before = function()
+          unpack = unpack
+          if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+          local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+          return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+        end
+
+        return {
+          completion = {
+            completeopt = "menu,menuone,noinsert",
+          },
+          snippet = {
+            expand = function(args)
+              require("luasnip").lsp_expand(args.body)
+            end,
+          },
+          window = {
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered(),
+          },
+          mapping = cmp.mapping.preset.insert({
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<C-e>'] = cmp.mapping.abort(),
+            ['<CR>'] = cmp.mapping.confirm({
+              behavior = cmp.ConfirmBehavior.Replace,
+              select = true,
+            }),
+            ['<Tab>'] = vim.schedule_wrap(function(fallback)
+              if cmp.visible() and has_words_before() then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+              else
+                fallback()
+              end
+            end),
+            ['<S-Tab>'] = vim.schedule_wrap(function(fallback)
+              if cmp.visible() and has_words_before() then
+                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+              else
+                fallback()
+              end
+            end),
+          }),
+          sources = cmp.config.sources({
+            { name = 'copilot',                 group_index = 2 },
+            { name = 'nvim_lsp',                group_index = 2 },
+            { name = 'nvim_lsp_signature_help', group_index = 2 },
+            { name = 'luasnip',                 group_index = 2 },
+            { name = 'nvim_lua',                group_index = 2 },
+            { name = 'buffer',                  group_index = 2 },
+            { name = 'path',                    group_index = 2 }
+          }),
+          experimental = {
+            ghost_text = {
+              hl_group = "Comment",
+            },
+          },
+        }
+      end
+    },
+
+    {
+      'https://github.com/jose-elias-alvarez/null-ls.nvim',
+      dependencies = {
+        'https://github.com/nvim-lua/plenary.nvim',
+        'https://github.com/williamboman/mason.nvim'
+      },
+      event = { "BufReadPre", "BufNewFile" },
+      opts = function()
+        local null_ls = require('null-ls')
+        local augroup = vim.api.nvim_create_augroup("lsp_formatting", {})
+
+        return {
+          on_attach = function(client, bufnr)
+            if client.supports_method("textDocument/formatting") then
+              vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function()
+                  vim.lsp.buf.format({
+                    bufnr = bufnr,
+                    timeout_ms = 2000,
+                  })
+                end,
+              })
+            end
+          end,
+          root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+          sources = {
+            null_ls.builtins.code_actions.proselint,
+            null_ls.builtins.diagnostics.proselint,
+            null_ls.builtins.diagnostics.hadolint,
+            null_ls.builtins.diagnostics.haml_lint,
+            null_ls.builtins.diagnostics.jsonlint,
+            -- null_ls.builtins.formatting.lua_format,
+            null_ls.builtins.formatting.prettier,
+            null_ls.builtins.formatting.rustywind.with({
+              extra_filetypes = { "erb" }
+            }),
+            null_ls.builtins.formatting.rubocop,
+            null_ls.builtins.diagnostics.rubocop,
+            null_ls.builtins.code_actions.shellcheck,
+            null_ls.builtins.diagnostics.shellcheck,
+            null_ls.builtins.formatting.shellharden,
+            null_ls.builtins.diagnostics.yamllint
+          }
+        }
+      end
+    },
+
+    {
+      "https://github.com/zbirenbaum/copilot.lua",
+      cmd = "Copilot",
+      build = ":Copilot auth",
+      opts = {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    },
+
+    -- === experiments ===
+    {
+      "https://github.com/stevearc/dressing.nvim",
+      lazy = true,
+      init = function()
+        ---@diagnostic disable-next-line: duplicate-set-field
+        vim.ui.select = function(...)
+          require("lazy").load({ plugins = { "dressing.nvim" } })
+          return vim.ui.select(...)
+        end
+        ---@diagnostic disable-next-line: duplicate-set-field
+        vim.ui.input = function(...)
+          require("lazy").load({ plugins = { "dressing.nvim" } })
+          return vim.ui.input(...)
+        end
+      end,
+    },
+
+    {
+      'https://github.com/natecraddock/workspaces.nvim',
+      event = "VeryLazy",
+      opts = {
+        cd_type = "local",
+        hooks = { open = { "Telescope find_files" } }
+      }
+    },
+
+    {
+      'https://github.com/stevearc/overseer.nvim',
+      event = "VeryLazy",
+      config = function()
+        require('overseer').setup()
+      end
+    },
+
+    {
+      "https://github.com/pmizio/typescript-tools.nvim",
+      dependencies = {
+        "https://github.com/nvim-lua/plenary.nvim",
+        "https://github.com/neovim/nvim-lspconfig"
+      },
+      opts = {},
+    },
+
+    -- === find ===
+    { 'https://github.com/junegunn/fzf', build = './install --bin' },
+
+    { "https://github.com/nvim-tree/nvim-web-devicons", lazy = true },
+
+    {
+      "https://github.com/nvim-telescope/telescope.nvim",
+      branch = '0.1.x',
+      dependencies = {
+        "https://github.com/nvim-lua/plenary.nvim",
+        "https://github.com/debugloop/telescope-undo.nvim",
+        "https://github.com/nvim-treesitter/nvim-treesitter",
+        "https://github.com/nvim-tree/nvim-web-devicons",
+        {
+          "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
+          build = "make",
+        },
+      },
+      opts = {
+        extensions = {
+          fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+          },
+          undo = {
+            side_by_side = true,
+            layout_strategy = "vertical",
+            layout_config = {
+              preview_height = 0.8,
+            },
+          },
+        }
+      },
+      config = function()
+        local telescope = require("telescope")
+
+        telescope.load_extension("fzf")
+        telescope.load_extension("undo")
+      end,
+      keys = {
+        vim.keymap.set("n", "<Leader>u",
+        "<cmd>Telescope undo<CR>",
+        { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<C-p>',
+          "<cmd>Telescope find_files<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<C-b>',
+          "<cmd>Telescope buffers<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>p',
+          "<cmd>Telescope current_buffer_fuzzy_find<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>gc',
+          "<cmd>Telescope git_commits<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>bgc',
+          "<cmd>Telescope git_bcommits<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>hi',
+          "<cmd>Telescope oldfiles<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', 'gw',
+          "<cmd>Telescope grep_string<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', '<Leader>;',
+          "<cmd>Telescope live_grep<CR>",
+          { noremap = true, silent = true }),
+
+        vim.keymap.set('n', "'",
+          "<cmd>Telescope registers<CR>",
+          { noremap = true, silent = true }),
+      }
+    },
+
+    -- === git ===
+    {
+      'https://github.com/tpope/vim-fugitive',
+      config = function()
+        vim.cmd("command! -nargs=1 Browse silent exec '!open \"<args>\"'")
+      end
+    },
+
+    {
+      'https://github.com/lewis6991/gitsigns.nvim',
+      event = { "BufReadPre", "BufNewFile" },
+      config = function()
+        require('gitsigns').setup()
+      end
+    },
+
+  -- === mini ===
+  {
+    'https://github.com/echasnovski/mini.comment',
+    event = "VeryLazy",
+    opts = {
+      mappings = {
+        comment_line = "<C-\\>",
+        comment = '<C-\\>',
+      },
+      hooks = {
+        pre = function()
+          require("ts_context_commentstring.internal").update_commentstring({})
+        end,
+      },
+    },
+    config = function(_, opts)
+      require("mini.comment").setup(opts)
+    end,
+  },
+
+  {
+    'https://github.com/echasnovski/mini.cursorword',
+    event = "VeryLazy",
+    config = function()
+      require("mini.cursorword").setup()
+    end
+  },
+
+  {
+    'https://github.com/echasnovski/mini.bufremove',
+    event = "VeryLazy",
+    config = function()
+      require("mini.bufremove").setup()
+    end
+  },
+
+  {
+    'https://github.com/echasnovski/mini.animate',
+    event = "VeryLazy",
+    opts = function()
+      -- don't use animate when scrolling with the mouse
+      local mouse_scrolled = false
+      for _, scroll in ipairs({ "Up", "Down" }) do
+        local key = "<ScrollWheel" .. scroll .. ">"
+        vim.keymap.set({ "", "i" }, key, function()
+          mouse_scrolled = true
+          return key
+        end, { expr = true })
+      end
+
+      local animate = require("mini.animate")
+      return {
+        resize = {
+          timing = animate.gen_timing.linear({ duration = 100, unit = "total" }),
+        },
+        scroll = {
+          timing = animate.gen_timing.linear({ duration = 150, unit = "total" }),
+          subscroll = animate.gen_subscroll.equal({
+            predicate = function(total_scroll)
+              if mouse_scrolled then
+                mouse_scrolled = false
+                return false
+              end
+              return total_scroll > 1
+            end,
+          }),
+        },
+      }
+    end,
+    config = function(_, opts)
+      require("mini.animate").setup(opts)
+    end
+  },
+
+  {
+    'https://github.com/echasnovski/mini.files',
+    event = "VeryLazy",
+    config = function()
+      require("mini.files").setup()
+    end,
+    keys = {
+      vim.keymap.set('n', '-', '<cmd> lua MiniFiles.open()<CR>', { noremap = true })
+    },
+  },
+
+  {
+    'https://github.com/echasnovski/mini.trailspace',
+    event = "VeryLazy",
+    config = function()
+      local mini_trailspace = require("mini.trailspace")
+      mini_trailspace.setup()
+
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = vim.api.nvim_create_augroup("vim_trim", { clear = true }),
+        callback = function()
+          mini_trailspace.trim()
+          mini_trailspace.trim_last_lines()
+        end,
+      })
+    end
+  },
+
+    -- === language plugins ===
+    { 'https://github.com/wuelnerdotexe/vim-astro', ft = 'astro' },
+
+    { 'https://github.com/hashivim/vim-terraform',  ft = 'terraform' },
+
+    {
       'https://github.com/iamcco/markdown-preview.nvim',
       build = "cd app && npm install",
       config = function()
@@ -800,7 +770,9 @@ require("lazy").setup({
       end,
       ft = { "markdown" },
     },
+
     { 'https://github.com/Vimjas/vim-python-pep8-indent', ft = { 'python' } },
+
     { 'https://github.com/rust-lang/rust.vim',            ft = { 'rust' } },
 
     -- === other ===
@@ -824,23 +796,7 @@ require("lazy").setup({
         "https://github.com/nvim-telescope/telescope.nvim"
       }
     },
-    {
-      "https://github.com/princejoogie/chafa.nvim",
-      event = "VeryLazy",
-      dependencies = {
-        "https://github.com/nvim-lua/plenary.nvim",
-        "https://github.com/m00qek/baleia.nvim"
-      },
-      opts = {
-        render = {
-          min_padding = 5,
-          show_label = true,
-        },
-        events = {
-          update_on_nvim_resize = true,
-        },
-      }
-    },
+
     {
       'https://github.com/stevearc/aerial.nvim',
       event = { "BufReadPre" },
@@ -851,15 +807,18 @@ require("lazy").setup({
         end
       }
     },
+
     {
       'https://github.com/DanilaMihailov/beacon.nvim',
       event = "VeryLazy",
     },
+
     {
       "https://github.com/chrishrb/gx.nvim",
       event = { "BufEnter" },
       config = true,
     },
+
     {
       'https://github.com/laytan/cloak.nvim',
       event = { "BufReadPre" },
@@ -868,7 +827,9 @@ require("lazy").setup({
         require('cloak').setup()
       end
     },
+
     { 'https://github.com/stefandtw/quickfix-reflector.vim', event = "VeryLazy" },
+
     {
       'https://github.com/norcalli/nvim-colorizer.lua',
       event = "VeryLazy",
@@ -876,6 +837,7 @@ require("lazy").setup({
         require('colorizer').setup()
       end
     },
+
     {
       'https://github.com/rhysd/devdocs.vim',
       event = "VeryLazy",
@@ -883,6 +845,7 @@ require("lazy").setup({
         vim.keymap.set('n', 'K', '<Plug>(devdocs-under-cursor)', { silent = true })
       }
     },
+
     {
       'https://github.com/janko-m/vim-test',
       event = "VeryLazy",
@@ -894,24 +857,23 @@ require("lazy").setup({
         vim.keymap.set('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', { noremap = true, silent = true }),
       }
     },
+
     { "https://github.com/folke/neodev.nvim" },
+
     { 'https://github.com/romainl/vim-cool' },
-    {
-      'https://github.com/tpope/vim-fugitive',
-      config = function()
-        vim.cmd("command! -nargs=1 Browse silent exec '!open \"<args>\"'")
-      end
-    },
+
     { 'https://github.com/tpope/vim-rails',  ft = { 'ruby' } },
+
     { 'https://github.com/tpope/vim-rhubarb' },
+
     { 'https://github.com/tpope/vim-rsi' },
+
+    -- === UI ===
     {
       'https://github.com/hoob3rt/lualine.nvim',
       event = "VeryLazy",
       dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
       config = function()
-        -- local noirbuddy_lualine = require('noirbuddy.plugins.lualine')
-
         local conditions = {
           buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 end,
           hide_in_width = function() return vim.fn.winwidth(0) > 80 end,
@@ -1095,6 +1057,7 @@ require("lazy").setup({
         })
       end
     },
+
     {
       "https://github.com/folke/trouble.nvim",
       dependencies = "https://github.com/nvim-tree/nvim-web-devicons",
@@ -1108,7 +1071,52 @@ require("lazy").setup({
           { silent = true, noremap = true }
         )
       }
-    }
+    },
+
+    {
+      "https://github.com/folke/noice.nvim",
+      event = "VeryLazy",
+      opts = {
+        lsp = {
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
+        },
+        presets = {
+          bottom_search = true,
+          command_palette = true,
+          long_message_to_split = true,
+          inc_rename = false,
+          lsp_doc_border = true,
+        },
+      },
+      dependencies = {
+        "https://github.com/MunifTanjim/nui.nvim",
+        "https://github.com/rcarriga/nvim-notify"
+      }
+    },
+
+    {
+      "https://github.com/rcarriga/nvim-notify",
+      opts = {
+        timeout = 1000,
+        max_height = function()
+          return math.floor(vim.o.lines * 0.75)
+        end,
+        max_width = function()
+          return math.floor(vim.o.columns * 0.75)
+        end,
+      },
+    },
+
+    {
+      'https://github.com/tzachar/highlight-undo.nvim',
+      config = function()
+        require('highlight-undo').setup({duration = 2000 })
+      end
+    },
   },
   {
     checker = { enabled = false },
