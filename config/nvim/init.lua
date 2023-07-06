@@ -487,6 +487,7 @@ require("lazy").setup({
             null_ls.builtins.diagnostics.jsonlint,
             -- null_ls.builtins.formatting.lua_format,
             null_ls.builtins.formatting.prettier,
+            null_ls.builtins.formatting.rustfmt,
             null_ls.builtins.formatting.rustywind.with({
               extra_filetypes = { "erb" }
             }),
@@ -568,6 +569,7 @@ require("lazy").setup({
         "https://github.com/debugloop/telescope-undo.nvim",
         "https://github.com/nvim-treesitter/nvim-treesitter",
         "https://github.com/nvim-tree/nvim-web-devicons",
+        "https://github.com/nvim-telescope/telescope-dap.nvim",
         {
           "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
           build = "make",
@@ -588,6 +590,7 @@ require("lazy").setup({
               preview_height = 0.8,
             },
           },
+          dap = {},
         }
       },
       config = function()
@@ -858,7 +861,24 @@ require("lazy").setup({
       }
     },
 
-    { "https://github.com/folke/neodev.nvim" },
+    {
+      "https://github.com/folke/neodev.nvim",
+      config = function()
+        require("neodev").setup({
+          library = { plugins = { "nvim-dap-ui" }, types = true },
+        })
+      end
+    },
+
+    { "https://github.com/mfussenegger/nvim-dap" },
+
+    {
+      "https://github.com/rcarriga/nvim-dap-ui",
+      dependencies = { "https://github.com/mfussenegger/nvim-dap" },
+      config = function()
+        require("dapui").setup()
+      end
+    },
 
     { 'https://github.com/romainl/vim-cool' },
 
