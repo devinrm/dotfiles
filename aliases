@@ -132,7 +132,7 @@ alias work="cd $HOME/work/"
 
 alias wifi-ip="ipconfig getifaddr en0"
 
-alias update="$HOME/dotfiles/bin/update_packages.sh"
+alias update="$HOME/dotfiles/bin/update_packages"
 
 alias install_rust="curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
 
