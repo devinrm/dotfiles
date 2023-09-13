@@ -78,8 +78,10 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # asdf
 . $HOME/.asdf/asdf.sh
+. $HOME/.asdf/plugins/golang/set-env.zsh
 fpath=(${ASDF_DIR}/completions $fpath)
 export NODEJS_CHECK_SIGNATURES=no
+
 
 # docker
 export COMPOSE_HTTP_TIMEOUT=300

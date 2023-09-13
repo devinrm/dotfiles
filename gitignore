@@ -1,10 +1,4 @@
 .DS_Store
-.bundle
 .tool-versions
 .tool-versions-e
-__pycache__/
-node_modules
-prod.sql
 tags
-yarn-error.log
-public/

@@ -1,3 +1,6 @@
+brew "awscli"
+brew "aws-cdk"
+brew "aws-elasticbeanstalk"
 brew "bat"
 brew "chafa"
 brew "coreutils"

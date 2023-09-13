@@ -1,6 +1,4 @@
 autopep8
-aws-shell
-awscli
 flake8
 ipdb
 pylint
