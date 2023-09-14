@@ -81,6 +81,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 . $HOME/.asdf/plugins/golang/set-env.zsh
 fpath=(${ASDF_DIR}/completions $fpath)
 export NODEJS_CHECK_SIGNATURES=no
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 
 
 # docker
