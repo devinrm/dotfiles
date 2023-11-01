@@ -665,7 +665,7 @@ require("lazy").setup({
     opts = {
       mappings = {
         comment_line = "<C-\\>",
-        comment = '<C-\\>',
+        comment_visual = '<C-\\>',
       },
       hooks = {
         pre = function()
