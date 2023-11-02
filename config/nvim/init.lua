@@ -485,7 +485,7 @@ require("lazy").setup({
             null_ls.builtins.diagnostics.hadolint,
             null_ls.builtins.diagnostics.haml_lint,
             null_ls.builtins.diagnostics.jsonlint,
-            -- null_ls.builtins.formatting.lua_format,
+            null_ls.builtins.formatting.lua_format,
             null_ls.builtins.formatting.prettier,
             null_ls.builtins.formatting.rustfmt,
             null_ls.builtins.formatting.rustywind.with({
@@ -733,13 +733,36 @@ require("lazy").setup({
   },
 
   {
-    'https://github.com/echasnovski/mini.files',
-    event = "VeryLazy",
-    config = function()
-      require("mini.files").setup()
-    end,
+    "https://github.com/nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    lazy = false,
+    dependencies = {
+      "https://github.com/nvim-lua/plenary.nvim",
+      "https://github.com/nvim-tree/nvim-web-devicons",
+      "https://github.com/MunifTanjim/nui.nvim",
+      "https://github.com/3rd/image.nvim",
+      {
+        'https://github.com/s1n7ax/nvim-window-picker',
+        version = '2.*',
+        config = function()
+            require 'window-picker'.setup({
+                filter_rules = {
+                    include_current_win = false,
+                    autoselect_one = true,
+                    -- filter using buffer options
+                    bo = {
+                        -- if the file type is one of following, the window will be ignored
+                        filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+                        -- if the buffer type is one of following, the window will be ignored
+                        buftype = { 'terminal', "quickfix" },
+                    },
+            },
+        })
+        end,
+      },
+    },
     keys = {
-      vim.keymap.set('n', '-', '<cmd> lua MiniFiles.open()<CR>', { noremap = true })
+      vim.keymap.set('n', '-', '<cmd>Neotree toggle<CR>', { noremap = true })
     },
   },
 
@@ -754,389 +777,388 @@ require("lazy").setup({
         group = vim.api.nvim_create_augroup("vim_trim", { clear = true }),
         callback = function()
           mini_trailspace.trim()
-          mini_trailspace.trim_last_lines()
         end,
       })
     end
   },
 
     -- === language plugins ===
-    { 'https://github.com/wuelnerdotexe/vim-astro', ft = 'astro' },
+  { 'https://github.com/wuelnerdotexe/vim-astro', ft = 'astro' },
 
-    { 'https://github.com/hashivim/vim-terraform',  ft = 'terraform' },
+  { 'https://github.com/hashivim/vim-terraform',  ft = 'terraform' },
 
-    {
-      'https://github.com/iamcco/markdown-preview.nvim',
-      build = "cd app && npm install",
-      config = function()
-        vim.g.mkdp_filetypes = { "markdown" }
-      end,
-      ft = { "markdown" },
-    },
+  {
+    'https://github.com/iamcco/markdown-preview.nvim',
+    build = "cd app && npm install",
+    config = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
+  },
 
-    { 'https://github.com/Vimjas/vim-python-pep8-indent', ft = { 'python' } },
+  { 'https://github.com/Vimjas/vim-python-pep8-indent', ft = { 'python' } },
 
-    { 'https://github.com/rust-lang/rust.vim',            ft = { 'rust' } },
+  { 'https://github.com/rust-lang/rust.vim',            ft = { 'rust' } },
 
-    -- === other ===
-    {
-      "https://github.com/jackMort/ChatGPT.nvim",
-      event = "VeryLazy",
-      opts = {
-        openai_params = {
-          model = "gpt-4",
-          frequency_penalty = 0,
-          presence_penalty = 0,
-          max_tokens = 300,
-          temperature = 0,
-          top_p = 1,
-          n = 1,
-        },
+  -- === other ===
+  {
+    "https://github.com/jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    opts = {
+      openai_params = {
+        model = "gpt-4",
+        frequency_penalty = 0,
+        presence_penalty = 0,
+        max_tokens = 300,
+        temperature = 0,
+        top_p = 1,
+        n = 1,
       },
-      dependencies = {
-        "https://github.com/MunifTanjim/nui.nvim",
-        "https://github.com/nvim-lua/plenary.nvim",
-        "https://github.com/nvim-telescope/telescope.nvim"
-      }
     },
+    dependencies = {
+      "https://github.com/MunifTanjim/nui.nvim",
+      "https://github.com/nvim-lua/plenary.nvim",
+      "https://github.com/nvim-telescope/telescope.nvim"
+    }
+  },
 
-    {
-      'https://github.com/stevearc/aerial.nvim',
-      event = { "BufReadPre" },
-      opts = {
-        on_attach = function(bufnr)
-          vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
-          vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
+  {
+    'https://github.com/stevearc/aerial.nvim',
+    event = { "BufReadPre" },
+    opts = {
+      on_attach = function(bufnr)
+        vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
+        vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
+      end
+    }
+  },
+
+  {
+    'https://github.com/DanilaMihailov/beacon.nvim',
+    event = "VeryLazy",
+  },
+
+  {
+    "https://github.com/chrishrb/gx.nvim",
+    event = { "BufEnter" },
+    config = true,
+  },
+
+  {
+    'https://github.com/laytan/cloak.nvim',
+    event = { "BufReadPre" },
+    ft = { 'sh' },
+    config = function()
+      require('cloak').setup()
+    end
+  },
+
+  { 'https://github.com/stefandtw/quickfix-reflector.vim', event = "VeryLazy" },
+
+  {
+    'https://github.com/norcalli/nvim-colorizer.lua',
+    event = "VeryLazy",
+    config = function()
+      require('colorizer').setup()
+    end
+  },
+
+  {
+    'https://github.com/rhysd/devdocs.vim',
+    event = "VeryLazy",
+    keys = {
+      vim.keymap.set('n', 'K', '<Plug>(devdocs-under-cursor)', { silent = true })
+    }
+  },
+
+  {
+    'https://github.com/janko-m/vim-test',
+    event = "VeryLazy",
+    keys = {
+      vim.keymap.set('n', '<Leader>t', ':wa<CR>:TestFile<CR>', { noremap = true, silent = true }),
+      vim.keymap.set('n', '<Leader>s', ':wa<CR>:TestNearest<CR>', { noremap = true, silent = true }),
+      vim.keymap.set('n', '<Leader>l', ':wa<CR>:TestLast<CR>', { noremap = true, silent = true }),
+      vim.keymap.set('n', '<Leader>a', ':wa<CR>:TestSuite<CR>', { noremap = true, silent = true }),
+      vim.keymap.set('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', { noremap = true, silent = true }),
+    }
+  },
+
+  {
+    "https://github.com/folke/neodev.nvim",
+    config = function()
+      require("neodev").setup({
+        library = { plugins = { "nvim-dap-ui" }, types = true },
+      })
+    end
+  },
+
+  { "https://github.com/mfussenegger/nvim-dap" },
+
+  {
+    "https://github.com/rcarriga/nvim-dap-ui",
+    dependencies = { "https://github.com/mfussenegger/nvim-dap" },
+    config = function()
+      require("dapui").setup()
+    end
+  },
+
+  { 'https://github.com/romainl/vim-cool' },
+
+  { 'https://github.com/tpope/vim-rails',  ft = { 'ruby' } },
+
+  { 'https://github.com/tpope/vim-rhubarb' },
+
+  { 'https://github.com/tpope/vim-rsi' },
+
+  -- === UI ===
+  {
+    'https://github.com/hoob3rt/lualine.nvim',
+    event = "VeryLazy",
+    dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
+    config = function()
+      local conditions = {
+        buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 end,
+        hide_in_width = function() return vim.fn.winwidth(0) > 80 end,
+        check_git_workspace = function()
+          local filepath = vim.fn.expand('%:p:h')
+          local gitdir = vim.fn.finddir('.git', filepath .. ';')
+          return gitdir and #gitdir > 0 and #gitdir < #filepath
         end
       }
-    },
 
-    {
-      'https://github.com/DanilaMihailov/beacon.nvim',
-      event = "VeryLazy",
-    },
-
-    {
-      "https://github.com/chrishrb/gx.nvim",
-      event = { "BufEnter" },
-      config = true,
-    },
-
-    {
-      'https://github.com/laytan/cloak.nvim',
-      event = { "BufReadPre" },
-      ft = { 'sh' },
-      config = function()
-        require('cloak').setup()
-      end
-    },
-
-    { 'https://github.com/stefandtw/quickfix-reflector.vim', event = "VeryLazy" },
-
-    {
-      'https://github.com/norcalli/nvim-colorizer.lua',
-      event = "VeryLazy",
-      config = function()
-        require('colorizer').setup()
-      end
-    },
-
-    {
-      'https://github.com/rhysd/devdocs.vim',
-      event = "VeryLazy",
-      keys = {
-        vim.keymap.set('n', 'K', '<Plug>(devdocs-under-cursor)', { silent = true })
+      local colors = {
+        red = '#ff0167',
+        grey = '#949494',
+        black = '#1c1c1c',
+        white = '#f3f3f3',
+        green = '#22bac5',
+        orange = '#f39e8c',
+        yellow = '#ecbe7b',
+        cyan = '#334040',
+        violet = '#dc69aa',
       }
-    },
 
-    {
-      'https://github.com/janko-m/vim-test',
-      event = "VeryLazy",
-      keys = {
-        vim.keymap.set('n', '<Leader>t', ':wa<CR>:TestFile<CR>', { noremap = true, silent = true }),
-        vim.keymap.set('n', '<Leader>s', ':wa<CR>:TestNearest<CR>', { noremap = true, silent = true }),
-        vim.keymap.set('n', '<Leader>l', ':wa<CR>:TestLast<CR>', { noremap = true, silent = true }),
-        vim.keymap.set('n', '<Leader>a', ':wa<CR>:TestSuite<CR>', { noremap = true, silent = true }),
-        vim.keymap.set('n', '<Leader>gt', ':wa<CR>:TestVisit<CR>', { noremap = true, silent = true }),
+      local theme = {
+        normal = {
+          a = { fg = colors.violet, bg = colors.cyan },
+          b = { bg = colors.black },
+          c = { fg = colors.violet, bg = colors.cyan },
+          x = { fg = colors.violet, bg = colors.cyan },
+          y = { fg = colors.violet, bg = colors.cyan },
+          z = { fg = colors.violet, bg = colors.cyan },
+        },
+        insert = {
+          a = { fg = colors.cyan, bg = colors.violet },
+          b = { bg = colors.black },
+          c = { fg = colors.cyan, bg = colors.violet },
+        },
+        visual = {
+          a = { fg = colors.white, bg = colors.orange },
+          b = { bg = colors.black },
+          c = { fg = colors.white, bg = colors.orange },
+        },
+        replace = {
+          a = { fg = colors.white, bg = colors.red },
+          b = { bg = colors.black },
+          c = { fg = colors.white, bg = colors.red },
+        },
       }
-    },
 
-    {
-      "https://github.com/folke/neodev.nvim",
-      config = function()
-        require("neodev").setup({
-          library = { plugins = { "nvim-dap-ui" }, types = true },
-        })
+      local empty = require('lualine.component'):extend()
+      function empty:draw(default_highlight)
+        self.status = ''
+        self.applied_separator = ''
+        self:apply_highlights(default_highlight)
+        self:apply_section_separators()
+        return self.status
       end
-    },
 
-    { "https://github.com/mfussenegger/nvim-dap" },
-
-    {
-      "https://github.com/rcarriga/nvim-dap-ui",
-      dependencies = { "https://github.com/mfussenegger/nvim-dap" },
-      config = function()
-        require("dapui").setup()
-      end
-    },
-
-    { 'https://github.com/romainl/vim-cool' },
-
-    { 'https://github.com/tpope/vim-rails',  ft = { 'ruby' } },
-
-    { 'https://github.com/tpope/vim-rhubarb' },
-
-    { 'https://github.com/tpope/vim-rsi' },
-
-    -- === UI ===
-    {
-      'https://github.com/hoob3rt/lualine.nvim',
-      event = "VeryLazy",
-      dependencies = { 'https://github.com/nvim-tree/nvim-web-devicons' },
-      config = function()
-        local conditions = {
-          buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 end,
-          hide_in_width = function() return vim.fn.winwidth(0) > 80 end,
-          check_git_workspace = function()
-            local filepath = vim.fn.expand('%:p:h')
-            local gitdir = vim.fn.finddir('.git', filepath .. ';')
-            return gitdir and #gitdir > 0 and #gitdir < #filepath
+      local function process_sections(sections)
+        for name, section in pairs(sections) do
+          local left = name:sub(9, 10) < 'x'
+          for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
+            table.insert(section, pos * 2, { empty, color = { fg = colors.red, bg = colors.black } })
           end
-        }
-
-        local colors = {
-          red = '#ff0167',
-          grey = '#949494',
-          black = '#1c1c1c',
-          white = '#f3f3f3',
-          green = '#22bac5',
-          orange = '#f39e8c',
-          yellow = '#ecbe7b',
-          cyan = '#334040',
-          violet = '#dc69aa',
-        }
-
-        local theme = {
-          normal = {
-            a = { fg = colors.violet, bg = colors.cyan },
-            b = { bg = colors.black },
-            c = { fg = colors.violet, bg = colors.cyan },
-            x = { fg = colors.violet, bg = colors.cyan },
-            y = { fg = colors.violet, bg = colors.cyan },
-            z = { fg = colors.violet, bg = colors.cyan },
-          },
-          insert = {
-            a = { fg = colors.cyan, bg = colors.violet },
-            b = { bg = colors.black },
-            c = { fg = colors.cyan, bg = colors.violet },
-          },
-          visual = {
-            a = { fg = colors.white, bg = colors.orange },
-            b = { bg = colors.black },
-            c = { fg = colors.white, bg = colors.orange },
-          },
-          replace = {
-            a = { fg = colors.white, bg = colors.red },
-            b = { bg = colors.black },
-            c = { fg = colors.white, bg = colors.red },
-          },
-        }
-
-        local empty = require('lualine.component'):extend()
-        function empty:draw(default_highlight)
-          self.status = ''
-          self.applied_separator = ''
-          self:apply_highlights(default_highlight)
-          self:apply_section_separators()
-          return self.status
-        end
-
-        local function process_sections(sections)
-          for name, section in pairs(sections) do
-            local left = name:sub(9, 10) < 'x'
-            for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
-              table.insert(section, pos * 2, { empty, color = { fg = colors.red, bg = colors.black } })
+          for id, comp in ipairs(section) do
+            if type(comp) ~= 'table' then
+              comp = { comp }
+              section[id] = comp
             end
-            for id, comp in ipairs(section) do
-              if type(comp) ~= 'table' then
-                comp = { comp }
-                section[id] = comp
-              end
-              comp.separator = left and { right = '' } or { left = '' }
-            end
+            comp.separator = left and { right = '' } or { left = '' }
           end
-          return sections
         end
+        return sections
+      end
 
-        local function search_result()
-          if vim.v.hlsearch == 0 then
-            return ''
-          end
-          local last_search = vim.fn.getreg('/')
-          if not last_search or last_search == '' then
-            return ''
-          end
-          local searchcount = vim.fn.searchcount { maxcount = 9999 }
-          return last_search .. ' (' .. searchcount.current .. '/' .. searchcount.total .. ')'
+      local function search_result()
+        if vim.v.hlsearch == 0 then
+          return ''
         end
+        local last_search = vim.fn.getreg('/')
+        if not last_search or last_search == '' then
+          return ''
+        end
+        local searchcount = vim.fn.searchcount { maxcount = 9999 }
+        return last_search .. ' (' .. searchcount.current .. '/' .. searchcount.total .. ')'
+      end
 
-        require('lualine').setup({
-          options = {
-            theme = theme,
-            component_separators = '',
-            section_separators = { left = '', right = '' },
+      require('lualine').setup({
+        options = {
+          theme = theme,
+          component_separators = '',
+          section_separators = { left = '', right = '' },
+        },
+        extensions = {
+          'aerial',
+          'fugitive',
+          'fzf',
+          'lazy',
+          'man',
+          'neo-tree',
+          'overseer',
+          'quickfix',
+          'trouble',
+        },
+        tabline = {
+          lualine_a = { 'filename' },
+          lualine_b = {},
+          lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = { 'tabs' }
+        },
+        sections = process_sections {
+          lualine_a = {
+            {
+              'branch',
+              icon = '',
+              condition = conditions.check_git_workspace,
+              color = { gui = 'bold' }
+            }
           },
-          extensions = {
-            'aerial',
-            'fugitive',
-            'fzf',
-            'lazy',
-            'man',
-            'neo-tree',
-            'overseer',
-            'quickfix',
-            'trouble',
-          },
-          tabline = {
-            lualine_a = { 'filename' },
-            lualine_b = {},
-            lualine_c = {},
-            lualine_x = {},
-            lualine_y = {},
-            lualine_z = { 'tabs' }
-          },
-          sections = process_sections {
-            lualine_a = {
-              {
-                'branch',
-                icon = '',
-                condition = conditions.check_git_workspace,
-                color = { gui = 'bold' }
-              }
+          lualine_b = {
+            {
+              'diff',
+              symbols = { added = ' ', modified = '柳', removed = ' ' },
+              color_added = colors.green,
+              color_modified = colors.orange,
+              color_removed = colors.red,
+              condition = conditions.hide_in_width
             },
-            lualine_b = {
-              {
-                'diff',
-                symbols = { added = ' ', modified = '柳', removed = ' ' },
-                color_added = colors.green,
-                color_modified = colors.orange,
-                color_removed = colors.red,
-                condition = conditions.hide_in_width
-              },
-            },
-            lualine_c = {
-              {
-                function()
-                  local msg = 'No Active Lsp'
-                  local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-                  local clients = vim.lsp.get_active_clients()
+          },
+          lualine_c = {
+            {
+              function()
+                local msg = 'No Active Lsp'
+                local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+                local clients = vim.lsp.get_active_clients()
 
-                  if next(clients) == nil then return msg end
+                if next(clients) == nil then return msg end
 
-                  for _, client in ipairs(clients) do
-                    local filetypes = client.config.filetypes
-                    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                      return client.name
-                    end
+                for _, client in ipairs(clients) do
+                  local filetypes = client.config.filetypes
+                  if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                    return client.name
                   end
+                end
 
-                  return msg
-                end,
-                icon = '  LSP:',
-                color = { gui = 'bold' },
-              },
-              {
-                'diagnostics',
-                sources = { 'nvim_diagnostic' },
-                symbols = { error = ' ', warn = ' ', info = ' ' },
-                color_error = colors.red,
-                color_warn = colors.yellow,
-                color_info = colors.cyan
-              },
+                return msg
+              end,
+              icon = '  LSP:',
+              color = { gui = 'bold' },
             },
-            lualine_x = {
-              { search_result, color = { fg = colors.white, bg = colors.red } },
-            },
-            lualine_y = {},
-            lualine_z = {
-              {
-                'filename',
-                condition = conditions.buffer_not_empty,
-                color = { gui = 'bold' },
-                file_status = true,
-                path = 1,
-              },
-              { 'filetype', color = { bg = colors.black, gui = 'bold' } },
-              '%l:%c ┉ %p%% ┉ LL:%L'
+            {
+              'diagnostics',
+              sources = { 'nvim_diagnostic' },
+              symbols = { error = ' ', warn = ' ', info = ' ' },
+              color_error = colors.red,
+              color_warn = colors.yellow,
+              color_info = colors.cyan
             },
           },
-          inactive_sections = {
-            lualine_c = { '%f %y %m' },
-            lualine_x = {},
+          lualine_x = {
+            { search_result, color = { fg = colors.white, bg = colors.red } },
           },
-        })
-      end
-    },
-
-    {
-      "https://github.com/folke/trouble.nvim",
-      dependencies = "https://github.com/nvim-tree/nvim-web-devicons",
-      cmd = { "TroubleToggle", "Trouble" },
-      opts = {
-        auto_close = true,
-        use_diagnostic_signs = true
-      },
-      keys = {
-        vim.keymap.set('n', '<Leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>',
-          { silent = true, noremap = true }
-        )
-      }
-    },
-
-    {
-      "https://github.com/folke/noice.nvim",
-      event = "VeryLazy",
-      opts = {
-        lsp = {
-          override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
+          lualine_y = {},
+          lualine_z = {
+            {
+              'filename',
+              condition = conditions.buffer_not_empty,
+              color = { gui = 'bold' },
+              file_status = true,
+              path = 1,
+            },
+            { 'filetype', color = { bg = colors.black, gui = 'bold' } },
+            '%l:%c ┉ %p%% ┉ LL:%L'
           },
         },
-        presets = {
-          bottom_search = true,
-          command_palette = true,
-          long_message_to_split = true,
-          inc_rename = false,
-          lsp_doc_border = true,
+        inactive_sections = {
+          lualine_c = { '%f %y %m' },
+          lualine_x = {},
+        },
+      })
+    end
+  },
+
+  {
+    "https://github.com/folke/trouble.nvim",
+    dependencies = "https://github.com/nvim-tree/nvim-web-devicons",
+    cmd = { "TroubleToggle", "Trouble" },
+    opts = {
+      auto_close = true,
+      use_diagnostic_signs = true
+    },
+    keys = {
+      vim.keymap.set('n', '<Leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>',
+        { silent = true, noremap = true }
+      )
+    }
+  },
+
+  {
+    "https://github.com/folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
         },
       },
-      dependencies = {
-        "https://github.com/MunifTanjim/nui.nvim",
-        "https://github.com/rcarriga/nvim-notify"
-      }
-    },
-
-    {
-      "https://github.com/rcarriga/nvim-notify",
-      opts = {
-        timeout = 1000,
-        max_height = function()
-          return math.floor(vim.o.lines * 0.75)
-        end,
-        max_width = function()
-          return math.floor(vim.o.columns * 0.75)
-        end,
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+        inc_rename = false,
+        lsp_doc_border = true,
       },
     },
+    dependencies = {
+      "https://github.com/MunifTanjim/nui.nvim",
+      "https://github.com/rcarriga/nvim-notify"
+    }
+  },
 
-    {
-      'https://github.com/tzachar/highlight-undo.nvim',
-      config = function()
-        require('highlight-undo').setup({duration = 2000 })
-      end
+  {
+    "https://github.com/rcarriga/nvim-notify",
+    opts = {
+      timeout = 1000,
+      max_height = function()
+        return math.floor(vim.o.lines * 0.75)
+      end,
+      max_width = function()
+        return math.floor(vim.o.columns * 0.75)
+      end,
     },
+  },
+
+  {
+    'https://github.com/tzachar/highlight-undo.nvim',
+    config = function()
+      require('highlight-undo').setup({duration = 2000 })
+    end
+  },
   },
   {
     checker = { enabled = false },
