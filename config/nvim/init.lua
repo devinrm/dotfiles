@@ -383,53 +383,6 @@ require("lazy").setup({
       }
     end
   },
-  -- {
-  --       'https://github.com/jose-elias-alvarez/null-ls.nvim',
-  --       dependencies = {
-  --           'https://github.com/nvim-lua/plenary.nvim',
-  --           'https://github.com/williamboman/mason.nvim'
-  --       },
-  --       event = {"BufReadPre", "BufNewFile"},
-  --       opts = function()
-  --           local null_ls = require('null-ls')
-  --           local augroup = vim.api.nvim_create_augroup("lsp_formatting", {})
-  --
-  --           return {
-  --               on_attach = function(client, bufnr)
-  --                   if client.supports_method("textDocument/formatting") then
-  --                       vim.api.nvim_clear_autocmds({
-  --                           group = augroup,
-  --                           buffer = bufnr
-  --                       })
-  --                       vim.api.nvim_create_autocmd("BufWritePre", {
-  --                           group = augroup,
-  --                           buffer = bufnr,
-  --                           callback = function()
-  --                               vim.lsp.buf.format({
-  --                                   bufnr = bufnr,
-  --                                   timeout_ms = 2000
-  --                               })
-  --                           end
-  --                       })
-  --                   end
-  --               end,
-  --               root_dir = require("null-ls.utils").root_pattern(
-  --                   ".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-  --               sources = {
-  --                   null_ls.builtins.code_actions.proselint,
-  --                   null_ls.builtins.diagnostics.proselint,
-  --                   null_ls.builtins.diagnostics.hadolint,
-  --                   null_ls.builtins.diagnostics.haml_lint,
-  --                   null_ls.builtins.diagnostics.jsonlint,
-  --                       .with({extra_filetypes = {"erb"}}),
-  --                   null_ls.builtins.diagnostics.rubocop,
-  --                   null_ls.builtins.code_actions.shellcheck,
-  --                   null_ls.builtins.diagnostics.shellcheck,
-  --                   null_ls.builtins.diagnostics.yamllint
-  --               }
-  --           }
-  --       end
-  --   },
   {
     "https://github.com/stevearc/conform.nvim",
     opts = {
