@@ -106,22 +106,20 @@ alias uncommit="git reset --soft HEAD^"
 alias unstage="git reset"
 
 # docker
-alias build_db="art --on legacy-stage docker-compose run app rails db:setup"
-alias drama="art --on legacy-stage docker-compose run app"
+alias build_db="art --on markops-stage docker-compose run app rails db:setup"
+alias drama="art --on markops-stage docker-compose run app"
 alias ddown="docker-compose down --remove-orphans"
 alias dstop="docker-compose stop"
-alias dbuild="art --on legacy-stage docker-compose build --pull"
+alias dbuild="art --on markops-stage docker-compose build --pull"
 alias dce="docker-compose exec"
-alias ddup="art --on legacy-stage docker-compose up"
-alias dpry="art --on legacy-stage docker-compose run --rm --service-ports app"
+alias ddup="art --on markops-stage docker-compose up"
+alias dpry="art --on markops-stage docker-compose run --rm --service-ports app"
 alias dprune="docker system prune --volumes -a"
-alias es_index_create="art --on legacy-stage docker-compose run --rm app bundle exec rails index:create"
-alias es_index_refresh="art --on legacy-stage docker-compose run --rm app bundle exec rails index:refresh"
+alias es_index_create="art --on markops-stage docker-compose run --rm app bundle exec rails index:create"
+alias es_index_refresh="art --on markops-stage docker-compose run --rm app bundle exec rails index:refresh"
 
 # art
-alias sshstage="art --on stage ssh"
-alias sshprod="art --on prod ssh"
-alias sshpeer="art --on stage ssh"
+alias sshprod="art --on markops-prod kube-exec heroes-web"
 
 # random
 alias tl="tmux list-sessions"
