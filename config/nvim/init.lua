@@ -244,7 +244,7 @@ require("lazy").setup({
             "graphql", "html", "jsonls", "marksman", "prismals",
             "pyright", "ruby_ls", "rust_analyzer", "sqlls",
             "stylelint_lsp", "lua_ls", "tailwindcss", "terraformls",
-            "tflint", "tsserver", "yamlls"
+            "tflint", "tsserver", "yamlls", "elixirls"
           },
           automatic_installation = true
         })
@@ -262,6 +262,7 @@ require("lazy").setup({
           lsp.graphql.setup({ capabilities = capabilities }),
           lsp.html.setup({ capabilities = capabilities }),
           lsp.jsonls.setup({ capabilities = capabilities }),
+          lsp.elixirls.setup({ capabilities = capabilities }),
 
           lsp.lua_ls.setup({
             capabilities = capabilities,
