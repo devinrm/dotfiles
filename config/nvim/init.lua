@@ -391,6 +391,9 @@ require("lazy").setup({
         lua = { "stylua" },
         python = { "isort", "black" },
         javascript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
         rust = { "rustfmt" },
         ruby = { "rubocop" },
         bash = { "shellharden", "shellcheck" },
@@ -398,7 +401,7 @@ require("lazy").setup({
         scss = { "styelint", "prettier" },
         elixir = { "mix" }
       },
-      format_on_save = { timeout_ms = 1500, lsp_fallback = true }
+      format_on_save = { timeout_ms = 1000, lsp_fallback = true }
     },
     config = function()
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
