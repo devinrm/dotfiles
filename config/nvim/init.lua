@@ -10,6 +10,7 @@ vim.g.skip_ts_context_commentstring_module = true
 vim.o.termguicolors = true
 vim.opt.background = 'dark'
 vim.opt.spellfile = os.getenv("HOME") .. "/.vim-spell-en.utf-8.add"
+vim.g.astro_typescript = 'enable'
 vim.g.is_posix = 1    -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
 vim.g.mapleader = ' ' -- Set Leader key to <Space> bar
 vim.g.python3_host_prog = (vim.env.HOME .. '/.asdf/shims/python')
@@ -176,12 +177,12 @@ require("lazy").setup({
           end
         end,
         ensure_installed = {
-          "bash", "comment", "css", "dockerfile", "git_config",
+          "bash", "comment", "css", "dockerfile", "eex", "elixir", "erlang", "git_config",
           "git_rebase", "gitattributes", "gitcommit", "gitignore",
-          "go", "graphql", "html", "http", "javascript", "jsdoc",
+          "go", "graphql", "heex", "html", "http", "javascript", "jsdoc",
           "json", "json5", "jsonc", "kdl", "lua", "luadoc", "luap",
           "make", "markdown", "markdown_inline", "prisma", "python",
-          "regex", "ruby", "rust", "scss", "sql", "swift",
+          "regex", "ruby", "rust", "sql", "swift",
           "terraform", "todotxt", "tsx", "typescript", "vim",
           "vimdoc", "yaml"
         },
@@ -239,11 +240,11 @@ require("lazy").setup({
 
         mason_lspconfig.setup({
           ensure_installed = {
-            "astro", "bashls", "codeqlls", "cssls", "cssmodules_ls",
+            "astro", "bashls", "codeqlls", "cssls",
             "dockerls", "docker_compose_language_service", "eslint",
             "graphql", "html", "jsonls", "marksman", "prismals",
             "pyright", "ruby_ls", "rust_analyzer", "sqlls",
-            "stylelint_lsp", "lua_ls", "tailwindcss", "terraformls",
+            "stylelint_lsp", "lua_ls", "terraformls",
             "tflint", "tsserver", "yamlls", "elixirls"
           },
           automatic_installation = true
@@ -254,7 +255,6 @@ require("lazy").setup({
           lsp.bashls.setup({ capabilities = capabilities }),
           lsp.codeqlls.setup({ capabilities = capabilities }),
           lsp.cssls.setup({ capabilities = capabilities }),
-          lsp.cssmodules_ls.setup({ capabilities = capabilities }),
           lsp.dockerls.setup({ capabilities = capabilities }),
           lsp.docker_compose_language_service
               .setup({ capabilities = capabilities }),
@@ -263,6 +263,7 @@ require("lazy").setup({
           lsp.html.setup({ capabilities = capabilities }),
           lsp.jsonls.setup({ capabilities = capabilities }),
           lsp.elixirls.setup({ capabilities = capabilities }),
+          lsp.erlangls.setup({ capabilities = capabilities }),
 
           lsp.lua_ls.setup({
             capabilities = capabilities,
@@ -286,7 +287,6 @@ require("lazy").setup({
           lsp.rust_analyzer.setup({ capabilities = capabilities }),
           lsp.sqlls.setup({ capabilities = capabilities }),
           lsp.stylelint_lsp.setup({ capabilities = capabilities }),
-          lsp.tailwindcss.setup({ capabilities = capabilities }),
           lsp.terraformls.setup({ capabilities = capabilities }),
           lsp.tflint.setup({ capabilities = capabilities }),
           lsp.yamlls.setup({ capabilities = capabilities })
@@ -390,6 +390,7 @@ require("lazy").setup({
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "isort", "black" },
+        astro = { "prettier" },
         javascript = { "prettier" },
         javascriptreact = { "prettier" },
         typescript = { "prettier" },
@@ -398,18 +399,10 @@ require("lazy").setup({
         ruby = { "rubocop" },
         bash = { "shellharden", "shellcheck" },
         css = { "styelint", "prettier" },
-        scss = { "styelint", "prettier" },
         elixir = { "mix" }
       },
       format_on_save = { timeout_ms = 1000, lsp_fallback = true }
     },
-    config = function()
-      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-        callback = function()
-          require("lint").try_lint()
-        end,
-      })
-    end
   },
   {
     "https://github.com/mfussenegger/nvim-lint",
@@ -417,15 +410,16 @@ require("lazy").setup({
       linters_by_ft = {
         txt = { 'proselint' },
         dockerfile = { 'hadolint' },
+        elixir = { 'credo' },
         json = { 'jsonlint' },
         ruby = { 'rubocop' },
         yaml = { 'yamllint' },
+        astro = { 'eslint' },
         javascript = { 'eslint' },
         typescript = { 'eslint' },
         javascriptreact = { 'eslint' },
         typescriptreact = { 'eslint' },
         css = { 'stylelint' },
-        scss = { 'stylelint' },
       }
     },
     {
@@ -487,6 +481,7 @@ require("lazy").setup({
         }
       },
       opts = {
+        pickers = { find_files = { hidden = true, no_ignore = true } },
         extensions = {
           fzf = {
             fuzzy = true,
@@ -762,7 +757,7 @@ require("lazy").setup({
     { "https://github.com/mfussenegger/nvim-dap" },
     {
       "https://github.com/rcarriga/nvim-dap-ui",
-      dependencies = { "https://github.com/mfussenegger/nvim-dap" },
+      dependencies = { "https://github.com/mfussenegger/nvim-dap", "https://github.com/nvim-neotest/nvim-nio" },
       config = function() require("dapui").setup() end
     },
     { 'https://github.com/romainl/vim-cool' },
@@ -1034,6 +1029,13 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("devinnvim_" .. name, { clear = true })
 end
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    require("conform").format({ bufnr = args.buf })
+  end,
+})
+
 vim.api.nvim_create_autocmd("CursorHold", {
   group = augroup("show_diagnostics"),
   callback = function()
@@ -1118,6 +1120,7 @@ endfunction
 let g:test#custom_strategies = {'neosplit': function('NeoSplit')}
 let g:test#strategy = 'neosplit'
 let test#ruby#rspec#executable = 'docker compose exec app bundle exec rspec'
+let test#elixir#exunit#executable = 'docker compose exec app mix test'
 ]])
 
 -- === debugging ===
