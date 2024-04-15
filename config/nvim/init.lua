@@ -288,7 +288,7 @@ require("lazy").setup({
 						"marksman",
 						"prismals",
 						"pyright",
-						"ruby_ls",
+						"ruby_lsp",
 						"rust_analyzer",
 						"sqlls",
 						"stylelint_lsp",
@@ -334,7 +334,7 @@ require("lazy").setup({
 					lsp.marksman.setup({ capabilities = capabilities }),
 					lsp.prismals.setup({ capabilities = capabilities }),
 					lsp.pyright.setup({ capabilities = capabilities }),
-					lsp.ruby_ls.setup({ capabilities = capabilities }),
+					lsp.ruby_lsp.setup({ capabilities = capabilities }),
 					lsp.rust_analyzer.setup({ capabilities = capabilities }),
 					lsp.sqlls.setup({ capabilities = capabilities }),
 					lsp.svelte.setup({ capabilities = capabilities }),
@@ -520,72 +520,52 @@ require("lazy").setup({
 		{ "https://github.com/junegunn/fzf", build = "./install --bin" },
 		{ "https://github.com/nvim-tree/nvim-web-devicons", lazy = true },
 		{
+			"https://github.com/ibhagwan/fzf-lua",
+			dependencies = { "https://github.com/nvim-tree/nvim-web-devicons" },
+			config = function()
+				require("fzf-lua").setup({
+					keys = {
+						vim.keymap.set("n", "<C-p>", "<cmd>FzfLua files<CR>", { noremap = true, silent = true }),
+						vim.keymap.set("n", "<C-b>", "<cmd>FzfLua buffers<CR>", { noremap = true, silent = true }),
+						vim.keymap.set("n", "<Leader>p", "<cmd>FzfLua blines<CR>", { noremap = true, silent = true }),
+						vim.keymap.set(
+							"n",
+							"<Leader>gc",
+							"<cmd>FzfLua git_commits<CR>",
+							{ noremap = true, silent = true }
+						),
+						vim.keymap.set(
+							"n",
+							"<Leader>bgc",
+							"<cmd>FzfLua git_bcommits<CR>",
+							{ noremap = true, silent = true }
+						),
+						vim.keymap.set(
+							"n",
+							"<Leader>hi",
+							"<cmd>FzfLua oldfiles<CR>",
+							{ noremap = true, silent = true }
+						),
+						vim.keymap.set("n", "gw", "<cmd>FzfLua grep_cword<CR>", { noremap = true, silent = true }),
+						vim.keymap.set(
+							"n",
+							"<Leader>;",
+							"<cmd>FzfLua live_grep_native<CR>",
+							{ noremap = true, silent = true }
+						),
+
+						vim.keymap.set("n", "'", "<cmd>FzfLua registers<CR>", { noremap = true, silent = true }),
+					},
+				})
+			end,
+		},
+		{
 			"https://github.com/nvim-telescope/telescope.nvim",
 			branch = "0.1.x",
 			dependencies = {
 				"https://github.com/nvim-lua/plenary.nvim",
-				"https://github.com/debugloop/telescope-undo.nvim",
 				"https://github.com/nvim-treesitter/nvim-treesitter",
 				"https://github.com/nvim-tree/nvim-web-devicons",
-				"https://github.com/nvim-telescope/telescope-dap.nvim",
-				{
-					"https://github.com/nvim-telescope/telescope-fzf-native.nvim",
-					build = "make",
-				},
-			},
-			opts = {
-				pickers = { find_files = { hidden = true, no_ignore = true } },
-				extensions = {
-					fzf = {
-						fuzzy = true,
-						override_generic_sorter = true,
-						override_file_sorter = true,
-						case_mode = "smart_case",
-					},
-					undo = {
-						side_by_side = true,
-						layout_strategy = "vertical",
-						layout_config = { preview_height = 0.8 },
-					},
-					dap = {},
-				},
-			},
-			config = function()
-				local telescope = require("telescope")
-
-				telescope.load_extension("fzf")
-				telescope.load_extension("undo")
-			end,
-			keys = {
-				vim.keymap.set("n", "<Leader>u", "<cmd>Telescope undo<CR>", { noremap = true, silent = true }),
-
-				vim.keymap.set("n", "<C-p>", "<cmd>Telescope find_files<CR>", { noremap = true, silent = true }),
-
-				vim.keymap.set("n", "<C-b>", "<cmd>Telescope buffers<CR>", { noremap = true, silent = true }),
-
-				vim.keymap.set(
-					"n",
-					"<Leader>p",
-					"<cmd>Telescope current_buffer_fuzzy_find<CR>",
-					{ noremap = true, silent = true }
-				),
-
-				vim.keymap.set("n", "<Leader>gc", "<cmd>Telescope git_commits<CR>", { noremap = true, silent = true }),
-
-				vim.keymap.set(
-					"n",
-					"<Leader>bgc",
-					"<cmd>Telescope git_bcommits<CR>",
-					{ noremap = true, silent = true }
-				),
-
-				vim.keymap.set("n", "<Leader>hi", "<cmd>Telescope oldfiles<CR>", { noremap = true, silent = true }),
-
-				vim.keymap.set("n", "gw", "<cmd>Telescope grep_string<CR>", { noremap = true, silent = true }),
-
-				vim.keymap.set("n", "<Leader>;", "<cmd>Telescope live_grep<CR>", { noremap = true, silent = true }),
-
-				vim.keymap.set("n", "'", "<cmd>Telescope registers<CR>", { noremap = true, silent = true }),
 			},
 		},
 		-- === git ===
@@ -773,7 +753,18 @@ require("lazy").setup({
 		},
 		{ "https://github.com/DanilaMihailov/beacon.nvim", event = "VeryLazy" },
 
-		{ "https://github.com/chrishrb/gx.nvim", event = { "BufEnter" }, config = true },
+		{
+			"https://github.com/chrishrb/gx.nvim",
+			event = "BufEnter",
+			keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+			cmd = { "Browse" },
+			init = function()
+				vim.g.netrw_nogx = 1
+			end,
+			dependencies = { "https://github.com/nvim-lua/plenary.nvim" },
+			submodules = false,
+			config = true,
+		},
 		{
 			"https://github.com/laytan/cloak.nvim",
 			event = { "BufReadPre" },
