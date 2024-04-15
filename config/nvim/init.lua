@@ -524,6 +524,7 @@ require("lazy").setup({
 			dependencies = { "https://github.com/nvim-tree/nvim-web-devicons" },
 			config = function()
 				require("fzf-lua").setup({
+					"fzf-native",
 					keys = {
 						vim.keymap.set("n", "<C-p>", "<cmd>FzfLua files<CR>", { noremap = true, silent = true }),
 						vim.keymap.set("n", "<C-b>", "<cmd>FzfLua buffers<CR>", { noremap = true, silent = true }),
