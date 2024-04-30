@@ -288,7 +288,7 @@ require("lazy").setup({
 						"marksman",
 						"prismals",
 						"pyright",
-						"ruby_ls",
+						"ruby_lsp",
 						"rust_analyzer",
 						"sqlls",
 						"stylelint_lsp",
