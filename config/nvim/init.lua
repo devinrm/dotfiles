@@ -339,6 +339,7 @@ require("lazy").setup({
 					lsp.sqlls.setup({ capabilities = capabilities }),
 					lsp.svelte.setup({ capabilities = capabilities }),
 					lsp.stylelint_lsp.setup({ capabilities = capabilities }),
+					lsp.tsserver.setup({ capabilities = capabilities }),
 					lsp.terraformls.setup({ capabilities = capabilities }),
 					lsp.tflint.setup({ capabilities = capabilities }),
 					lsp.yamlls.setup({ capabilities = capabilities }),
@@ -465,12 +466,6 @@ require("lazy").setup({
 				json = { "jsonlint" },
 				ruby = { "rubocop" },
 				yaml = { "yamllint" },
-				astro = { "eslint", "stylelint" },
-				javascript = { "eslint" },
-				typescript = { "eslint" },
-				javascriptreact = { "eslint" },
-				typescriptreact = { "eslint" },
-				css = { "stylelint" },
 			},
 		},
 		{
@@ -507,14 +502,6 @@ require("lazy").setup({
 			config = function()
 				require("overseer").setup()
 			end,
-		},
-		{
-			"https://github.com/pmizio/typescript-tools.nvim",
-			dependencies = {
-				"https://github.com/nvim-lua/plenary.nvim",
-				"https://github.com/neovim/nvim-lspconfig",
-			},
-			opts = {},
 		},
 		-- === find ===
 		{ "https://github.com/junegunn/fzf", build = "./install --bin" },
