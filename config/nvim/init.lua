@@ -362,6 +362,7 @@ require("lazy").setup({
 				"https://github.com/L3MON4D3/LuaSnip",
 				dependencies = "https://github.com/rafamadriz/friendly-snippets",
 				opts = { history = true, delete_check_events = "TextChanged" },
+				build = "make install_jsregexp",
 			},
 			{
 				"https://github.com/zbirenbaum/copilot-cmp",
@@ -450,7 +451,7 @@ require("lazy").setup({
 				rust = { "rustfmt" },
 				ruby = { "rubocop" },
 				bash = { "shellharden", "shellcheck" },
-				css = { "styelint", "prettier" },
+				css = { "stylelint", "prettier" },
 				elixir = { "mix" },
 			},
 			format_on_save = { timeout_ms = 1000, lsp_fallback = true },
