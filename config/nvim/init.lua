@@ -6,57 +6,56 @@ vim.loader.enable()
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.g.skip_ts_context_commentstring_module = true
-vim.o.termguicolors = true
+vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.spellfile = os.getenv("HOME") .. "/.vim-spell-en.utf-8.add"
 vim.g.astro_typescript = "enable"
 vim.g.is_posix = 1 -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
 vim.g.mapleader = " " -- Set Leader key to <Space> bar
 vim.g.python3_host_prog = (vim.env.HOME .. "/.asdf/shims/python")
-vim.o.autowriteall = true
-vim.o.backspace = "2" -- Backspace deletes like most programs in insert mode
-vim.o.backup = false -- Don't make a backup before overwriting a file
-vim.o.backupcopy = "yes"
-vim.o.clipboard = "unnamedplus" -- copy paste to system clipboard
-vim.o.expandtab = true -- Use the appropriate number of spaces to insert a <Tab>.
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.fillchars = [[eob: ,fold: ,foldopen:▼,foldsep: ,foldclose:⏵]]
-vim.o.foldcolumn = "0"
-vim.o.foldenable = false
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.formatprg = "fmt"
-vim.o.gdefault = true -- Replace all matches on a line instead of just the first
-vim.o.grepformat = "%f:%l:%c:%m"
-vim.o.grepprg = "rg --vimgrep --no-heading --smart-case --column --with-filename --line-number"
-vim.o.ignorecase = true -- case insensitive pattern matching
-vim.o.inccommand = "split" -- this is necessary for using this %s with a quickfix window in nvim
-vim.o.joinspaces = false -- Insert one space after a '.', '?' and '!' with a join command.
-vim.o.matchtime = 0 -- Speed up escape after (){} chars
-vim.o.pumheight = 10 -- limit size of popup menu
-vim.o.pumblend = 20
-vim.o.scrolloff = 3 -- show 3 lines above and below cursor
-vim.o.shiftround = true -- Round indent to multiple of 'shiftwidth'.
-vim.o.shiftwidth = 2 -- Returns the effective value of 'shiftwidth'
-vim.o.showmode = false -- If in Insert, Replace or Visual mode don't put a message on the last line.
-vim.o.showtabline = 0
-vim.o.smartcase = true -- overrides ignorecase if pattern contains upcase
-vim.o.spelllang = "en_us" -- Set region to US English
-vim.o.splitbelow = true -- When on, splitting a window will put the new window below the current one.
-vim.o.splitright = true -- When on, splitting a window will put the new window right of the current one.
-vim.o.swapfile = false -- Do not create a swapfile for a new buffer.
-vim.o.synmaxcol = 200
-vim.o.tabstop = 2 -- Number of spaces that a <Tab> in the file counts for.
-vim.o.textwidth = 120 -- Maximum width of text that is being inserted. A longer line will be broken after white space to get this width.
-vim.o.undofile = true -- Automatically saves undo history to an undo file when writing a buffer to a file, and restores undo history from the same file on buffer read.
-vim.o.undolevels = 500
-vim.o.undoreload = 500
-vim.o.updatetime = 100
-vim.o.wildignore = "tmp/**" -- Ignore stuff that can't be opened
-vim.o.wildmode = "list:longest,list:full"
-vim.o.writebackup = false -- Don't make a backup before overwriting a file.
+vim.opt.autowriteall = true
+vim.opt.backspace = "2" -- Backspace deletes like most programs in insert mode
+vim.opt.backup = false -- Don't make a backup before overwriting a file
+vim.opt.backupcopy = "yes"
+vim.opt.clipboard = "unnamedplus" -- copy paste to system clipboard
+vim.opt.expandtab = true -- Use the appropriate number of spaces to insert a <Tab>.
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.fillchars = [[eob: ,fold: ,foldopen:▼,foldsep: ,foldclose:⏵]]
+vim.opt.foldcolumn = "0"
+vim.opt.foldenable = false
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.formatprg = "fmt"
+vim.opt.gdefault = true -- Replace all matches on a line instead of just the first
+vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case --column --with-filename --line-number"
+vim.opt.ignorecase = true -- case insensitive pattern matching
+vim.opt.inccommand = "split" -- this is necessary for using this %s with a quickfix window in nvim
+vim.opt.joinspaces = false -- Insert one space after a '.', '?' and '!' with a join command.
+vim.opt.matchtime = 0 -- Speed up escape after (){} chars
+vim.opt.pumheight = 10 -- limit size of popup menu
+vim.opt.pumblend = 20
+vim.opt.scrolloff = 3 -- show 3 lines above and below cursor
+vim.opt.shiftround = true -- Round indent to multiple of 'shiftwidth'.
+vim.opt.shiftwidth = 2 -- Returns the effective value of 'shiftwidth'
+vim.opt.showmode = false -- If in Insert, Replace or Visual mode don't put a message on the last line.
+vim.opt.showtabline = 0
+vim.opt.smartcase = true -- overrides ignorecase if pattern contains upcase
+vim.opt.spelllang = "en_us" -- Set region to US English
+vim.opt.splitbelow = true -- When on, splitting a window will put the new window below the current one.
+vim.opt.splitright = true -- When on, splitting a window will put the new window right of the current one.
+vim.opt.swapfile = false -- Do not create a swapfile for a new buffer.
+vim.opt.synmaxcol = 200
+vim.opt.tabstop = 2 -- Number of spaces that a <Tab> in the file counts for.
+vim.opt.textwidth = 120 -- Maximum width of text that is being inserted. A longer line will be broken after white space to get this width.
+vim.opt.undofile = true -- Automatically saves undo history to an undo file when writing a buffer to a file, and restores undo history from the same file on buffer read.
+vim.opt.undolevels = 500
+vim.opt.undoreload = 500
+vim.opt.updatetime = 100
+vim.opt.wildignore = "tmp/**" -- Ignore stuff that can't be opened
+vim.opt.wildmode = "list:longest,list:full"
+vim.opt.writebackup = false -- Don't make a backup before overwriting a file.
 vim.opt.colorcolumn = "+1" -- highlight column after 'textwidth
 vim.opt.diffopt:append({ "vertical" }) -- Start diff mode with vertical splits
 vim.opt.laststatus = 3
@@ -107,10 +106,6 @@ require("lazy").setup({
 		end,
 	},
 	-- === core ===
-	{
-		"https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
-		lazy = true,
-	},
 	{
 		"https://github.com/nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
@@ -571,22 +566,13 @@ require("lazy").setup({
 				require("gitsigns").setup()
 			end,
 		},
-		-- === mini ===
 		{
-			"https://github.com/echasnovski/mini.comment",
+			"https://github.com/folke/ts-comments.nvim",
+			opts = {},
 			event = "VeryLazy",
-			opts = {
-				mappings = { comment_line = "<C-\\>", comment_visual = "<C-\\>" },
-				hooks = {
-					pre = function()
-						require("ts_context_commentstring.internal").update_commentstring({})
-					end,
-				},
-			},
-			config = function(_, opts)
-				require("mini.comment").setup(opts)
-			end,
+			enabled = vim.fn.has("nvim-0.10.0") == 1,
 		},
+		-- === mini ===
 		{
 			"https://github.com/echasnovski/mini.cursorword",
 			event = "VeryLazy",
@@ -1020,12 +1006,11 @@ require("lazy").setup({
 			cmd = { "TroubleToggle", "Trouble" },
 			opts = { auto_close = true, use_diagnostic_signs = true },
 			keys = {
-				vim.keymap.set(
-					"n",
-					"<Leader>xx",
-					"<cmd>TroubleToggle document_diagnostics<cr>",
-					{ silent = true, noremap = true }
-				),
+				{
+					"<leader>xx",
+					"<cmd>Trouble diagnostics toggle<cr>",
+					desc = "Diagnostics (Trouble)",
+				},
 			},
 		},
 		{
