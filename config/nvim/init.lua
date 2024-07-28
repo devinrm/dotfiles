@@ -146,18 +146,7 @@ require("lazy").setup({
 					remap("i", "<bs>", "v:lua.MUtils.BS()", { expr = true, noremap = true })
 				end,
 			},
-			{
-				"https://github.com/windwp/nvim-ts-autotag",
-				ft = {
-					"astro",
-					"html",
-					"javascript",
-					"javascriptreact",
-					"typescript",
-					"typescriptreact",
-					"svelte",
-				},
-			},
+
 			{
 				"https://github.com/kevinhwang91/nvim-ufo",
 				dependencies = "https://github.com/kevinhwang91/promise-async",
@@ -225,7 +214,6 @@ require("lazy").setup({
 					additional_vim_regex_highlighting = false,
 				},
 				indent = { enable = true },
-				autotag = { enable = true },
 				endwise = { enable = true },
 				refactor = { enable = true, clear_on_cursor_move = false },
 			})
@@ -235,6 +223,12 @@ require("lazy").setup({
 					return { "treesitter", "indent" }
 				end,
 			})
+		end,
+	},
+	{
+		"https://github.com/windwp/nvim-ts-autotag",
+		config = function()
+			require("nvim-ts-autotag").setup()
 		end,
 	},
 	{
