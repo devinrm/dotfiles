@@ -106,12 +106,12 @@ alias uncommit="git reset --soft HEAD^"
 alias unstage="git reset"
 
 # docker
-alias drama="docker compose run app"
+alias drama="docker compose run --rm app"
 alias ddown="docker compose down --remove-orphans"
 alias dstop="docker compose stop"
-alias dbuild="docker compose -- build --pull"
+alias dbuild="docker compose build --pull"
 alias dce="docker compose exec"
-alias ddup="docker compose up"
+alias ddup="docker compose up --remove-orphans --watch --build"
 alias ddebug="docker compose run --rm --service-ports app"
 alias dprune="docker system prune --volumes -a"
 
