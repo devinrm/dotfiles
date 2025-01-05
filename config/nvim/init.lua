@@ -440,9 +440,9 @@ require("lazy").setup({
 				ruby = { "rubocop" },
 				bash = { "shellharden", "shellcheck" },
 				css = { "stylelint", "prettier" },
-				elixir = { "mix" },
+				elixir = { "mix format" },
 			},
-			format_on_save = { timeout_ms = 1000, lsp_fallback = true },
+			format_on_save = { timeout_ms = 30000, lsp_fallback = true },
 		},
 	},
 	{

@@ -1,3 +1,4 @@
+brew "asdf"
 brew "awscli"
 brew "aws-cdk"
 brew "aws-elasticbeanstalk"

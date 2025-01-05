@@ -59,12 +59,6 @@ alias apvenv="source .venv/bin/activate"
 alias runserver="python manage.py runserver"
 alias pmigrate="python manage.py migrate"
 
-# JavaScript
-alias yi="yarn install --ignore-engines"
-alias yb="yarn build-local"
-alias yw="yarn watch"
-alias yu="curl --compressed -o- -L https://yarnpkg.com/install.sh | bash"
-
 # Use modern regexps for sed, i.e. "(one|two)", not "\(one\|two\)"
 alias sed="sed -E"
 
