@@ -88,6 +88,14 @@ export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openss
 # docker
 export COMPOSE_HTTP_TIMEOUT=300
 
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
 # keychain
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   /usr/bin/keychain --nogui $HOME/.ssh/id_rsa
