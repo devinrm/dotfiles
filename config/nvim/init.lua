@@ -13,6 +13,7 @@ vim.g.astro_typescript = "enable"
 vim.g.is_posix = 1 -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
 vim.g.mapleader = " " -- Set Leader key to <Space> bar
 vim.g.python3_host_prog = (vim.env.HOME .. "/.asdf/shims/python")
+vim.go.lazyredraw = true
 vim.opt.autowriteall = true
 vim.opt.backspace = "2" -- Backspace deletes like most programs in insert mode
 vim.opt.backup = false -- Don't make a backup before overwriting a file
@@ -694,7 +695,7 @@ require("lazy").setup({
 			event = "VeryLazy",
 			opts = {
 				openai_params = {
-					model = "gpt-4",
+					model = "gpt-o3-mini-high",
 					frequency_penalty = 0,
 					presence_penalty = 0,
 					max_tokens = 300,
@@ -939,7 +940,7 @@ require("lazy").setup({
 								function()
 									local msg = "No Active Lsp"
 									local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-									local clients = vim.lsp.get_active_clients()
+									local clients = vim.lsp.get_clients()
 
 									if next(clients) == nil then
 										return msg
