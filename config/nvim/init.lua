@@ -13,7 +13,6 @@ vim.g.astro_typescript = "enable"
 vim.g.is_posix = 1 -- When the type of shell script is /bin/sh, assume a POSIX-compatible shell for syntax highlighting purposes.
 vim.g.mapleader = " " -- Set Leader key to <Space> bar
 vim.g.python3_host_prog = (vim.env.HOME .. "/.asdf/shims/python")
-vim.go.lazyredraw = true
 vim.opt.autowriteall = true
 vim.opt.backspace = "2" -- Backspace deletes like most programs in insert mode
 vim.opt.backup = false -- Don't make a backup before overwriting a file
