@@ -1,3 +1,4 @@
+@anthropic-ai/claude-code
 @fsouza/prettierd
 @tailwindcss/language-server
 @astrojs/language-server
@@ -17,7 +18,6 @@ graphql-language-service-cli
 htmlhint
 jsonlint
 neovim
-npm
 npmf
 prettier
 prettier-eslint
