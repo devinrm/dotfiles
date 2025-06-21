@@ -109,8 +109,8 @@ alias ddup="docker compose up --remove-orphans --watch --build"
 alias ddebug="docker compose run --rm --service-ports app"
 alias dprune="docker system prune --volumes -a"
 
-alias npm="corepack npm"
-alias pnpm="corepack pnpm"
+alias cnpm="corepack npm"
+alias cpnpm="corepack pnpm"
 
 # random
 alias tl="tmux list-sessions"

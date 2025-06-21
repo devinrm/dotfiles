@@ -259,10 +259,9 @@ require("lazy").setup({
 				require("mason").setup()
 
 				local mason_lspconfig = require("mason-lspconfig")
-				local lsp = require("lspconfig")
-				local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 				mason_lspconfig.setup({
+					automatic_enable = true,
 					ensure_installed = {
 						"astro",
 						"bashls",
@@ -289,48 +288,6 @@ require("lazy").setup({
 						"elixirls",
 					},
 					automatic_installation = true,
-				})
-
-				mason_lspconfig.setup_handlers({
-					lsp.astro.setup({ capabilities = capabilities }),
-					lsp.bashls.setup({ capabilities = capabilities }),
-					lsp.codeqlls.setup({ capabilities = capabilities }),
-					lsp.cssls.setup({ capabilities = capabilities }),
-					lsp.dockerls.setup({ capabilities = capabilities }),
-					lsp.docker_compose_language_service.setup({ capabilities = capabilities }),
-					lsp.eslint.setup({ capabilities = capabilities }),
-					lsp.graphql.setup({ capabilities = capabilities }),
-					lsp.html.setup({ capabilities = capabilities }),
-					lsp.jsonls.setup({ capabilities = capabilities }),
-					lsp.elixirls.setup({ capabilities = capabilities }),
-					lsp.erlangls.setup({ capabilities = capabilities }),
-
-					lsp.lua_ls.setup({
-						capabilities = capabilities,
-						settings = {
-							Lua = {
-								runtime = { version = "LuaJIT" },
-								diagnostics = { globals = { "vim" } },
-								workspace = {
-									library = vim.api.nvim_get_runtime_file("", true),
-									checkThirdParty = false,
-								},
-								telemetry = { enable = false },
-							},
-						},
-					}),
-					lsp.marksman.setup({ capabilities = capabilities }),
-					lsp.prismals.setup({ capabilities = capabilities }),
-					lsp.pyright.setup({ capabilities = capabilities }),
-					lsp.ruby_lsp.setup({ capabilities = capabilities }),
-					lsp.rust_analyzer.setup({ capabilities = capabilities }),
-					lsp.sqlls.setup({ capabilities = capabilities }),
-					lsp.svelte.setup({ capabilities = capabilities }),
-					lsp.stylelint_lsp.setup({ capabilities = capabilities }),
-					lsp.ts_ls.setup({ capabilities = capabilities }),
-					lsp.terraformls.setup({ capabilities = capabilities }),
-					lsp.tflint.setup({ capabilities = capabilities }),
-					lsp.yamlls.setup({ capabilities = capabilities }),
 				})
 			end,
 		},
@@ -1059,6 +1016,40 @@ require("lazy").setup({
 		},
 	},
 }, { checker = { enabled = false }, rtp = { disabled_plugins = { "netrwPlugin" } } })
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+vim.lsp.config("astro", { capabilities = capabilities })
+vim.lsp.config("bashls", { capabilities = capabilities })
+vim.lsp.config("codeqlls", { capabilities = capabilities })
+vim.lsp.config("cssls", { capabilities = capabilities })
+vim.lsp.config("dockerls", { capabilities = capabilities })
+vim.lsp.config("docker_compose_language_service", { capabilities = capabilities })
+vim.lsp.config("eslint", { capabilities = capabilities })
+vim.lsp.config("graphql", { capabilities = capabilities })
+vim.lsp.config("html", { capabilities = capabilities })
+vim.lsp.config("jsonls", { capabilities = capabilities })
+vim.lsp.config("marksman", { capabilities = capabilities })
+vim.lsp.config("pyright", { capabilities = capabilities })
+vim.lsp.config("rust_analyzer", { capabilities = capabilities })
+vim.lsp.config("sqlls", { capabilities = capabilities })
+vim.lsp.config("stylelint_lsp", { capabilities = capabilities })
+vim.lsp.config("ts_ls", { capabilities = capabilities })
+vim.lsp.config("yamlls", { capabilities = capabilities })
+vim.lsp.config("lua_ls", {
+	capabilities = capabilities,
+	settings = {
+		Lua = {
+			runtime = { version = "LuaJIT" },
+			diagnostics = { globals = { "vim" } },
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+				checkThirdParty = false,
+			},
+			telemetry = { enable = false },
+		},
+	},
+})
 
 --  ____ ____ ____ ____ ____ ____  ____ ____ ___
 -- ||f |||u |||n |||c |||t |||i |||o |||n |||s ||
