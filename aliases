@@ -15,6 +15,7 @@ alias v="env TERM=wezterm nvim"
 alias n="env TERM=wezterm nvim"
 alias calc="genius"
 alias fzf="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+alias claude="$HOME/.claude/local/claude"
 
 # Bundler
 alias b="bundle"

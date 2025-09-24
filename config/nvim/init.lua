@@ -524,21 +524,21 @@ require("lazy").setup({
 		},
 		-- === mini ===
 		{
-			"https://github.com/echasnovski/mini.cursorword",
+			"https://github.com/nvim-mini/mini.cursorword",
 			event = "VeryLazy",
 			config = function()
 				require("mini.cursorword").setup()
 			end,
 		},
 		{
-			"https://github.com/echasnovski/mini.bufremove",
+			"https://github.com/nvim-mini/mini.bufremove",
 			event = "VeryLazy",
 			config = function()
 				require("mini.bufremove").setup()
 			end,
 		},
 		{
-			"https://github.com/echasnovski/mini.animate",
+			"https://github.com/nvim-mini/mini.animate",
 			event = "VeryLazy",
 			opts = function()
 				-- don't use animate when scrolling with the mouse
@@ -627,7 +627,7 @@ require("lazy").setup({
 			},
 		},
 		{
-			"https://github.com/echasnovski/mini.trailspace",
+			"https://github.com/nvim-mini/mini.trailspace",
 			event = "VeryLazy",
 			config = function()
 				local mini_trailspace = require("mini.trailspace")
