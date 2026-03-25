@@ -82,7 +82,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 fpath=(${ASDF_DIR}/completions $fpath)
 export NODEJS_CHECK_SIGNATURES=no
 export ASDF_GOLANG_MOD_VERSION_ENABLED=true
-export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openssl@1.1)"
+export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openssl)"
 
 
 # docker
@@ -106,3 +106,6 @@ fi
 [[ -f ~/.aliases ]] && source ~/.aliases
 
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# Added by Antigravity
+export PATH="/Users/dvir/.antigravity/antigravity/bin:$PATH"
